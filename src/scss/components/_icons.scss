@@ -1,0 +1,38 @@
+.icon {
+    display: inline-block;
+    width: 2.2rem;
+    height: 2.2rem;
+    fill: $primary;
+    color: $primary;
+    text-decoration: none;
+
+    &-small {
+        width: 1.5rem;
+        height: 1.5rem;
+    }
+
+    &-medium {
+        width: 4rem;
+        height: 4rem;
+    }
+
+    &-primary {
+        color: $primary;
+        fill: $primary;
+    }
+
+    &-orange {
+        color: $orange;
+        fill: $orange;
+    }
+
+    &-dark {
+        color: $grey-dark;
+        fill: $grey-dark;
+    }
+
+    &-black {
+        color: $base-cl;
+        fill: $base-cl;
+    }
+}

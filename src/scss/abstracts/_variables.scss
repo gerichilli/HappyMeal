@@ -1,0 +1,88 @@
+// -----------------------------------------------
+// COLOR VARIABLES -------------------------------
+
+$black: #343434;
+$green: #97CC3B;
+$green-dark: #0E4404;
+$yellow: #FFE26C;
+$orange: #F99C1D;
+$red: #FD7021;
+$pink: #FE5F61;
+$blue: #5ABAC9;
+$purple: #D575E0;
+$grey-dark: #6D6D6D;
+$grey-light: #C4C4C4;
+$tint: #F6F9F0;
+$white: #fff;
+
+// -----------
+$base-cl: $black;
+$primary: $green;
+$secondary: $yellow;
+
+$linear: linear-gradient(to bottom right, $primary, $orange);
+
+// END COLOR VARIABLES ---------------------------
+// -----------------------------------------------
+
+// -----------------------------------------------
+// BORDER, SPACING VARIABLES ---------------------
+
+$border-dark: 1px solid $grey-dark;
+$border-light: 1px solid $grey-light;
+
+:root {
+    --radius-small: 0.5rem;
+    --radius-medium: 1rem;
+    --radius-large: 2rem;
+    --sp-tiny: 0.5rem;
+    --sp-sm: 1rem;
+    --sp-md: 2rem;
+    --sp-lg: 3rem;
+    --sp-xl: 5rem;
+    --container-x: 3.6rem;
+    --section-y: 10rem;
+    --section-y-small: 5rem;
+    --recipe-gap: 35px;
+    // --recipe-item-x: 1.75rem; //gap: 3.5rem
+    // --recipe-wrapper-x: -1.75rem; //gap: 3.5rem
+}
+
+$radius-small: var(--radius-small);
+$radius-medium: var(--radius-medium);
+$radius-large: var(--radius-large);
+$radius-xl: 5rem;
+$sp-tiny: var(--sp-tiny);
+$sp-sm: var(--sp-sm);
+$sp-md: var(--sp-md);
+$sp-lg: var(--sp-lg);
+$sp-xl: var(--sp-xl);
+$container-x: var(--container-x);
+$section-y: var(--section-y);
+$section-y-small: var(--section-y-small);
+$recipe-gap: 35px;
+// $recipe-wrapper-x: var(--recipe-wrapper-x);
+// $recipe-item-x: var(--recipe-item-x);
+
+
+
+// END BORDER, SPACING VARIABLES -----------------
+// -----------------------------------------------
+
+// -----------------------------------------------
+// WIDTH, HEIGHT VARIABLES -----------------------
+
+:root {
+    --header-height: 12.5rem;
+    --login-bar: 6rem;
+    --container-width: 142rem;
+    
+    @include respond(xl) {
+        --container-width: calc(100% - var(--container-x) * 2);
+    }
+}
+
+
+$header-height: var(--header-height);
+$login-bar: var(--login-bar);
+$container-width: var(--container-width);

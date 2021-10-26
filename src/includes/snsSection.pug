@@ -1,0 +1,31 @@
+include mixins/svg.pug
+include mixins/recipe.pug
+
+section.section#sns
+    .container
+        .section__header.section__header--center
+            h2.section__heading.section__heading--upper Happy Meal SNS
+            a(href="#").sns__link
+                img(src="./images/instagram.svg", alt="Instagram").icon.sns__logo
+                span.sns__name happymeal_official
+        .section__body.sns__body
+            .recipe__slideshow
+                .swiper.product-swiper-small
+                    .recipe__wrapper.swiper-wrapper
+                        +recipeInstagram({link: '#', imgSrc: './images/sections/instagram/01.png', title: ''})
+                        +recipeInstagram({link: '#', imgSrc: './images/sections/instagram/02.png', title: ''})
+                        +recipeInstagram({link: '#', imgSrc: './images/sections/instagram/03.png', title: ''})
+                        +recipeInstagram({link: '#', imgSrc: './images/sections/instagram/04.png', title: ''})
+                        +recipeInstagram({link: '#', imgSrc: './images/sections/instagram/05.png', title: ''})
+                        +recipeInstagram({link: '#', imgSrc: './images/sections/instagram/06.png', title: ''})
+                        +recipeInstagram({link: '#', imgSrc: './images/sections/instagram/07.png', title: ''})
+                        +recipeInstagram({link: '#', imgSrc: './images/sections/instagram/08.png', title: ''})
+                        +recipeInstagram({link: '#', imgSrc: './images/sections/instagram/09.png', title: ''})
+                        +recipeInstagram({link: '#', imgSrc: './images/sections/instagram/10.png', title: ''})
+                        +recipeInstagram({link: '#', imgSrc: './images/sections/instagram/11.png', title: ''})
+                        +recipeInstagram({link: '#', imgSrc: './images/sections/instagram/12.png', title: ''})
+
+                .btn.button-next.button-next--sm
+                    +iconSVG('chevron-right', 'icon icon-dark')
+                .btn.button-prev.button-prev--sm
+                    +iconSVG('chevron-left', 'icon icon-dark')

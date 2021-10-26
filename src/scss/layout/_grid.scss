@@ -1,0 +1,53 @@
+.container {
+  width: $container-width;
+  margin: 0 auto;
+}
+
+.row {
+  display: flex;
+  margin-left: -#{$recipe-gap / 2};
+  margin-right: -#{$recipe-gap / 2};
+}
+
+.row-wrap {
+  flex-wrap: wrap;
+}
+
+.col {
+  flex-grow: 1;
+  padding-left: #{$recipe-gap / 2};
+  padding-right: #{$recipe-gap / 2};
+}
+
+.col-auto {
+  width: fit-content;
+  padding-left: #{$recipe-gap / 2};
+  padding-right: #{$recipe-gap / 2};
+}
+
+@for $i from 1 through 12 {
+  .col-#{$i} {
+    width: calc(#{$i}/12 * 100%);
+    padding-left: #{$recipe-gap / 2};
+    padding-right: #{$recipe-gap / 2};
+  }
+}
+
+// .row-center {
+//   align-items: center;
+// }
+
+//   /* For devices larger than 400px */
+// @media (min-width: 400px) {
+//   .container {
+//     width: 85%;
+//     padding: 0; 
+//   }
+// }
+  
+// /* For devices larger than 550px */
+// @media (min-width: 550px) {
+//   .container {
+//     width: 80%; 
+//   }
+// }

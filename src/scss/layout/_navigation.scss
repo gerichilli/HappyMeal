@@ -1,0 +1,116 @@
+.navigation {
+  margin-left: 8rem;
+  
+  &__list {
+    list-style: none;
+    display: flex;
+  }
+
+  &__item {
+    position: relative;
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+  }
+
+  &__link {
+    font-size: 1.6rem;
+    font-weight: 500;
+    color: currentColor;
+    text-decoration: none; 
+    text-transform: capitalize;
+    padding: 0.75rem 3rem;
+
+    position: relative;
+
+    &::before {
+      content: "";
+      position: absolute;
+      left: 3rem;
+      bottom: 0;
+      width: 0;
+      height: 3px;
+      background: $primary;
+      transition: width 0.2s cubic-bezier(0.39, 0.575, 0.565, 1);
+    }
+
+    &:hover::before {
+      width: calc(50% - 3rem);
+    }
+  }
+
+  &__dropdown {
+    position: absolute;
+    left: 3rem;
+    bottom: 0;
+    transform: translateY(calc(100% + 6rem));
+
+    background: #FFFFFF;
+    border: $border-light;
+    box-shadow: 3px 4px 4px 2px rgba(0, 0, 0, 0.1);
+    border-radius: $radius-medium;
+    padding: 3rem;
+    z-index: 100;
+
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: all 0.3s cubic-bezier(0.250, 0.460, 0.450, 0.940);
+  }
+  
+  &__sublink {
+    text-decoration: none;
+    color: currentColor;
+    transition: all 0.2s;
+
+    &:hover {
+      color: $primary;
+    }
+  }
+
+  &--alphabet {
+    padding: 1.75rem;
+
+    .navigation__group {
+      display: flex;
+    }
+  
+
+    .navigation__sublink {
+      width: 5rem;
+      height: 5rem;
+      font-weight: 500;
+      text-transform: uppercase;
+      @include flex(row, center, center)
+    }
+  }
+
+  &--categories,
+  &--area {
+    display: flex;
+    padding: 2.5rem 2.25rem;
+
+    .navigation__group + .navigation__group {
+      margin-left: $sp-xl;
+    }
+
+    .navigation__group {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .navigation__sublink {
+      padding: 0.5rem 0.75rem;
+    }
+  }
+
+  &__item:hover > &__dropdown {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: visible;
+    transform: translateY(100%);
+  }
+
+  &__item:hover > &__link::before {
+    width: calc(50% - 3rem);
+  }
+}

@@ -1,0 +1,304 @@
+.recipe {
+    &__header {
+        display: flex;
+    }
+
+    &__img-wrapper,
+    &__details-wrapper  {
+        width: 50%;
+    }
+
+    &__details-wrapper  {
+        @include flex(column, null, center);
+        position: relative;
+        align-self: center;
+    }
+
+    &__watch,
+    &__headline {
+        border: 1px solid $base-cl;
+        border-left: none;
+    }
+
+    &__watch {
+        height: 4.8rem;
+        width: 15rem;
+        border-bottom: none;
+        color: $base-cl;
+        text-transform: uppercase;
+        transition: all 0.3s;
+
+        & > * + * {
+            margin-left: $sp-tiny;
+        }
+
+        &:hover {
+            background-image: $linear;
+        }
+    }
+
+    &__headline {
+        padding: 6rem 4rem 6rem 6rem;
+        max-width: 80%;
+        position: relative;
+
+        &::before {
+            content: "";
+            position: absolute;
+            width: 10rem;
+            border: 1px solid $white;
+            border-right: none;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            transform: translate(-100%, -4.8rem); // Translate y = watch button height
+        }
+        
+    }
+
+    &__divider {
+        border-bottom: $border-dark;
+        margin-top: 3rem;
+        margin-bottom: 3rem;
+        width: 75%;
+    }
+
+    &__name {
+        font-weight: 500;
+        text-transform: uppercase;
+    }
+
+    &__details-tag {
+        display: inline-block;
+        font-size: 1.4rem;
+        padding: 0.5rem 2rem;
+        position: relative;
+
+        &:first-child {
+            padding-left: 0;
+        }
+
+        &:last-child {
+            padding-right: 0;
+        }
+
+        &:not(:last-child) {
+            &::after {
+                position: absolute;
+                content: "/";
+                color: $grey-light;
+                right: 0;
+                transform: translateX(50%);
+            }
+        }
+
+        &--orange {
+            color: $orange;
+        }
+
+        &--green {
+            color: $green;
+        }
+
+        &--blue {
+            color: $blue;
+        }
+
+        &--purple {
+            color: $purple;
+        }
+
+        &--pink {
+            color: $pink;
+        }
+    }
+
+    &__summary {
+        padding: 6rem 4rem 0 6rem;
+        display: flex;
+    }
+
+    &__brief + &__brief {
+        margin-left: $sp-xl;
+    }
+
+    &__brief {
+        text-align: center;
+
+        img {
+            width: 6rem;
+            height: 6rem;
+        }
+    }
+
+    &__text {
+        margin-top: $sp-md;
+    }
+
+    &__category {
+        position: absolute;
+        transform: rotate(-90deg);
+        transform-origin: right;
+        right: 0;
+        top: 0;
+
+        & > * {
+            display: inline-block;
+            font-size: 1.8rem;
+            color: $grey-dark;
+            padding-left: 2.5rem;
+            position: relative;
+            margin-left: $sp-md;
+
+            &::before {
+                content: "";
+                position: absolute;
+                width: 2rem;
+                height: 0.5rem;
+                background: $grey-dark;
+                top: 50%;
+                left: 0;
+                transform: translateY(-50%);
+            }
+        }
+    }
+
+    &__main {
+        margin-top: 5rem;
+        display: flex;
+    }
+
+    &__ingredients  {
+        width: 44rem;
+        margin-right: 5rem;
+        flex-shrink: 0;
+        padding: 3rem 3rem 8rem;
+        border: $border-dark;
+        position: relative;
+    }
+
+    &__sub-heading {
+        font-size: 2.8rem;
+        text-transform: uppercase;
+        font-weight: 500;
+        width: fit-content;
+        margin-bottom: 4.6rem;
+        position: relative;
+
+        &::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 25%;
+            height: 1px;
+            background: currentColor;
+        }
+    }
+
+    &__amount {
+        position: absolute;
+        top: 3rem;
+        right: 3rem;
+        display: flex;
+
+        svg {
+            width: 5rem;
+            height: 5rem;
+        }
+    }
+
+    &__server {
+        margin-left: 1.4rem;
+    }
+
+    &__server-til {
+        text-transform: uppercase;
+        margin-bottom: 0.6rem;
+    }
+
+    &__server-form {
+        display: flex;
+        align-items: center;
+
+        button {
+            font-size: 1.6rem;
+            padding: 0 0.8rem;
+            border: none;
+            font: inherit;
+        }
+
+        input {
+            width: 2.4rem;
+            height: 2.4rem;
+            text-align: center;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: $primary;
+            border: none;
+        }
+    }
+
+    &__ingre-list,
+    &__steps {
+        list-style: none;
+    }
+
+    &__ingre-item {
+        display: flex;
+        align-items: flex-end;
+        line-height: 1;
+
+        &:not(:last-child) {
+            margin-bottom: 2.5rem;
+        }
+
+        & > * + * {
+            margin-left: 2.7rem;
+        }
+    }
+
+    &__ingre-name {
+        text-transform: capitalize;
+        width: fit-content;
+    }
+
+    &__ingre-quantity {
+        width: fit-content;
+    }
+
+    &__ingre-line {
+        flex-grow: 1;
+        height: 1px;
+        background: $grey-dark;
+    }
+
+    &__process {
+        padding: 3rem 0 3rem 3rem;
+    }
+
+    &__steps {
+        font-size: 1.8rem;
+        line-height: 2;
+    }
+
+    // &__step {
+    //     padding-left: 2.6rem;
+    //     position: relative;
+
+    //     &::before {
+    //         content: "";
+    //         position: absolute;
+    //         top: 1.7rem;
+    //         left: 1.2rem;
+    //         width: 4px;
+    //         height: 4px;
+    //         border-radius: 50%;
+    //         background: currentColor;
+    //     }
+    // }
+}
+
+#relatedRecipe {
+    margin-top: 5rem;
+}

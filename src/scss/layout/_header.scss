@@ -1,0 +1,70 @@
+.header,
+.logbar {
+  width: 100%;
+
+  &__inner {
+    @include flex(row, center, null);
+  }
+}
+
+.header {
+  &__inner {
+    height: $header-height;
+  }
+
+  &__logo {
+    img {
+      height: 10rem;
+    }
+  }
+}
+
+.logbar {
+  border-bottom: $border-light;
+  border-top: $border-light;
+  
+  &__inner {
+    height: $login-bar;
+  }
+}
+
+.search-form {
+  @include flex(row, center, null);
+  margin-left: auto;
+
+  input {
+    min-width: 25rem;
+  }
+
+  button,
+  input,
+  select {
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    background: transparent;
+    
+
+    &,
+    &:focus,
+    &:focus-visible {
+      border: none;
+      outline: none;
+    }
+  }
+
+  button {
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+
+  .icon {
+    width: 2.2rem;
+    height: 2.2rem;
+    fill: $primary;
+  }
+}
+
+.search-bar {
+  @include flex(row, center, null);
+  border-bottom: $border-dark;
+}

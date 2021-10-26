@@ -1,0 +1,23 @@
+include mixins/svg.pug
+include mixins/navigation.pug
+
+header.header#header
+    .container
+        .header__inner 
+            a(href="index.html").header__logo 
+                img(src="./images/Logo.png", alt="Logo")
+            +navigation()
+            form(action="recipe.html", method="get").search-form
+                .search-bar 
+                    input(type="search", placeholder="Search recipe")
+                    select(name="search-type") 
+                        option(value="name" selected) By Name
+                        option(value="ingredients") By Ingredients
+                button(type="submit")
+                    +iconSVG('search', 'icon')
+    .logbar 
+        .container 
+            .logbar__inner.space-x-4
+                a(role="button").btn.btn-small.ml-auto Login 
+                a(role="button").btn.btn-small.btn-secondary Sign up
+        

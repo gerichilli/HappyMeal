@@ -1,0 +1,200 @@
+.recipe {
+    &__slideshow {
+        position: relative;
+    }
+
+    &__wrapper {
+        display: flex;
+        // margin: 0 $recipe-wrapper-x;
+
+
+        &.swiper-wrapper {
+            height: auto;
+        }
+
+        &--wrap {
+            flex-wrap: wrap;
+            margin: 0 -#{$recipe-gap / 2};
+
+            .recipe__item {
+                padding-left: #{$recipe-gap / 2};
+                padding-right: #{$recipe-gap / 2};
+            }
+        }
+    }
+
+    &__item {
+        flex-grow: 1;
+
+        &.swiper-slide {
+            width: unset;
+        }
+    }
+
+    &__link {
+        display: block;
+        width: 100%;
+        text-decoration: none;
+        color: currentColor;
+
+        &:hover {
+            .recipe__img {
+                img {
+                    transform: scale(1.1);
+                }
+
+                &::before {
+                    opacity: 1;
+                }
+            }
+
+            .recipe__title  {
+                color: $primary;
+            }
+
+            .recipe__action--inside {
+                opacity: 1;
+                visibility: visible;
+                pointer-events: auto;
+                transform: translate(-2rem,-2rem);
+            }
+        }
+    }
+
+    &__thumb {
+        width: 100%;
+        position: relative;
+    }
+
+    &__img {
+        width: 100%;
+        height: 0;
+        padding-bottom: 100%;
+        overflow: hidden;
+        position: relative;
+        user-select: none;
+
+        img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+
+            transition: all 0.4s cubic-bezier(0.39, 0.575, 0.565, 1);
+        }
+
+        &::before {
+            content: "";
+            position: absolute;
+            background: rgba(0,0,0,0.2);
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: 1;
+
+            opacity: 0;
+            transition: all 0.2s;
+        }
+    }
+
+    &__title  {
+        margin-top: $sp-md;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        transition: all 0.2s;
+
+        &--large {
+            margin-right: 7rem;
+            font-weight: 700;
+        }
+
+        &--medium {
+            font-weight: 600;
+            font-size: 1.8rem;
+            margin-right: 6rem;
+        }
+    }
+
+    &__body {
+        display: flex;
+        margin-top: $sp-sm;
+    }
+
+    &__info {
+        @extend .space-y-1;
+        flex-grow: 1;
+    }
+
+    &__ingre-count {
+        font-size: 2.4rem;
+        font-weight: 700;
+        color: $orange;
+        margin-right: 0.75rem;
+    }
+
+    &__tag {
+        display: inline-block;
+        font-size: 1.2rem;
+        line-height: 2;
+        font-weight: 300;
+        margin: 0 0.5rem 0.5rem 0;
+        padding: 0.2rem 1rem;
+        border-radius: $radius-small;
+        color: $white;
+
+        &--orange {
+            background: $orange;
+        }
+
+        &--green {
+            background: $green;
+        }
+
+        &--blue {
+            background: $blue;
+        }
+
+        &--purple {
+            background: $purple;
+        }
+
+        &--pink {
+            background: $pink;
+        }
+    }
+
+    &__action {
+        border-radius: 50%;
+        position: absolute;
+        bottom: 0;
+        right: 0;
+
+        &--outside {
+            width: 6rem;
+            height: 6rem;
+        
+            transform: translateY(calc(100% + #{$sp-md}));
+        }
+
+        &--inside {
+            width: 4rem;
+            height: 4rem;
+            background: rgba(0,0,0,0.2);
+            opacity: 0; 
+            visibility: hidden;
+            pointer-events: none;
+            transform: translate(-2rem, 0);
+
+            transition: transform 0.3s cubic-bezier(0.215, 0.610, 0.355, 1);
+
+            .icon {
+                width: 1.2rem;
+                fill: $white !important;
+            }
+        }
+    }
+}

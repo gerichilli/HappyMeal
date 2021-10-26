@@ -1,0 +1,198 @@
+include includes/mixins/svg.pug
+include includes/mixins/recipe.pug
+
+doctype html(lang="en")
+include includes/head.pug
+    title Happy Meal - Recipes for everyone
+body
+    include includes/header.pug
+    include includes/banner.pug
+
+    main 
+        section.section#recently-update 
+            .container
+                .section__header 
+                    h2.section__heading
+                        +iconSVG('clock', 'icon icon-medium')
+                        span recently update   
+                    a(role="button" href="#").section__more 
+                        span.text See more
+                        +iconSVG('arrow-right', 'icon icon-small icon-orange')
+                .section__body
+                    .recipe__slideshow
+                        //- .loading
+                        //-     img(src="images/food_loader.gif", alt="Loading")
+                        //-     span Loading...
+                        .swiper.product-swiper-large.recipe-container
+                            .recipe__wrapper.swiper-wrapper
+
+                        .btn.button-next
+                            +iconSVG('chevron-right', 'icon icon-dark')
+                        .btn.button-prev
+                            +iconSVG('chevron-left', 'icon icon-dark')
+                
+        section.section#vegetarianism 
+            .container
+                .section__header.section__header--baseline 
+                    h2.section__heading Vegetarianism
+                    p.section__sub-heading Find healthy, delicious weight-loss and diet recipes 
+
+                    a(role="button" href="#").section__more 
+                        span.text See more
+                        +iconSVG('arrow-right', 'icon icon-small icon-orange')
+                .section__body
+                    .recipe__slideshow
+                        .swiper.product-swiper-large.recipe-container
+                            .recipe__wrapper.swiper-wrapper
+                                //- - imgSrc = "./images/sections/vegetarianism/01.png"
+                                //- - title = "Stuffed cabbage rolls"
+                                //- +recipeItem({link: link, imgSrc: imgSrc, title: title, ingreCount: ingreCount, tags: tags, bookmarkSize: bookmarkSize, iconClasses: iconClasses}, true)
+                                
+                                //- - imgSrc = "./images/sections/vegetarianism/02.png"
+                                //- - title = "Stir-Fried Garden Vegetables"
+                                //- - ingreCount = 6
+                                //- - tags = [{color: 'purple', title: 'drinks'}, {color: 'pink', title: 'dinner'}, {color: 'blue', title: 'asian'}]
+                                //- +recipeItem({link: link, imgSrc: imgSrc, title: title, ingreCount: ingreCount, tags: tags, bookmarkSize: bookmarkSize, iconClasses: iconClasses}, true)
+
+                                //- - imgSrc = "./images/sections/vegetarianism/03.png"
+                                //- - title = "Almond, Kale, and Banana Smoothie"
+                                //- - ingreCount = 13
+                                //- +recipeItem({link: link, imgSrc: imgSrc, title: title, ingreCount: ingreCount, tags: tags, bookmarkSize: bookmarkSize, iconClasses: iconClasses}, true)
+
+                                //- - imgSrc = "./images/sections/vegetarianism/04.png"
+                                //- - title = "pancakes with orange and blueberry"
+                                //- +recipeItem({link: link, imgSrc: imgSrc, title: title, ingreCount: ingreCount, tags: tags, bookmarkSize: bookmarkSize, iconClasses: iconClasses}, true)
+
+                                //- - imgSrc = "./images/sections/vegetarianism/05.png"
+                                //- - title = "ramen and egg"
+                                //- +recipeItem({link: link, imgSrc: imgSrc, title: title, ingreCount: ingreCount, tags: tags, bookmarkSize: bookmarkSize, iconClasses: iconClasses}, true)
+
+                                //- - imgSrc = "./images/sections/vegetarianism/06.png"
+                                //- - title = "Lemon Salt Lemon Cupcakes"
+                                //- +recipeItem({link: link, imgSrc: imgSrc, title: title, ingreCount: ingreCount, tags: tags, bookmarkSize: bookmarkSize, iconClasses: iconClasses}, true)
+
+                                //- - imgSrc = "./images/sections/vegetarianism/07.png"
+                                //- - title = "Lemon Salt Lemon Cupcakes"
+                                //- +recipeItem({link: link, imgSrc: imgSrc, title: title, ingreCount: ingreCount, tags: tags, bookmarkSize: bookmarkSize, iconClasses: iconClasses}, true)
+
+                        .btn.button-next
+                            +iconSVG('chevron-right', 'icon icon-dark')
+                        .btn.button-prev
+                            +iconSVG('chevron-left', 'icon icon-dark')
+                
+        section.section.event#event 
+            .container 
+                .event__description 
+                    h2.event__heading Greek Cooking Workshop
+                    p.event__details. 
+                        Join us for a celebration of Greek seasonal 
+                        cooking and warm Greek hospitality - it would't 
+                        be a Greek feast without lots of food 
+                        and drinks on offer, would it?
+                    .event__tags 
+                        span.event__tag #2021-10-20
+                        span.event__tag.event__tag--bold #Chef Despina Siahuli
+                        span.event__tag #Traditional Greek pies
+            .event__img 
+            .event__cta 
+                .event__card
+                    h3.text-uppercase Greek Cooking Workshop
+                    .event__info 
+                        div Date
+                        .event__info-main 2021-10-20
+                    .event__info 
+                        div Time
+                        .event__info-main 13:00
+                    .event__info 
+                        div Place
+                        .event__info-main 1651 High Meadow Lane
+                    button.btn.btn-primary.event__btn Follow this Event
+
+        section.section#healthy 
+            .container
+                .section__header.section__header--baseline 
+                    h2.section__heading Healthy Eating
+                    p.section__sub-heading Creative recipes to make life more fun
+                .section__body
+                    .recipe__slideshow
+                        .swiper.product-swiper-medium.recipe-container
+                            .recipe__wrapper.swiper-wrapper
+                                //- - imgSrc = ""
+                                //- - title = ""
+                                //- - bookmarkSize = 'inside'
+                                //- - tags = []
+                                //- +recipeItem({link: link, imgSrc: imgSrc, title: title, ingreCount: ingreCount, tags: tags, bookmarkSize: bookmarkSize, iconClasses: iconClasses}, true)
+                                
+                                //- - imgSrc = ""
+                                //- - title = ""
+                                //- - ingreCount = ""
+                                //- - tags = []
+                                //- +recipeItem({link: link, imgSrc: imgSrc, title: title, ingreCount: ingreCount, tags: tags, bookmarkSize: bookmarkSize, iconClasses: iconClasses}, true)
+
+                                //- - imgSrc = ""
+                                //- - title = ""
+                                //- - ingreCount = ""
+                                //- +recipeItem({link: link, imgSrc: imgSrc, title: title, ingreCount: ingreCount, tags: tags, bookmarkSize: bookmarkSize, iconClasses: iconClasses}, true)
+
+                        .btn.button-next
+                            +iconSVG('chevron-right', 'icon icon-dark')
+                        .btn.button-prev
+                            +iconSVG('chevron-left', 'icon icon-dark')
+                .section__footer 
+                    a(role="button" href="#").btn.btn-medium.btn-outline See more
+
+        section.section#side-dishes 
+            .container
+                .section__header.section__header--baseline 
+                    h2.section__heading Side Dishes
+                    p.section__sub-heading these recipes will help you meal plan like never before.
+                .section__body
+                    .sidedish
+                        .sidedish__image 
+                            img(src="./images/sidedishes.png", alt="Side dishes banner")
+                        .sidedish__list 
+                            .recipe__wrapper.recipe__wrapper--wrap
+                                - imgSrc = "./images/sections/sidedishes/01.png"
+                                - title = "French Bread Pizzas"
+                                +recipeItem({link: link, imgSrc: imgSrc, title: title, ingreCount: ingreCount, tags: tags, bookmarkSize: bookmarkSize, iconClasses: iconClasses}, false, 'col-4')
+
+                                - imgSrc = "./images/sections/sidedishes/02.png"
+                                - title = "Chocolate, Banana and you"
+                                +recipeItem({link: link, imgSrc: imgSrc, title: title, ingreCount: ingreCount, tags: tags, bookmarkSize: bookmarkSize, iconClasses: iconClasses}, false, 'col-4')
+
+                                - imgSrc = "./images/sections/sidedishes/03.png"
+                                - title = "Stuffed cabbage rolls"
+                                +recipeItem({link: link, imgSrc: imgSrc, title: title, ingreCount: ingreCount, tags: tags, bookmarkSize: bookmarkSize, iconClasses: iconClasses}, false, 'col-4')
+                                
+                                .w-100
+                            
+                                - imgSrc = "./images/sections/sidedishes/04.png"
+                                - title = "Buffalo Chicken Salad"
+                                +recipeItem({link: link, imgSrc: imgSrc, title: title, ingreCount: ingreCount, tags: tags, bookmarkSize: bookmarkSize, iconClasses: iconClasses}, false, 'col-4')
+
+                                - imgSrc = "./images/sections/sidedishes/05.png"
+                                - title = "Chicken Caesar Soup"
+                                +recipeItem({link: link, imgSrc: imgSrc, title: title, ingreCount: ingreCount, tags: tags, bookmarkSize: bookmarkSize, iconClasses: iconClasses}, false, 'col-4')
+
+                                - imgSrc = "./images/sections/sidedishes/06.png"
+                                - title = "Turkey Cobb Sandwich"
+                                +recipeItem({link: link, imgSrc: imgSrc, title: title, ingreCount: ingreCount, tags: tags, bookmarkSize: bookmarkSize, iconClasses: iconClasses}, false, 'col-4')
+
+        section.section.cta#join-us
+            .container
+                .cta__wrapper 
+                    .cta__heading See why over 
+                        span 250,000+ 
+                        | users <br>
+                        | have joined HappyMeal
+                    form(action="#").cta__form.join-form
+                        input(type="email" placeholder="Email Address")
+                        button.btn Get Started
+                    .cta__bottom 100% FREE. No Spam. No Affiliate Links. No data sharing.
+                    
+
+        include includes/snsSection.pug
+
+    include includes/footer.pug
+
+

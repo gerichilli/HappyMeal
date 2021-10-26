@@ -1,0 +1,37 @@
+mixin navigationLink(link, title)
+    a(href=`${link}`).navigation__sublink=title 
+
+mixin navigationGroup(link, titles)
+    .navigation__group  
+        for val in titles
+            +navigationLink(link, val)
+
+mixin navigation 
+    nav.navigation  
+        ul.navigation__list 
+            li.navigation__item 
+                a.navigation__link(href="recipe_alphabet.html") alphabet
+                .navigation__dropdown.navigation--alphabet
+                    +navigationGroup('#', ['a', 'b', 'c', 'd', 'e'])
+                    +navigationGroup('#', ['f', 'g', 'h', 'i', 'j'])
+                    +navigationGroup('#', ['k', 'l', 'm', 'n', 'o'])
+                    +navigationGroup('#', ['p', 'q', 'r', 's', 't'])
+                    +navigationGroup('#', ['u', 'v', 'w', 'x', 'y'])
+                    +navigationGroup('#', ['z'])
+            li.navigation__item 
+                a.navigation__link(href="recipe_categories.html") categories
+                .navigation__dropdown.navigation--categories
+                    +navigationGroup('#', ['Beef', 'Breakfast', 'Chicken', 'Dessert', 'Goat', 'Lamb', 'Miscellaneous'])
+                    +navigationGroup('#', ['Pasta', 'Pork', 'Seafood', 'Side', 'Starter', 'Vegan', 'Vegetarian'])
+            li.navigation__item 
+                a.navigation__link(href="recipe_area.html") area
+                .navigation__dropdown.navigation--area
+                    +navigationGroup('#', ['American', 'British', 'Canadian', 'Chinese', 'Croatian', 'Dutch', 'Egyptian'])
+                    +navigationGroup('#', ['American', 'British', 'Canadian', 'Chinese', 'Croatian', 'Dutch', 'Egyptian'])
+                    +navigationGroup('#', ['American', 'British', 'Canadian', 'Chinese', 'Croatian', 'Dutch', 'Egyptian'])
+                    +navigationGroup('#', ['American', 'British', 'Canadian', 'Chinese', 'Croatian', 'Dutch', 'Egyptian'])
+            li.navigation__item 
+                a.navigation__link(href="recipe_ingredients.html") ingredients
+                .navigation__dropdown.navigation--area
+                    +navigationGroup('#', ['Chicken', 'Salmon', 'Beef', 'Pork', 'Chicken', 'Chicken'])
+                    +navigationGroup('#', ['Chicken', 'Salmon', 'Beef', 'Pork', 'Chicken', 'More'])

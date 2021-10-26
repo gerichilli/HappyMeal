@@ -1,0 +1,28 @@
+@import "./vendors/normalize.scss";
+
+// // @import "./abstracts/animation";
+@import "./abstracts/mixin.scss";
+@import "./abstracts/variables.scss";
+@import "./abstracts/utilities.scss";
+
+@import "./base/base";
+@import "./base/typography";
+
+@import "./components/buttons";
+@import "./components/icons";
+@import "./components/recipes";
+@import "./components/swiper";
+@import "./components/toTop";
+@import "./components/banner";
+
+@import "./layout/footer";
+@import "./layout/forms";
+@import "./layout/header";
+@import "./layout/navigation";
+@import "./layout/sections";
+@import "./layout/grid";
+
+@import "./pages/index";
+@import "./pages/recipe";
+@import "./pages/results"
+

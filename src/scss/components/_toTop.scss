@@ -1,0 +1,39 @@
+.toTop {
+    position: fixed;
+    right: $sp-md;
+    top: 75%;
+    transform: translateY(25%);
+    z-index: 100;
+
+    width: 5rem;
+    height: 5rem;
+    background: $tint;
+    border-radius: $radius-small;
+
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    transition-delay: opacity 0.3s;
+
+    &.active {
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0);
+    }
+
+    .icon {
+        color: $grey-dark;
+        fill: $grey-dark;
+        transition: all 0.2s;
+    }
+
+    &:hover {
+        background: $primary;
+        border-color: $primary;
+
+        .icon {
+            color: $white;
+            fill: $white;
+        }
+    }
+}

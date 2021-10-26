@@ -1,0 +1,253 @@
+.sidedish {
+    border-top: 3px solid $grey-dark;
+    border-bottom: $border-light;
+    display: flex;
+
+    &__image {
+        max-width: 50rem;
+        width: 33%;
+        align-self: stretch;
+        flex-shrink: 0;
+        margin-right: $sp-xl;
+        overflow: hidden;
+        position: relative;
+
+        img {
+            min-width: 100%;
+            height: 100%;
+            position: absolute;
+            left: 0;
+        }
+    }
+
+    &__list {
+        margin: $sp-xl 0;
+        flex-grow: 1;
+    }
+}
+
+.event {
+    width: 100%;
+    height: 65rem;
+    background: $secondary;
+    position: relative;
+
+    .container {
+        height: 100%;
+    }
+
+    &__description {
+        width: 57.5%;
+        height: 100%;
+        padding-right: 20rem;
+        @include flex(column, null, center);
+    }
+
+    &__heading {
+        font-size: 6rem;
+        text-transform: uppercase;
+    }
+
+    &__details {
+        font-size: 2rem;
+        margin-top: 4rem;
+        margin-bottom: 4rem;
+    }
+
+    &__details,
+    &__tags {
+        max-width: 50rem;
+    }
+
+    &__tags {
+        margin-top: -0.5rem;
+        margin-bottom: -0.5rem;
+    }
+
+    &__tag {
+        display: inline-block;
+        padding: 1rem 2rem;
+        margin: 0.5rem 0;
+        background: $white;
+        border-radius: $radius-xl;
+        line-height: 2;
+        word-wrap: none;
+
+        &:not(:last-child) {
+            margin-right: $sp-sm;
+        }
+
+        &--bold {
+            background: $primary;
+            color: $white;
+        }
+    }
+
+    &__img {
+        position: absolute;
+        right: 0;
+        top: 0;
+        width: 42.5%;
+        height: 100%;
+        overflow: hidden;
+
+        transition: right 0.5s ease-out,
+                    transform 1s cubic-bezier(0.390, 0.575, 0.565, 1.000);
+
+        &::before,
+        &::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            transition: inherit;
+        }
+
+        &::before {
+            background-image: url(../images/greek_event.jpg);
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+            transform: scale(1);
+        }
+
+        &::after {
+            background: $secondary;
+        }
+
+        &.active {
+            &::before {
+                transform: scale(1.2);
+            }
+
+            &::after {
+                right: 100%;
+            }
+        }
+    }
+
+    &__cta {
+        position: absolute;
+        right: 42.5%;
+        top: 50%;
+        width: 32rem;
+
+        transform: translate(50%, -25%) scale(0);
+        opacity: 0;
+
+        background: $white;
+        box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.15);
+        border-radius: 1.5rem;
+        padding: 2.5rem;
+
+        transition: opacity 0.1s linear,
+                    transform 0.6s cubic-bezier(0.250, 0.460, 0.450, 0.940);
+        transition-delay: 0.4s;
+
+        &.active {
+            transform: translate(50%, -50%) scale(1);
+            opacity: 1;
+        }
+    }
+
+    &__card {
+        padding: 2.5rem;
+        border: 1px dashed $primary;
+        border-radius: $radius-small;
+        text-align: center;
+    }
+
+    &__info {
+        margin-top: $sp-md;
+
+        & + & {
+            margin-top: $sp-sm;
+        }
+
+        &-main {
+            font-size: 1.8rem;
+        }
+    }
+
+    &__btn {
+        padding: 1rem 3rem;
+        border-radius: $radius-medium;
+        margin-top: $sp-md;
+        font-weight: 700;
+        text-transform: uppercase;
+    }
+}
+
+.cta {
+    &__wrapper {
+        padding: 8rem 0;
+        background-image: url(../images/join-banner.jpg);
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: center;
+        text-align: center;
+        color: $white;
+        border-radius: $radius-large;
+    }
+
+    &__heading {
+        font-size: 3rem;
+        font-weight: 500;
+        margin-bottom: 4.5rem;
+
+        span {
+            font-weight: 700;
+            color: $secondary;
+        }
+    }
+
+    &__form {
+        max-width: 51rem;
+        margin: 0 auto;
+
+        input {
+            width: 70%;
+            background: transparent;
+            color: $white;
+            margin-right: 1.5rem;
+        }
+
+        button {
+            color: $base-cl;
+        }
+    }
+
+    &__bottom {
+        margin-top: 2rem;
+    }
+}
+
+#sns {
+    margin-top: 17.5rem;
+}
+
+.sns {
+    &__link {
+        @include flex(row, center, null);
+        background: transparent;
+        color: $grey-light;
+        text-decoration: none;
+        margin-top: 2.75rem;
+        transition: all 0.2s;
+
+        @extend .space-x-2;
+
+        &:hover {
+            color: $grey-dark;
+            background: -webkit-linear-gradient(#7024C4, #C21975, #C74C4D, #E09B3D);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+    }
+
+    &__body {
+        margin-top: 7.5rem;
+    }
+}

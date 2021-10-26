@@ -1,0 +1,39 @@
+include includes/mixins/svg.pug
+include includes/mixins/recipe.pug
+
+doctype html(lang="en")
+include includes/head.pug
+    title Happy Meal - Recipes for everyone
+body
+    include includes/header.pug
+    main.main--child
+        section.results 
+            .container
+                h2.section__heading.results__heading Found <span>4</span> recipes
+                .results__grid 
+                    - bookmarkSize = 'inside'
+                    - imgSrc = "./images/sections/sidedishes/01.png"
+                    - title = "French Bread Pizzas"
+                    +recipeItem({link: link, imgSrc: imgSrc, title: title, ingreCount: ingreCount, tags: tags, bookmarkSize: bookmarkSize, iconClasses: iconClasses}, false, '')
+
+                    - imgSrc = "./images/sections/sidedishes/02.png"
+                    - title = "Chocolate, Banana and you"
+                    +recipeItem({link: link, imgSrc: imgSrc, title: title, ingreCount: ingreCount, tags: tags, bookmarkSize: bookmarkSize, iconClasses: iconClasses}, false, '')
+
+                    - imgSrc = "./images/sections/sidedishes/03.png"
+                    - title = "Stuffed cabbage rolls"
+                    +recipeItem({link: link, imgSrc: imgSrc, title: title, ingreCount: ingreCount, tags: tags, bookmarkSize: bookmarkSize, iconClasses: iconClasses}, false, '')
+                            
+                    - imgSrc = "./images/sections/sidedishes/04.png"
+                    - title = "Buffalo Chicken Salad"
+                    +recipeItem({link: link, imgSrc: imgSrc, title: title, ingreCount: ingreCount, tags: tags, bookmarkSize: bookmarkSize, iconClasses: iconClasses}, false, '')
+
+                    - imgSrc = "./images/sections/sidedishes/05.png"
+                    - title = "Chicken Caesar Soup"
+                    +recipeItem({link: link, imgSrc: imgSrc, title: title, ingreCount: ingreCount, tags: tags, bookmarkSize: bookmarkSize, iconClasses: iconClasses}, false, '')
+                    
+                    - imgSrc = "./images/sections/sidedishes/06.png"
+                    - title = "Turkey Cobb Sandwich"
+                    +recipeItem({link: link, imgSrc: imgSrc, title: title, ingreCount: ingreCount, tags: tags, bookmarkSize: bookmarkSize, iconClasses: iconClasses}, false, '')
+
+    include includes/footer.pug

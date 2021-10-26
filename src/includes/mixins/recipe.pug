@@ -1,0 +1,58 @@
+include svg.pug
+
+mixin recipeBookmark(bookmarkSize, iconClasses)
+    button(class=`recipe__action--${bookmarkSize}`).recipe__action
+        +iconSVG('bookmark', `icon ${iconClasses}`)
+
+mixin recipeLink(recipeLink, recipeImgSrc, recipeTitle, bookmarkSize, iconClasses)
+    - var titleClass = bookmarkSize === 'outside' ? 'recipe__title--large' : 'recipe__title--medium'
+    a(href=`${recipeLink}`).recipe__link
+        .recipe__thumb
+            .recipe__img 
+                img(src=`${recipeImgSrc}`, alt=`${recipeTitle}`)
+            +recipeBookmark(bookmarkSize, iconClasses)
+        h3.recipe__title(class=`${titleClass}`)=recipeTitle
+
+mixin recipeIngre(ingreCount)
+    .recipe__ingre 
+        span.recipe__ingre-count=ingreCount 
+        span Ingredient
+
+mixin recipeTag(tag)
+    span.recipe__tag(class=`recipe__tag--${tag.color}`)=tag.title
+
+mixin recipeTags(tags)
+    .recipe__tags 
+        for val in tags 
+            +recipeTag(val)
+
+- var link = "recipe.html"
+- var imgSrc = "./images/sections/recently/01.png"
+- var title = "Spiked Vietnamese Coffee Frappé"
+- var ingreCount = 9
+- var tags = [{color: 'orange', title: 'balanced'}, {color: 'green', title: 'alcohol-free'}, {color: 'blue', title: 'asian'}]
+- var bookmarkSize = 'outside'
+- var iconClasses = 'icon-dark'
+
+mixin recipeItem(recipe, swiper, additionClass)
+    - var swiperClass = swiper ? 'swiper-slide' : ''
+    - var addClass = additionClass ? `${additionClass}` : ''
+
+    .recipe__item(class=`${swiperClass} ${addClass}`) 
+        +recipeLink(recipe.link, recipe.imgSrc, recipe.title, recipe.bookmarkSize, recipe.iconClasses)
+        .recipe__body 
+            .recipe__info
+                +recipeIngre(recipe.ingreCount)
+                +recipeTags(recipe.tags)
+
+mixin recipeInstagram(recipe)
+    .recipe__item.swiper-slide 
+        a(href=`${recipe.link}`).recipe__link
+            .recipe__thumb
+                .recipe__img 
+                    img(src=`${recipe.imgSrc}`, alt=`${recipe.title}`)
+            
+
+
+
+            

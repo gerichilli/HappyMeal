@@ -1,0 +1,85 @@
+.footer {
+    background: $tint;
+    color: $grey-dark;
+    padding-top: $sp-xl;
+
+    &__inner {
+        display: flex;
+    }
+
+    &__cta,
+    &__logo {
+        flex-grow: 1;
+    }
+
+    &__cta {
+        @include flex(column, null, space-between);
+        padding-bottom: 4rem;
+    }
+
+    &__form {
+        input {
+            background: transparent;
+            max-width: 25rem;
+            margin-right: 1rem;
+        }
+    }
+
+    &__links {
+        display: flex;
+        margin-left: auto;
+    }
+
+    &__links-group {
+        & + & {
+            margin-left: 10rem;
+        }
+    }
+
+    &__links-heading {
+        color: $primary;
+        margin-bottom: 1.5rem;
+    }
+
+    &__links-list {
+        list-style: none;
+    }
+
+    &__item {
+        & + & {
+            margin-top: 0.8rem;
+        }
+    }
+
+    &__link {
+        text-decoration: none;
+        color: currentColor;
+        fill: currentColor;  
+        transition: all 0.2s;
+        
+        &:hover {
+            color: $primary;
+            fill: $primary;
+
+            .icon {
+                fill: $primary;
+            }
+        }
+        
+        .icon {
+            fill: $grey-dark;
+            transition: all 0.2s;
+        }
+    }
+
+    &__icon-link {
+        & + & {
+            margin-left: 3rem;
+        }
+    }
+
+    &__copyright {
+        padding-top: $sp-lg;
+        padding-bottom: $sp-lg;
+    }
+}

@@ -1,0 +1,18 @@
+mixin bannerItem(src, imgSrc, subheading, heading, description, btnClass)
+    a.banner__item.swiper-slide(href=`recipe.html?id=${src}` style=`background-image: linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.2)), url(./images/slider/slide${imgSrc}.jpg)`)
+        .container
+            .banner__text 
+                .banner__sub-heading=subheading
+                h1.banner__heading=heading
+                .banner__description=description
+                .banner__btn.btn.btn-medium(class=`${btnClass}`) Read more
+
+.banner.swiper.banner-swiper
+    .banner__wrapper.swiper-wrapper 
+        +bannerItem("52994", "1", 'Gift from nature', 'apple and love', 'Finish your dinner with chocolate mousse or cinnamon apple fritters', "")
+        +bannerItem("53008", "2", 'For beauty and health', 'tomatoes and youth', 'Cooking tomatoes makes lycopene more available for the body to use', "")
+        +bannerItem("52904", "3", 'For a busy day', 'bacon in your fridge', 'A full and delicious meal in just a few minutes of preparation', "")
+        +bannerItem("52794", "4", 'Relaxing day', 'Chocolate and sweetness', 'Make sweet and colorful cakes from chocolate', "")
+        +bannerItem("52952", "5", 'For a hard working day', 'beef and energy', 'Delicious, nutritious and energy-rich dishes made from beef', "")
+        +bannerItem("52821", "6", 'Familiar food', 'Noodles', 'Cheap, familiar and delicious food for everyone in your family', "") 
+    .swiper-pagination

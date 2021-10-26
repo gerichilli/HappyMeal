@@ -1,0 +1,32 @@
+@for $i from 1 through 10 {
+  .space-x-#{$i} {
+    & > * + * {
+      margin-left: calc(0.5rem * #{$i}) !important;
+    }
+  }
+
+  .space-y-#{$i} {
+    & > * + * {
+      margin-top: calc(0.5rem * #{$i}) !important;
+    }
+  }
+}
+
+.ml-auto {
+  margin-left: auto;
+}
+
+.text-uppercase {
+  text-transform: uppercase;
+}
+
+.rm-link-style {
+  text-decoration: none !important;
+}
+
+.w-100 {
+  width: 100%;
+  height: 0;
+  padding-top: $recipe-gap;
+}
+

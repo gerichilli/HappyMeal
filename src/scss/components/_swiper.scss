@@ -1,0 +1,65 @@
+.swiper {
+    width: 100%;
+    position: relative;
+
+    .swiper-pagination {
+        padding-top: $sp-sm;
+        padding-bottom: $sp-sm;
+    }
+
+    .swiper-pagination-bullet {
+        width: 1.6rem;
+        height: 1.6rem;
+        background: $tint;
+    }
+
+    .swiper-pagination-bullet-active {
+        background: $secondary;
+    }
+}
+
+.button-next,
+.button-prev {
+    width: 6rem;
+    height: 6rem;
+    background: $white;
+    top: 38%;
+    z-index: 1;
+    cursor: pointer;
+    border: $border-light;
+    border-radius: 50%;
+
+    position: absolute;
+
+    .icon {
+        width: 1rem;
+    }
+
+    &--sm {
+        width: 4rem;
+        height: 4rem;
+
+        .icon {
+            width: 0.7rem;
+        }
+    }
+    
+}
+
+.button-prev {
+    left: 0;
+    transform: translate(-50%, -50%);
+}
+
+.button-next {
+    right: 0;
+    transform: translate(50%, -50%);
+}
+
+.sns__body {
+    .button-prev,
+    .button-next {
+        top: 50%;
+    }
+
+}

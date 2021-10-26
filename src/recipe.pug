@@ -1,0 +1,130 @@
+include includes/mixins/svg.pug
+include includes/mixins/recipe.pug
+
+doctype html(lang="en")
+include includes/head.pug
+    title Spicy Arrabiata Penne
+body
+    include includes/header.pug
+    main.main--child
+        section.section#recipe
+            .container.recipe-single-container
+                //- .recipe__header 
+                //-     .recipe__img-wrapper  
+                //-         .recipe__img    
+                //-             img(src="./images/recipe.png", alt="Spicy Arrabiata Penne")
+                //-     .recipe__details-wrapper 
+                //-         .recipe__details   
+                //-             a(href="https://www.youtube.com/watch?v=1IszT_guI08").btn.recipe__watch 
+                //-                 +iconSVG('watch', 'icon icon-black')
+                //-                 span Watch
+                //-             .recipe__headline
+                //-                 h1.recipe__name Spicy Arrabiata Penne
+                //-                 .recipe__divider
+                //-                 .recipe__details-tags
+                //-                     span.recipe__details-tag.recipe__details-tag--orange Pasta
+                //-                     span.recipe__details-tag.recipe__details-tag--green Curry
+                //-         .recipe__summary 
+                //-             .recipe__brief
+                //-                 img(src="./images/clock.svg", alt="Clock")
+                //-                 .recipe__text 20 min
+                //-             .recipe__brief
+                //-                 img(src="./images/harvest.svg", alt="Ingredient")
+                //-                 .recipe__text 8 ingredients
+                //-             .recipe__brief
+                //-                 img(src="./images/cooking.svg", alt="Level")
+                //-                 .recipe__text Easy
+                //-         .recipe__category 
+                //-             span Vegetarian
+                //-             span Italian
+
+                //- .recipe__main
+                //-     .recipe__ingredients 
+                //-         .recipe__sub-heading Ingredients 
+                //-         .recipe__amount 
+                //-             +iconSVG('dish', 'icon icon-black icon-medium')
+                //-             .recipe__server
+                //-                 .recipe__server-til Servering
+                //-                 .recipe__server-form
+                //-                     button -
+                //-                     input(type="number" id="quantity" value="1") 
+                //-                     button +
+                //-         ul.recipe__ingre-list
+                //-             mixin recipeIngreItem(name, quantity)
+                //-                 li.recipe__ingre-item 
+                //-                     .recipe__ingre-name=name
+                //-                     .recipe__ingre-line 
+                //-                     .recipe__ingre-quantity=quantity
+                //-             +recipeIngreItem('penne rigate', '1 pound')
+                //-             +recipeIngreItem('olive oil', '1/4 cup')
+                //-             +recipeIngreItem('garlic', '3 cloves')
+                //-             +recipeIngreItem('chopped tomatoes', '1 tin')
+                //-             +recipeIngreItem('red chile flakes', '1/2 teaspoon')
+                //-             +recipeIngreItem('italian seasoning', '1/2 teaspoon')
+                //-             +recipeIngreItem('basil', '6 leaves')
+                //-             +recipeIngreItem('Parmigiano-Reggiano', 'spinkling')
+                //-     .recipe__process
+                //-         .recipe__sub-heading Process
+                //-         p.recipe__steps
+                //-             span.recipe__step Bring a large pot of water to a boil. 
+                //-             span.recipe__step Add kosher salt to the boiling water, then add the pasta. 
+                //-             span.recipe__step Cook according to the package instructions, about 9 minutes. 
+                //-             span.recipe__step In a large skillet over medium-high heat, add the olive oil and heat until the oil starts to shimmer. 
+                //-             span.recipe__step Add the garlic and cook, stirring, until fragrant, 1 to 2 minutes. 
+                //-             span.recipe__step Add the chopped tomatoes, red chile flakes, Italian seasoning and salt and pepper to taste. 
+                //-             span.recipe__step Bring to a boil and cook for 5 minutes. 
+                //-             span.recipe__step Remove from the heat and add the chopped basil. 
+                //-             span.recipe__step Drain the pasta and add it to the sauce. 
+                //-             span.recipe__step Garnish with Parmigiano-Reggiano flakes and more basil and serve warm.
+
+        section.related#relatedRecipe
+            .container 
+                .recipe__sub-heading Related
+                .recipe__slideshow
+                        .swiper.product-swiper-similar
+                            .recipe__wrapper.swiper-wrapper
+                                - imgSrc = "./images/sections/healthy/01.png"
+                                - title = "Deviled Eggs"
+                                - bookmarkSize = 'inside'
+                                +recipeItem({link: link, imgSrc: imgSrc, title: title, ingreCount: ingreCount, tags: tags, bookmarkSize: bookmarkSize, iconClasses: iconClasses}, true)
+                                
+                                - imgSrc = "./images/sections/healthy/02.png"
+                                - title = "Chipotle Beef Brisket Tacos"
+                                - ingreCount = 6
+                                - tags = [{color: 'purple', title: 'drinks'}, {color: 'pink', title: 'dinner'}, {color: 'blue', title: 'asian'}]
+                                +recipeItem({link: link, imgSrc: imgSrc, title: title, ingreCount: ingreCount, tags: tags, bookmarkSize: bookmarkSize, iconClasses: iconClasses}, true)
+
+                                - imgSrc = "./images/sections/healthy/03.png"
+                                - title = "Chicken Parmesan Dumplings"
+                                - ingreCount = 13
+                                +recipeItem({link: link, imgSrc: imgSrc, title: title, ingreCount: ingreCount, tags: tags, bookmarkSize: bookmarkSize, iconClasses: iconClasses}, true)
+
+                                - imgSrc = "./images/sections/healthy/04.png"
+                                - title = "Salmon and Dill Spread"
+                                +recipeItem({link: link, imgSrc: imgSrc, title: title, ingreCount: ingreCount, tags: tags, bookmarkSize: bookmarkSize, iconClasses: iconClasses}, true)
+
+                                - imgSrc = "./images/sections/healthy/05.png"
+                                - title = "ramen and egg"
+                                +recipeItem({link: link, imgSrc: imgSrc, title: title, ingreCount: ingreCount, tags: tags, bookmarkSize: bookmarkSize, iconClasses: iconClasses}, true)
+
+                                - imgSrc = "./images/sections/healthy/06.png"
+                                - title = "Lemon Salt Lemon Cupcakes"
+                                +recipeItem({link: link, imgSrc: imgSrc, title: title, ingreCount: ingreCount, tags: tags, bookmarkSize: bookmarkSize, iconClasses: iconClasses}, true)
+
+                                - imgSrc = "./images/sections/healthy/07.png"
+                                - title = "Lemon Salt Lemon Cupcakes"
+                                +recipeItem({link: link, imgSrc: imgSrc, title: title, ingreCount: ingreCount, tags: tags, bookmarkSize: bookmarkSize, iconClasses: iconClasses}, true)
+
+                                - imgSrc = "./images/sections/healthy/08.png"
+                                - title = "Lemon Salt Lemon Cupcakes"
+                                +recipeItem({link: link, imgSrc: imgSrc, title: title, ingreCount: ingreCount, tags: tags, bookmarkSize: bookmarkSize, iconClasses: iconClasses}, true)
+
+                        .btn.button-next
+                            +iconSVG('chevron-right', 'icon icon-dark')
+                        .btn.button-prev
+                            +iconSVG('chevron-left', 'icon icon-dark')
+
+        include includes/snsSection.pug
+
+    include includes/footer.pug
+
