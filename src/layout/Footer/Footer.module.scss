@@ -1,0 +1,70 @@
+@use "../../styles/mixins.scss" as mixins;
+
+.footer {
+  background-color: var(--clr-background-high);
+  padding: 50px 0 26px;
+}
+
+.footerMain {
+  display: flex;
+  margin-bottom: 20px;
+}
+
+.logo {
+  width: 102px;
+  height: 102px;
+}
+
+.snsCol {
+  margin-left: 8vw;
+  margin-right: 8vw;
+}
+
+.snsLinks {
+  display: flex;
+  align-items: center;
+  margin-bottom: 64px;
+
+  & > *:not(:last-child) {
+    margin-right: 24px;
+  }
+}
+
+.snsLink {
+  color: var(--clr-contrast-medium);
+
+  @include mixins.link-when-active {
+    color: var(--clr-primary);
+  }
+
+  svg {
+    fill: currentColor;
+  }
+}
+
+.copyright {
+  font-size: 1rem;
+  color: var(--clr-contrast-medium);
+}
+
+.supportCol {
+  margin-right: 8vw;
+  margin-left: auto;
+}
+
+.linksTitle {
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: var(--clr-primary);
+  margin-bottom: 10px;
+}
+
+.link {
+  display: block;
+  font-size: 1rem;
+  padding: 4px 0;
+
+  @include mixins.link-when-active {
+    color: var(--clr-primary);
+  }
+}

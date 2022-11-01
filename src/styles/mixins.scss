@@ -1,0 +1,7 @@
+@mixin link-when-active() {
+  &:hover,
+  &:active,
+  &:focus {
+    @content;
+  }
+}

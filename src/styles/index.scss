@@ -1,0 +1,63 @@
+@import url("https://fonts.googleapis.com/css2?family=Maven+Pro:wght@400;500;600;700&display=swap");
+@import "swiper/scss";
+@import "swiper/scss/navigation";
+@import "swiper/scss/pagination";
+@import "./swiperConfig.scss"; // swiper overwrite
+
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --clr-background: #ffffff;
+  --clr-background-high: #f6f9f0;
+
+  --clr-contrast: #2a443f;
+  --clr-contrast-medium: #505050;
+  --clr-contrast-low: #c4c4c4;
+
+  --clr-primary: #97cc3b;
+  --clr-primary-hover: #82cc03;
+  --clr-secondary: #f99c1d;
+  --clr-secondary-hover: #ef910d;
+  --clr-tertiary: #ffe26c;
+  --clr-tertiary-hover: #fbd954;
+
+  --clr-on-bold-bg: #fff;
+
+  --container-width: 1540px;
+  --container-padding: 60px;
+}
+
+html {
+  font-size: 100%;
+}
+
+body {
+  font-family: "Maven Pro", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  font-size: 1.125rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: var(--clr-contrast);
+  background-color: var(--clr-background);
+}
+
+.container {
+  max-width: var(--container-width);
+  padding: 0 var(--container-padding);
+  margin: 0 auto;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  white-space: nowrap;
+}

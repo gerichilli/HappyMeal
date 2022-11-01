@@ -1,0 +1,9 @@
+.swiper-pagination-bullet {
+  width: 16px;
+  height: 16px;
+  background-color: var(--clr-contrast-low);
+}
+
+.swiper-pagination-bullet-active {
+  background-color: var(--clr-tertiary);
+}

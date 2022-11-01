@@ -1,0 +1,45 @@
+@use "../../styles/mixins.scss" as mixins;
+
+.form {
+  display: flex;
+}
+
+.inputContainer {
+  flex-grow: 1;
+  margin-right: 12px;
+}
+
+.input {
+  width: 100%;
+  border: 1px solid var(--clr-contrast-low);
+  border-radius: 10px;
+  background-color: transparent;
+
+  &:focus {
+    outline: none;
+    border-color: var(--clr-primary);
+  }
+
+  &::placeholder {
+    color: var(--clr-contrast-low);
+  }
+}
+
+.btn {
+  font-weight: 500;
+  border: none;
+  border-radius: 10px;
+  background-color: var(--clr-tertiary);
+  cursor: pointer;
+
+  @include mixins.link-when-active {
+    background-color: var(--clr-tertiary-hover);
+  }
+}
+
+.input,
+.btn {
+  font: inherit;
+  font-size: 1.125rem;
+  padding: 16px;
+}

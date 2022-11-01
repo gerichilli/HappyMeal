@@ -1,0 +1,51 @@
+@use "../../../styles/mixins.scss" as mixins;
+
+.banner {
+  width: 100%;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.bannerContainer {
+  height: 540px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+.subtitle {
+  color: var(--clr-on-bold-bg);
+  font-size: 1.5rem;
+}
+
+.title {
+  font-size: 3.125rem;
+  font-weight: 600;
+  color: var(--clr-on-bold-bg);
+  text-transform: capitalize;
+}
+
+.description {
+  font-size: 1.125rem;
+  color: var(--clr-on-bold-bg);
+  margin-top: 10px;
+  max-width: 415px;
+}
+
+.btn {
+  font: inherit;
+  font-size: 1.125rem;
+  text-transform: uppercase;
+  padding: 10px 50px;
+  border-radius: 10px;
+  max-width: 200px;
+  margin-top: 40px;
+  background-color: var(--clr-primary);
+  color: var(--clr-on-bold-bg);
+
+  @include mixins.link-when-active {
+    background-color: var(--clr-primary-hover);
+  }
+}

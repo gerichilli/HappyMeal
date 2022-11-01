@@ -1,0 +1,114 @@
+@use "../../styles/mixins.scss" as mixins;
+
+.navList {
+  list-style: none;
+  display: flex;
+}
+
+.navItem {
+  margin: 0 30px;
+  position: relative;
+}
+
+.navLink {
+  @include mixins.link-when-active {
+    color: var(--clr-primary);
+  }
+}
+
+.navLabel {
+  font: inherit;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  position: relative;
+
+  &::after {
+    position: absolute;
+    content: "";
+    width: 60%;
+    height: 3px;
+    bottom: 10px;
+    left: 0;
+    background-color: var(--clr-primary);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s ease;
+  }
+
+  @include mixins.link-when-active {
+    &::after {
+      transform: scaleX(1);
+    }
+  }
+
+  &--active {
+    &::after {
+      transform: scaleX(1);
+    }
+  }
+}
+
+.navLink,
+.navLabel {
+  font-size: 1.125rem;
+  font-weight: 500;
+  display: block;
+  padding: 16px 0;
+}
+
+.navDropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: var(--clr-background);
+  border: 1px solid var(--clr-contrast-low);
+  box-shadow: 3px 4px 4px 2px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  overflow: hidden;
+  min-width: 200px;
+  z-index: 1000;
+  opacity: 1;
+  animation: fadeIn 0.3s ease forwards;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.dropdown {
+  list-style: none;
+  max-height: 240px;
+  overflow-y: auto;
+
+  &::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: var(--clr-background);
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: var(--clr-contrast-low);
+    border-radius: 5px;
+  }
+}
+
+.dropItem {
+  display: block;
+  padding: 6px 24px;
+  font-size: 1rem;
+
+  @include mixins.link-when-active {
+    background-color: var(--clr-primary);
+    color: var(--clr-on-bold-bg);
+  }
+}
