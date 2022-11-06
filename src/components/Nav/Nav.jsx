@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import styles from "./Nav.module.scss";
 import NavDropdown from "./NavDropdown";
 import { getCategoryList, getAreaList } from "../../services/apiServices";
@@ -48,9 +48,9 @@ function Nav() {
           setOpenDropdown={setOpenDropdown}
         />
         <li className={styles.navItem}>
-          <Link className={styles.navLink} to="/ingredients">
+          <NavLink className={styles.navLink} to="/ingredients">
             Ingredients
-          </Link>
+          </NavLink>
         </li>
       </ul>
     </nav>

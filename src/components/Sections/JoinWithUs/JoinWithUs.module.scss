@@ -1,0 +1,36 @@
+.section {
+  margin-top: 100px;
+}
+
+.wrapper {
+  background-image: url(https://i.imgur.com/IOX4sDj.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  border-radius: 20px;
+  min-height: 400px;
+  padding: 80px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  color: var(--clr-on-bold-bg);
+
+  h2 {
+    font-weight: 500;
+    font-size: 1.875rem;
+    max-width: 480px;
+    text-align: center;
+    margin-bottom: 36px;
+
+    span {
+      color: var(--clr-tertiary);
+      font-weight: 700;
+    }
+  }
+
+  p {
+    margin-top: 20px;
+  }
+}

@@ -11,3 +11,11 @@ export async function getAreaList() {
 export async function getLastestRecipes() {
   return axios.get("getLastestRecipes");
 }
+
+export async function getRecipesByCategory(category) {
+  return axios.get(`getRecipesByCategory?category=${category}`);
+}
+
+export async function getRecipesById(id) {
+  return axios.get(`getRecipeById?id=${id}`);
+}

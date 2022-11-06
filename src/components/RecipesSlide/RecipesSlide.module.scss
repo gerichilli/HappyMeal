@@ -1,0 +1,44 @@
+@use "../../styles/mixins.scss" as mixins;
+
+.section {
+  margin-top: 110px;
+}
+
+.sectionHeader {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-bottom: 28px;
+}
+
+.title {
+  display: flex;
+  align-items: center;
+  font-size: 1.75rem;
+  font-weight: 700;
+  line-height: 1.2;
+
+  svg {
+    width: 40px;
+    height: 40px;
+    margin-right: 12px;
+  }
+}
+
+.description {
+  width: 100%;
+  margin-left: 52px;
+  color: var(--clr-contrast-medium);
+  font-size: 1rem;
+}
+
+.link {
+  display: flex;
+  align-items: center;
+  margin-left: auto;
+  color: var(--clr-secondary);
+
+  @include mixins.link-when-active {
+    color: var(--clr-secondary-hover);
+  }
+}

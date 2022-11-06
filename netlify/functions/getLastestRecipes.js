@@ -7,10 +7,17 @@ exports.handler = async (event, context) => {
       `${process.env.THEMEALDB_URL}/${process.env.THEMEALDB_API_KEY}/latest.php`
     );
 
-    return {
-      statusCode: 200,
-      body: JSON.stringify(response.data.meals),
-    };
+    if (response.data.meals && response.data.meals.length > 0) {
+      return {
+        statusCode: 200,
+        body: JSON.stringify(response.data.meals),
+      };
+    } else {
+      return {
+        statusCode: 404,
+        body: "No recipes found",
+      };
+    }
   } catch (err) {
     return {
       statusCode: 404,

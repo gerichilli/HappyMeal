@@ -2,3 +2,12 @@
 command = "npm run build"
 functions = "netlify/functions"
 publish = "public"
+
+[[redirects]]
+from = '/*'
+status = 200
+to = '/index.html'
+
+[dev]
+targetPort = 3000
+port = 8888

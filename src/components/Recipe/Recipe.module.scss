@@ -1,0 +1,141 @@
+@use "../../styles/mixins.scss" as mixins;
+
+.recipe {
+  &--sm {
+    .title {
+      font-size: 1.125rem;
+    }
+
+    .ingredients {
+      font-size: 0.9375rem;
+    }
+
+    .number {
+      font-size: 1.25rem;
+    }
+
+    .btn {
+      width: 48px;
+      height: 48px;
+      bottom: 12px;
+      right: 12px;
+
+      svg {
+        font-size: 1.5em;
+      }
+    }
+  }
+}
+
+.thumb {
+  position: relative;
+  margin-bottom: 12px;
+  overflow: hidden;
+
+  &:hover {
+    .btn {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+}
+
+.imgLink {
+  display: block;
+  position: relative;
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.2);
+    opacity: 0;
+    transition: all 0.2s;
+    z-index: 1;
+  }
+
+  @include mixins.link-when-active {
+    &::before {
+      opacity: 1;
+    }
+
+    .image {
+      transform: scale(1.1);
+    }
+  }
+}
+
+.btn {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  width: 60px;
+  height: 60px;
+  border: 1px solid var(--clr-on-bold-bg);
+  background-color: transparent;
+  border-radius: 50%;
+  cursor: pointer;
+  z-index: 10;
+  opacity: 0;
+  transform: translateY(100%);
+  transition: all 0.3s;
+
+  svg {
+    font-size: 1.75em;
+    stroke: var(--clr-on-bold-bg);
+  }
+
+  @include mixins.link-when-active {
+    background-color: var(--clr-secondary);
+
+    & + .imgLink {
+      &::before {
+        opacity: 1;
+      }
+
+      .image {
+        transform: scale(1.1);
+      }
+    }
+  }
+}
+
+.image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: all 0.3s;
+}
+
+.title {
+  font-weight: 600;
+  font-size: 1.25rem;
+
+  a {
+    @include mixins.link-when-active {
+      color: var(--clr-secondary);
+    }
+  }
+}
+
+.category {
+  font-size: 0.9375rem;
+  color: var(--clr-contrast-medium);
+  margin-bottom: 5px;
+}
+
+.ingredients {
+  font-size: 1rem;
+  margin-bottom: 6px;
+}
+
+.number {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--clr-secondary);
+  margin-right: 8px;
+  line-height: 1;
+}

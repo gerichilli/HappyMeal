@@ -1,0 +1,32 @@
+.badge {
+  display: inline-block;
+  border-radius: 5px;
+  font-size: 0.75rem;
+  color: var(--clr-on-bold-bg);
+  padding: 4px 10px;
+  margin-bottom: 3px;
+
+  &:not(:last-child) {
+    margin-right: 3px;
+  }
+
+  &--1 {
+    background-color: #f99c1d;
+  }
+
+  &--2 {
+    background-color: #8fc533;
+  }
+
+  &--3 {
+    background-color: #5abac9;
+  }
+
+  &--4 {
+    background-color: #d575e0;
+  }
+
+  &--5 {
+    background-color: #fe5f61;
+  }
+}

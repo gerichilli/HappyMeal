@@ -17,7 +17,7 @@
   --clr-background-high: #f6f9f0;
 
   --clr-contrast: #2a443f;
-  --clr-contrast-medium: #505050;
+  --clr-contrast-medium: #6d6d6d;
   --clr-contrast-low: #c4c4c4;
 
   --clr-primary: #97cc3b;
@@ -60,4 +60,13 @@ a {
 
 button {
   white-space: nowrap;
+  font-family: inherit;
+  font-size: inherit;
+}
+
+.section-title {
+  font-weight: 700;
+  font-size: 2.25rem;
+  color: var(--clr-contrast);
+  margin-bottom: 30px;
 }

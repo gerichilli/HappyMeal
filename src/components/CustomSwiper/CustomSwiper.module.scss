@@ -1,0 +1,60 @@
+.container {
+  position: relative;
+}
+
+.btn {
+  position: absolute;
+  top: 50%;
+  z-index: 10;
+  color: var(--clr-contrast);
+  background-color: var(--clr-background);
+  border: 1px solid var(--clr-contrast-low);
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+
+  svg {
+    width: 1.75em;
+    height: 1.75em;
+    fill: currentColor;
+  }
+
+  &--sm {
+    width: 40px;
+    height: 40px;
+
+    svg {
+      width: 1.25em;
+      height: 1.25em;
+    }
+  }
+
+  &--lg {
+    &.btnPrev,
+    &.btnNext {
+      top: 170px; // Make it centered with image
+    }
+  }
+}
+
+.btnPrev {
+  left: 0;
+  transform: translate(-50%, -50%);
+
+  &.btn--lg {
+    transform: translate(-50%, -50%);
+  }
+}
+
+.btnNext {
+  right: 0;
+  transform: translate(50%, -50%);
+
+  &.btn--lg {
+    transform: translate(50%, -50%);
+  }
+}

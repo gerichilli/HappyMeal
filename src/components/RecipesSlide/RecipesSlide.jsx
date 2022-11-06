@@ -1,0 +1,42 @@
+import { Link } from "react-router-dom";
+import styles from "./RecipesSlide.module.scss";
+import { SwiperSlide } from "swiper/react";
+import { HiArrowSmRight } from "react-icons/hi";
+import Recipe from "../Recipe";
+import CustomSwiper from "../CustomSwiper";
+
+function RecipesSlide({ title, description, recipes, recipeSize }) {
+  const slideWidth = recipeSize === "lg" ? "calc((100% - 20px * 3) / 4)" : "fit-content";
+
+  return (
+    <section className={styles.section}>
+      <div className="container">
+        <div className={styles.sectionHeader}>
+          <h2 className={styles.title}>{title}</h2>
+          <Link to="/" className={styles.link}>
+            See more <HiArrowSmRight />
+          </Link>
+          <p className={styles.description}>{description}</p>
+        </div>
+        <div className={styles.sectionBody}>
+          {recipes && recipes.length > 0 && (
+            <CustomSwiper
+              spaceBetween={20}
+              slidesPerView={"auto"}
+              loop={true}
+              buttonSize={recipeSize}
+            >
+              {recipes.map((recipe) => (
+                <SwiperSlide key={recipe.id} style={{ width: slideWidth }}>
+                  <Recipe recipe={recipe} size={recipeSize} />
+                </SwiperSlide>
+              ))}
+            </CustomSwiper>
+          )}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+export default RecipesSlide;
