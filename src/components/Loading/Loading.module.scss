@@ -1,0 +1,24 @@
+.container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: var(--clr-background);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 99;
+
+  img {
+    width: 200px;
+    height: 200px;
+  }
+
+  p {
+    font-weight: 500;
+    font-size: 1.25rem;
+    margin-top: 20px;
+  }
+}

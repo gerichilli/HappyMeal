@@ -2,8 +2,10 @@ import { Link } from "react-router-dom";
 import styles from "./RecipesSlide.module.scss";
 import { SwiperSlide } from "swiper/react";
 import { HiArrowSmRight } from "react-icons/hi";
+import { MAX_REVIEW_RECIPES } from "../../utils/constants";
 import Recipe from "../Recipe";
 import CustomSwiper from "../CustomSwiper";
+import { RecipeSkeletons } from "../Skeleton";
 
 function RecipesSlide({ title, description, recipes, recipeSize }) {
   const slideWidth = recipeSize === "lg" ? "calc((100% - 20px * 3) / 4)" : "fit-content";
@@ -19,20 +21,26 @@ function RecipesSlide({ title, description, recipes, recipeSize }) {
           <p className={styles.description}>{description}</p>
         </div>
         <div className={styles.sectionBody}>
-          {recipes && recipes.length > 0 && (
-            <CustomSwiper
-              spaceBetween={20}
-              slidesPerView={"auto"}
-              loop={true}
-              buttonSize={recipeSize}
-            >
-              {recipes.map((recipe) => (
-                <SwiperSlide key={recipe.id} style={{ width: slideWidth }}>
-                  <Recipe recipe={recipe} size={recipeSize} />
-                </SwiperSlide>
-              ))}
-            </CustomSwiper>
-          )}
+          <CustomSwiper
+            spaceBetween={20}
+            slidesPerView={"auto"}
+            loop={true}
+            buttonSize={recipeSize}
+          >
+            {recipes && recipes.length > 0
+              ? recipes.map((recipe) => (
+                  <SwiperSlide key={recipe.id} style={{ width: slideWidth }}>
+                    <Recipe recipe={recipe} size={recipeSize} />
+                  </SwiperSlide>
+                ))
+              : Array(MAX_REVIEW_RECIPES)
+                  .fill(0)
+                  .map((_, index) => (
+                    <SwiperSlide key={index} style={{ width: slideWidth }}>
+                      <RecipeSkeletons />
+                    </SwiperSlide>
+                  ))}
+          </CustomSwiper>
         </div>
       </div>
     </section>

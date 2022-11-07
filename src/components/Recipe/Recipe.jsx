@@ -1,5 +1,6 @@
 import styles from "./Recipe.module.scss";
-
+import { LazyLoadImage } from "react-lazy-load-image-component";
+import "react-lazy-load-image-component/src/effects/blur.css";
 import AspectRatio from "../AspectRatio";
 import { Link } from "react-router-dom";
 import { HiOutlineBookmark } from "react-icons/hi";
@@ -16,7 +17,8 @@ function Recipe({ size, recipe }) {
         {
           <Link to={`/recipe/${recipe.id}`} className={styles.imgLink}>
             <AspectRatio ratio={1}>
-              <img src={recipe.thumbnail} alt="" className={styles.image} />
+              <LazyLoadImage src={recipe.thumbnail} alt="" className={styles.image} effect="blur" />
+              {/* <img src={recipe.thumbnail} alt="" className={styles.image} /> */}
             </AspectRatio>
           </Link>
         }

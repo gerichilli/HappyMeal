@@ -12,6 +12,10 @@ export async function getLastestRecipes() {
   return axios.get("getLastestRecipes");
 }
 
+export async function getRandomRecipes() {
+  return axios.get("getRandomRecipes");
+}
+
 export async function getRecipesByCategory(category) {
   return axios.get(`getRecipesByCategory?category=${category}`);
 }

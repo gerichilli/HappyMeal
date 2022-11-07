@@ -1,11 +1,12 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import styles from "./SideDishes.module.scss";
-import { getRecipesByCategory } from "../../../services/apiServices";
+import { getRandomRecipes } from "../../../services/apiServices";
 import mapRecipes from "../../../utils/mapRecipes";
 import { HiArrowSmRight } from "react-icons/hi";
-import imageSrc from "../../../assets/images/sidedishes.png";
+import imageSrc from "../../../assets/images/sidedishes.jpg";
 import Recipe from "../../Recipe";
+import { RecipeSkeletons } from "../../Skeleton";
 
 function SideDishes() {
   const [sideDishes, setSideDishes] = useState([]);
@@ -15,7 +16,7 @@ function SideDishes() {
   }, []);
 
   async function fetchSideDishes() {
-    const response = await getRecipesByCategory("side");
+    const response = await getRandomRecipes();
 
     if (response.status === 200) {
       let recipes = response.data.slice(0, 6);
@@ -28,7 +29,7 @@ function SideDishes() {
     <section className={styles.section}>
       <div className="container">
         <div className={styles.sectionHeader}>
-          <h2 className={styles.title}>Side Dishes</h2>
+          <h2 className={styles.title}>Random Recipes</h2>
           <Link to="/" className={styles.link}>
             See more <HiArrowSmRight />
           </Link>
@@ -39,13 +40,19 @@ function SideDishes() {
             <img src={imageSrc} alt="" />
           </div>
           <div className={styles.recipes}>
-            {sideDishes &&
-              sideDishes.length > 0 &&
-              sideDishes.map((recipe) => (
-                <div className={styles.recipe} key={recipe.id}>
-                  <Recipe size="sm" recipe={recipe} />
-                </div>
-              ))}
+            {sideDishes && sideDishes.length > 0
+              ? sideDishes.map((recipe) => (
+                  <div className={styles.recipe} key={recipe.id}>
+                    <Recipe size="sm" recipe={recipe} />
+                  </div>
+                ))
+              : Array(6)
+                  .fill(0)
+                  .map((_, index) => (
+                    <div className={styles.recipe} key={index}>
+                      <RecipeSkeletons />
+                    </div>
+                  ))}
           </div>
         </div>
       </div>
