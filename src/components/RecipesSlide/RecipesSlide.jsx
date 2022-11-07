@@ -5,7 +5,7 @@ import { HiArrowSmRight } from "react-icons/hi";
 import { MAX_REVIEW_RECIPES } from "../../utils/constants";
 import Recipe from "../Recipe";
 import CustomSwiper from "../CustomSwiper";
-import { RecipeSkeletons } from "../Skeleton";
+import { RecipeSkeleton } from "../Skeleton";
 
 function RecipesSlide({ title, description, recipes, recipeSize }) {
   const slideWidth = recipeSize === "lg" ? "calc((100% - 20px * 3) / 4)" : "fit-content";
@@ -37,7 +37,7 @@ function RecipesSlide({ title, description, recipes, recipeSize }) {
                   .fill(0)
                   .map((_, index) => (
                     <SwiperSlide key={index} style={{ width: slideWidth }}>
-                      <RecipeSkeletons />
+                      <RecipeSkeleton />
                     </SwiperSlide>
                   ))}
           </CustomSwiper>

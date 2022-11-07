@@ -1,4 +1,4 @@
 import Skeleton from "./Skeleton";
-import RecipeSkeletons from "./RecipeSkeletons";
+import RecipeSkeleton from "./RecipeSkeleton";
 export default Skeleton;
-export { RecipeSkeletons };
+export { RecipeSkeleton };

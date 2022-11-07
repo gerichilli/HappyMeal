@@ -6,7 +6,7 @@ import mapRecipes from "../../../utils/mapRecipes";
 import { HiArrowSmRight } from "react-icons/hi";
 import imageSrc from "../../../assets/images/sidedishes.jpg";
 import Recipe from "../../Recipe";
-import { RecipeSkeletons } from "../../Skeleton";
+import { RecipeSkeleton } from "../../Skeleton";
 
 function SideDishes() {
   const [sideDishes, setSideDishes] = useState([]);
@@ -50,7 +50,7 @@ function SideDishes() {
                   .fill(0)
                   .map((_, index) => (
                     <div className={styles.recipe} key={index}>
-                      <RecipeSkeletons />
+                      <RecipeSkeleton />
                     </div>
                   ))}
           </div>

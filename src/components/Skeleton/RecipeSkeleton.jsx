@@ -1,7 +1,7 @@
 import AspectRatio from "../AspectRatio";
 import Skeleton from "./Skeleton";
 
-function RecipesSkeleton({ numberOfRecipes = 1, ...props }) {
+function RecipeSkeleton() {
   return (
     <div>
       <AspectRatio ratio={1}>
@@ -18,4 +18,4 @@ function RecipesSkeleton({ numberOfRecipes = 1, ...props }) {
   );
 }
 
-export default RecipesSkeleton;
+export default RecipeSkeleton;
