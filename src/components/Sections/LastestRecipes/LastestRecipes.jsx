@@ -5,7 +5,7 @@ import mapRecipes from "../../../utils/mapRecipes";
 import RecipesSlide from "../../RecipesSlide";
 import { IconClock } from "../../../assets/icons/icons";
 
-function VegetarianRecipes() {
+function LastestRecipes() {
   const [lastestRecipes, setLastestRecipes] = useState([]);
 
   useEffect(() => {
@@ -13,10 +13,10 @@ function VegetarianRecipes() {
   }, []);
 
   async function fetchLastestRecipes() {
-    const response = await getLastestRecipes();
+    const res = await getLastestRecipes();
 
-    if (response.status === 200) {
-      let recipes = response.data.slice(0, MAX_REVIEW_RECIPES);
+    if (res && res.status === 200) {
+      let recipes = res.data.slice(0, MAX_REVIEW_RECIPES);
 
       recipes = mapRecipes(recipes);
       setLastestRecipes(recipes);
@@ -37,4 +37,4 @@ function VegetarianRecipes() {
   );
 }
 
-export default VegetarianRecipes;
+export default LastestRecipes;

@@ -1,6 +1,5 @@
 import styles from "./Recipe.module.scss";
 import { LazyLoadImage } from "react-lazy-load-image-component";
-import "react-lazy-load-image-component/src/effects/blur.css";
 import AspectRatio from "../AspectRatio";
 import { Link } from "react-router-dom";
 import { HiOutlineBookmark } from "react-icons/hi";
@@ -14,17 +13,15 @@ function Recipe({ size, recipe }) {
         <button className={styles.btn}>
           <HiOutlineBookmark />
         </button>
-        {
-          <Link to={`/recipe/${recipe.id}`} className={styles.imgLink}>
-            <AspectRatio ratio={1}>
-              <LazyLoadImage src={recipe.thumbnail} alt="" className={styles.image} effect="blur" />
-              {/* <img src={recipe.thumbnail} alt="" className={styles.image} /> */}
-            </AspectRatio>
-          </Link>
-        }
+        <Link to={`/recipe/${recipe.id}`} className={styles.imgLink}>
+          <AspectRatio ratio={1}>
+            <LazyLoadImage src={recipe.thumbnail} alt="" className={styles.image} effect="blur" />
+            {/* <img src={recipe.thumbnail} alt="" className={styles.image} /> */}
+          </AspectRatio>
+        </Link>
       </div>
       <h3 className={styles.title}>
-        <Link to="/">{recipe.title}</Link>
+        <Link to={`/recipe/${recipe.id}`}>{recipe.title}</Link>
       </h3>
       <p className={styles.category}>{recipe.category}</p>
       <p className={styles.ingredients}>

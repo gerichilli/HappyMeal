@@ -13,10 +13,10 @@ function DessertRecipes() {
   }, []);
 
   async function fetchDessertRecipes() {
-    const response = await getRecipesByCategory("dessert");
+    const res = await getRecipesByCategory("dessert");
 
-    if (response.status === 200) {
-      let recipes = response.data.slice(0, MAX_REVIEW_RECIPES);
+    if (res && res.status === 200) {
+      let recipes = res.data.slice(0, MAX_REVIEW_RECIPES);
 
       recipes = mapRecipes(recipes);
       setDessertRecipes(recipes);
@@ -32,7 +32,7 @@ function DessertRecipes() {
       }
       description="Simple healthy recipes for your family"
       recipes={dessertRecipes}
-      recipeSize="lg"
+      recipeSize="md"
     />
   );
 }

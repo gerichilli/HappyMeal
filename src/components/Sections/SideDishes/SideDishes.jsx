@@ -16,10 +16,10 @@ function SideDishes() {
   }, []);
 
   async function fetchSideDishes() {
-    const response = await getRandomRecipes();
+    const res = await getRandomRecipes();
 
-    if (response.status === 200) {
-      let recipes = response.data.slice(0, 6);
+    if (res && res.status === 200) {
+      let recipes = res.data.slice(0, 6);
 
       recipes = mapRecipes(recipes);
       setSideDishes(recipes);

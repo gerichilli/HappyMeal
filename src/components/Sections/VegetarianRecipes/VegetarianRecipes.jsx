@@ -13,10 +13,10 @@ function VegetarianRecipes() {
   }, []);
 
   async function fetchVegetarianRecipes() {
-    const response = await getRecipesByCategory("vegetarian");
+    const res = await getRecipesByCategory("vegetarian");
 
-    if (response.status === 200) {
-      let recipes = response.data.slice(0, MAX_REVIEW_RECIPES);
+    if (res && res.status === 200) {
+      let recipes = res.data.slice(0, MAX_REVIEW_RECIPES);
 
       recipes = mapRecipes(recipes);
       setVegetarianRecipes(recipes);

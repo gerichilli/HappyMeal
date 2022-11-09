@@ -3,6 +3,7 @@ import Header from "../Header";
 import Footer from "../Footer";
 import logo from "../../assets/images/logo.png";
 import { BASE_URL } from "../../utils/constants";
+import ScrollToTop from "../../components/ScrollToTop";
 
 function Layout({
   children,
@@ -12,7 +13,7 @@ function Layout({
 }) {
   const url = path === "/" ? BASE_URL : BASE_URL + path;
   return (
-    <div>
+    <ScrollToTop>
       <Helmet>
         <title>{title}</title>
         <link rel="canonical" href={url} />
@@ -29,9 +30,9 @@ function Layout({
         <meta property="twitter:url" content={url} />
       </Helmet>
       <Header />
-      <div>{children}</div>
+      <main>{children}</main>
       <Footer />
-    </div>
+    </ScrollToTop>
   );
 }
 

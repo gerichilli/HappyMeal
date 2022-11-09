@@ -17,7 +17,7 @@ function Nav() {
   async function fetchCategoryList() {
     const res = await getCategoryList();
 
-    if (res.status === 200) {
+    if (res && res.status === 200) {
       setCategoryList(res.data);
     }
   }
@@ -25,7 +25,7 @@ function Nav() {
   async function fetchAreaList() {
     const res = await getAreaList();
 
-    if (res.status === 200) {
+    if (res && res.status === 200) {
       setAreaList(res.data);
     }
   }

@@ -16,6 +16,8 @@
   --clr-background: #ffffff;
   --clr-background-high: #f6f9f0;
   --clr-background-higher: #dde2d3;
+  --clr-background-note: #fcfcfc;
+  --clr-line-note: #ddd;
 
   --clr-contrast: #2a443f;
   --clr-contrast-medium: #6d6d6d;
@@ -71,4 +73,44 @@ button {
   font-size: 2.25rem;
   color: var(--clr-contrast);
   margin-bottom: 30px;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+.checkbox {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  transform: translateY(-13px);
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+  border-radius: 6px;
+  border: 2px solid var(--clr-contrast);
+  box-shadow: 1.5px 1.5px 0px var(--clr-contrast);
+
+  & > svg {
+    position: absolute;
+    top: 0;
+    left: 2px;
+    opacity: 0;
+  }
+}
+
+input[type="checkbox"]:checked + .checkbox {
+  background-color: var(--clr-secondary);
+
+  & > svg {
+    opacity: 1;
+  }
 }

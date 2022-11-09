@@ -2,6 +2,8 @@ import styles from "./Badge.module.scss";
 import createClassName from "../../utils/createClassName";
 
 function Badge({ text }) {
+  if (!text) return null;
+
   let number = 1;
   let firstLetter = text[0].toLowerCase();
 

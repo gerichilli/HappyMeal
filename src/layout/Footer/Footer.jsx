@@ -4,10 +4,6 @@ import { Link } from "react-router-dom";
 import logo from "../../assets/images/logo.png";
 import Subscription from "../../components/Subscription";
 
-function getCurrentYear() {
-  return new Date().getFullYear();
-}
-
 function Footer() {
   return (
     <footer className={styles.footer}>
@@ -95,7 +91,9 @@ function Footer() {
             </div>
           </div>
         </div>
-        <p className={styles.copyright}>© {getCurrentYear()} Happy Meal. Developed by Mi Vu</p>
+        <p className={styles.copyright}>
+          © {new Date().getFullYear()} Happy Meal. Developed by Mi Vu
+        </p>
       </div>
     </footer>
   );

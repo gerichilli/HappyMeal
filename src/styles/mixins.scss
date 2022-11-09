@@ -5,3 +5,25 @@
     @content;
   }
 }
+
+@mixin create-paper-pattern($line-height, $background-color, $line-color) {
+  line-height: $line-height;
+  padding-top: #{$line-height}em;
+  padding-bottom: #{$line-height}em;
+  margin-bottom: -#{$line-height / 4}em;
+  position: relative;
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    z-index: -1;
+    background: $background-color;
+    background-image: repeating-linear-gradient($line-color 0 1px, transparent 0 #{$line-height}em);
+    background-origin: content-box;
+    transform: translateY(-#{$line-height / 5}em);
+  }
+}

@@ -15,10 +15,7 @@ exports.handler = async (event, context) => {
         body: JSON.stringify(response.data.meals[0]),
       };
     } else {
-      return {
-        statusCode: 404,
-        body: "No recipes found",
-      };
+      throw new Error("No recipes found");
     }
   } catch (err) {
     return {

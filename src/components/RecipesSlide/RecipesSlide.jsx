@@ -8,7 +8,12 @@ import CustomSwiper from "../CustomSwiper";
 import { RecipeSkeleton } from "../Skeleton";
 
 function RecipesSlide({ title, description, recipes, recipeSize }) {
-  const slideWidth = recipeSize === "lg" ? "calc((100% - 20px * 3) / 4)" : "fit-content";
+  const slideWidth =
+    recipeSize === "lg"
+      ? "calc((100% - 20px * 3) / 4)"
+      : recipeSize === "md"
+      ? "calc((100% - 20px * 4) / 5)"
+      : "fit-content";
 
   return (
     <section className={styles.section}>
