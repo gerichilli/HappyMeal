@@ -3,6 +3,8 @@ import { useParams, useNavigate, useLocation } from "react-router-dom";
 import styles from "./Recipe.module.scss";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import { Lightbox } from "react-modal-image";
+import ReactTooltip from "react-tooltip";
+import ReactDOMServer from "react-dom/server";
 import _ from "lodash";
 import {
   getRecipesById,
@@ -14,12 +16,12 @@ import mapRecipes from "../../utils/mapRecipes";
 import { MAX_REVIEW_RECIPES } from "../../utils/constants";
 import { AiOutlinePlayCircle } from "react-icons/ai";
 import { IconDuration, IconIngredients, IconChef, IconCheck } from "../../assets/icons/icons";
-import Layout from "../../layout/Layout";
 import AspectRatio from "../../components/AspectRatio";
 import Badge from "../../components/Badge";
 import RecipeComponent from "../../components/Recipe";
 import RecipesSlide from "../../components/RecipesSlide";
 import { RecipeSkeleton } from "../../components/Skeleton";
+import Seo from "../../components/Seo";
 
 function Recipe() {
   const { id } = useParams();
@@ -47,6 +49,7 @@ function Recipe() {
   }, [category]);
 
   async function getRecipe() {
+    setRecipe({});
     const res = await getRecipesById(id);
 
     if (res && res.status === 200) {
@@ -58,6 +61,7 @@ function Recipe() {
       }
     } else {
       navigate("/404");
+      return;
     }
   }
 
@@ -95,7 +99,8 @@ function Recipe() {
   }
 
   return (
-    <Layout path={location.pathname} title={recipe && recipe.title ? recipe.title : ""}>
+    <>
+      <Seo path={location.pathname} title={recipe && recipe.title ? recipe.title : ""} />
       <div className={styles.wrapper}>
         <div className={styles.mainSection}>
           {!_.isEmpty(recipe) && (
@@ -170,7 +175,23 @@ function Recipe() {
                                   <span className="checkbox">
                                     <IconCheck />
                                   </span>
-                                  <span className={styles.ingredientName}>{ingredient.name}</span>
+                                  <span
+                                    className={styles.ingredientName}
+                                    data-html={true}
+                                    data-tip={ReactDOMServer.renderToString(
+                                      <img
+                                        src={`https://www.themealdb.com/images/ingredients/${ingredient.name}-Small.png`}
+                                        alt=""
+                                      />
+                                    )}
+                                    data-class={styles.tooltip}
+                                    data-padding="6px"
+                                    data-arrow-color="transparent"
+                                    data-offset="{ 'left': -20 }"
+                                  >
+                                    {ingredient.name}
+                                    <ReactTooltip place="right" type="light" effect="solid" />
+                                  </span>
                                 </label>
                                 <span className={styles.ingredientMeasure}>
                                   {ingredient?.measure}
@@ -205,7 +226,6 @@ function Recipe() {
         </div>
         <RecipesSlide title="You might also like" recipes={relatedRecipes} recipeSize="md" />
       </div>
-
       {showLightbox && (
         <Lightbox
           medium={lightboxImage}
@@ -214,7 +234,7 @@ function Recipe() {
           onClose={handleCloseLightbox}
         />
       )}
-    </Layout>
+    </>
   );
 }
 

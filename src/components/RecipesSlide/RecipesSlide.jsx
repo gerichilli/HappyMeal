@@ -7,7 +7,7 @@ import Recipe from "../Recipe";
 import CustomSwiper from "../CustomSwiper";
 import { RecipeSkeleton } from "../Skeleton";
 
-function RecipesSlide({ title, description, recipes, recipeSize }) {
+function RecipesSlide({ title, description, recipes, recipeSize, pageLink }) {
   const slideWidth =
     recipeSize === "lg"
       ? "calc((100% - 20px * 3) / 4)"
@@ -20,7 +20,7 @@ function RecipesSlide({ title, description, recipes, recipeSize }) {
       <div className="container">
         <div className={styles.sectionHeader}>
           <h2 className={styles.title}>{title}</h2>
-          <Link to="/" className={styles.link}>
+          <Link to={pageLink} className={styles.link}>
             See more <HiArrowSmRight />
           </Link>
           <p className={styles.description}>{description}</p>

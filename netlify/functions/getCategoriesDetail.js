@@ -4,18 +4,18 @@ const axios = require("axios");
 exports.handler = async (event, context) => {
   try {
     const response = await axios.get(
-      `${process.env.THEMEALDB_URL}/${process.env.THEMEALDB_API_KEY}/list.php?a=list`
+      `${process.env.THEMEALDB_URL}/${process.env.THEMEALDB_API_KEY}/categories.php`
     );
 
-    if (response.data.meals && response.data.meals.length > 0) {
+    if (response.data.categories && response.data.categories.length > 0) {
       return {
         statusCode: 200,
-        body: JSON.stringify(response.data.meals),
+        body: JSON.stringify(response.data.categories),
       };
     } else {
       return {
         statusCode: 404,
-        body: "This area does not exist in the database",
+        body: "Cannot find any categories",
       };
     }
   } catch (err) {

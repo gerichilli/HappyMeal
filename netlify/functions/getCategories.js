@@ -15,7 +15,7 @@ exports.handler = async (event, context) => {
     } else {
       return {
         statusCode: 404,
-        body: "No recipes found for this category",
+        body: "This category does not exist in the database",
       };
     }
   } catch (err) {

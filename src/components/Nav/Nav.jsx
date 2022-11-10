@@ -2,16 +2,18 @@ import { useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import styles from "./Nav.module.scss";
 import NavDropdown from "./NavDropdown";
-import { getCategoryList, getAreaList } from "../../services/apiServices";
+import { getCategoryList, getAreaList, getIngredientList } from "../../services/apiServices";
 
 function Nav() {
   const [openDropdown, setOpenDropdown] = useState("");
   const [categoryList, setCategoryList] = useState([]);
   const [areaList, setAreaList] = useState([]);
+  const [ingredientList, setIngredientList] = useState([]);
 
   useEffect(() => {
     fetchCategoryList();
     fetchAreaList();
+    fetchIngredientList();
   }, []);
 
   async function fetchCategoryList() {
@@ -27,6 +29,14 @@ function Nav() {
 
     if (res && res.status === 200) {
       setAreaList(res.data);
+    }
+  }
+
+  async function fetchIngredientList() {
+    const res = await getIngredientList();
+
+    if (res && res.status === 200) {
+      setIngredientList(res.data);
     }
   }
 
@@ -47,11 +57,13 @@ function Nav() {
           isOpen={openDropdown === "areas"}
           setOpenDropdown={setOpenDropdown}
         />
-        <li className={styles.navItem}>
-          <NavLink className={styles.navLink} to="/ingredients">
-            Ingredients
-          </NavLink>
-        </li>
+        <NavDropdown
+          label="Ingredients"
+          type="ingredients"
+          listData={ingredientList}
+          isOpen={openDropdown === "ingredients"}
+          setOpenDropdown={setOpenDropdown}
+        />
       </ul>
     </nav>
   );

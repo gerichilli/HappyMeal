@@ -37,14 +37,32 @@ function NavDropdown({ label, type, listData, isOpen, setOpenDropdown }) {
             {listData.map((item) =>
               type === "categories" ? (
                 <li key={item.strCategory}>
-                  <Link to={`/category/${item.strCategory}`} className={styles.dropItem}>
+                  <Link
+                    to={`/browse?category=${item.strCategory}`}
+                    className={styles.dropItem}
+                    onClick={handleCloseDropdown}
+                  >
                     {item.strCategory}
                   </Link>
                 </li>
-              ) : (
+              ) : type === "areas" ? (
                 <li key={item.strArea}>
-                  <Link to={`/area/${item.strArea}`} className={styles.dropItem}>
+                  <Link
+                    to={`/browse?area=${item.strArea}`}
+                    className={styles.dropItem}
+                    onClick={handleCloseDropdown}
+                  >
                     {item.strArea}
+                  </Link>
+                </li>
+              ) : (
+                <li key={item.idIngredient}>
+                  <Link
+                    to={`/browse?ingredient=${item.strIngredient}`}
+                    className={styles.dropItem}
+                    onClick={handleCloseDropdown}
+                  >
+                    {item.strIngredient}
                   </Link>
                 </li>
               )

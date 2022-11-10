@@ -6,7 +6,7 @@
 }
 
 .mainSection {
-  min-height: 500px;
+  min-height: 700px;
 }
 
 /* Header */
@@ -183,6 +183,19 @@
 
 .ingredientMeasure {
   margin-left: auto;
+}
+
+.tooltip {
+  background-color: var(--clr-background-note) !important;
+  width: 112px;
+  height: 112px;
+  border: 2px solid var(--clr-contrast) !important;
+  border-radius: 6px !important;
+  box-shadow: 2px 2px 0 var(--clr-contrast) !important;
+
+  img {
+    max-width: 100px;
+  }
 }
 
 /* Lastest */

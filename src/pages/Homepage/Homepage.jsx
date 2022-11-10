@@ -9,17 +9,18 @@ import {
   SideDishes,
   VegetarianRecipes,
 } from "../../components/Sections";
-import Layout from "../../layout/Layout";
+import Seo from "../../components/Seo";
 
 function Homepage() {
   const location = useLocation();
 
   return (
-    <Layout
-      title="HappyMeal - Less Stress. More Joy"
-      description="Simply Recipes is here to help you cook delicious meals with less stress and more joy. We offer recipes and cooking advice for home cooks, by home cooks."
-      path={location.pathname}
-    >
+    <>
+      <Seo
+        title="HappyMeal - Less Stress. More Joy"
+        description="Simply Recipes is here to help you cook delicious meals with less stress and more joy. We offer recipes and cooking advice for home cooks, by home cooks."
+        path={location.pathname}
+      />
       <Banner />
       <LastestRecipes />
       <VegetarianRecipes />
@@ -28,7 +29,7 @@ function Homepage() {
       <SideDishes />
       <JoinWithUs />
       <Instagram />
-    </Layout>
+    </>
   );
 }
 

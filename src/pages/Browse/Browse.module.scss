@@ -1,0 +1,50 @@
+.section {
+  margin-top: 100px;
+}
+
+.sectionTitle {
+  font-weight: 700;
+  font-size: 1.75rem;
+  text-transform: uppercase;
+  text-align: center;
+  margin-bottom: 80px;
+}
+
+.sectionBody {
+}
+
+.sectionInfo {
+  margin-bottom: 60px;
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid var(--clr-primary);
+  padding-bottom: 24px;
+}
+
+.infoImage {
+  flex-basis: 22.5%;
+  flex-shrink: 0;
+
+  img {
+    max-width: 100%;
+  }
+}
+
+.infoBody {
+  padding: 24px 0 24px 48px;
+}
+
+.sectionMain {
+}
+
+.recipes {
+  display: flex;
+  flex-wrap: wrap;
+  margin-left: -24px;
+}
+
+.recipe {
+  flex-basis: calc((100% - 24px * 4) / 4);
+  margin-left: 24px;
+  margin-bottom: 30px;
+}

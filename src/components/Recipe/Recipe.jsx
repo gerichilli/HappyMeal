@@ -25,7 +25,7 @@ function Recipe({ size, recipe }) {
       </h3>
       <p className={styles.category}>{recipe.category}</p>
       <p className={styles.ingredients}>
-        <span className={styles.number}>{recipe.ingredients.length}</span>
+        <span className={styles.number}>{recipe.ingredients && recipe.ingredients.length}</span>
         <span>Ingredients</span>
       </p>
       <div className={styles.tags}>

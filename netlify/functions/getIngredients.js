@@ -4,7 +4,7 @@ const axios = require("axios");
 exports.handler = async (event, context) => {
   try {
     const response = await axios.get(
-      `${process.env.THEMEALDB_URL}/${process.env.THEMEALDB_API_KEY}/list.php?a=list`
+      `${process.env.THEMEALDB_URL}/${process.env.THEMEALDB_API_KEY}/list.php?i=list`
     );
 
     if (response.data.meals && response.data.meals.length > 0) {
@@ -15,7 +15,7 @@ exports.handler = async (event, context) => {
     } else {
       return {
         statusCode: 404,
-        body: "This area does not exist in the database",
+        body: "This ingredient does not exist in the database",
       };
     }
   } catch (err) {

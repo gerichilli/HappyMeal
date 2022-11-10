@@ -33,6 +33,7 @@ function DessertRecipes() {
       description="Simple healthy recipes for your family"
       recipes={dessertRecipes}
       recipeSize="md"
+      pageLink="/browse?category=dessert"
     />
   );
 }

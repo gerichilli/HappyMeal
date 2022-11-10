@@ -33,6 +33,7 @@ function VegetarianRecipes() {
       description="Find healthy, delicious weight-loss and diet recipes"
       recipes={vegetarianRecipes}
       recipeSize="lg"
+      pageLink="/browse?category=vegetarian"
     />
   );
 }
