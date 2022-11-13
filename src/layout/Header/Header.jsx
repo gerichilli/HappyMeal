@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import styles from "./Header.module.scss";
 import Nav from "../../components/Nav";
 import logo from "../../assets/images/logo.png";
+import SearchForm from "../../components/SearchForm";
 
 function Header() {
   return (
@@ -14,7 +15,9 @@ function Header() {
           <div className={styles.navContainer}>
             <Nav />
           </div>
-          <form className={styles.formContainer}>Search form</form>
+          <div className={styles.formContainer}>
+            <SearchForm />
+          </div>
         </div>
       </div>
       <div className={styles.logBar}>

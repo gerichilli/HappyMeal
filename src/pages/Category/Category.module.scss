@@ -1,0 +1,23 @@
+.sectionTop {
+  margin-bottom: 60px;
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid var(--clr-primary);
+  padding-bottom: 24px;
+}
+
+.infoImage {
+  flex-basis: 22.5%;
+  flex-shrink: 0;
+  min-height: 160px;
+  position: relative;
+
+  img {
+    max-width: 100%;
+  }
+}
+
+.infoBody {
+  padding: 24px 0 24px 48px;
+  flex-grow: 1;
+}

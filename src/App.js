@@ -7,13 +7,17 @@ import PageNotFound from "./pages/PageNotFound";
 import Layout from "./layout/Layout";
 
 const LazyRecipePage = lazy(() => import("./pages/Recipe"));
-const LazyBrowse = lazy(() => import("./pages/Browse"));
+const LazySearch = lazy(() => import("./pages/Search"));
+const LazyCategory = lazy(() => import("./pages/Category"));
+const LazyArea = lazy(() => import("./pages/Area"));
+const LazyIngredient = lazy(() => import("./pages/Ingredient"));
 
-// TODO: Search form
 // TODO: Login / Register
 // TODO: Use Firebase to store user data
+// TODO: Bookmark feature
 // TODO: Bookmark page
 // TODO: Print recipe
+// TODO: Responsive grid and layout
 function App() {
   return (
     <Suspense fallback={<Loading />}>
@@ -23,7 +27,10 @@ function App() {
             <Route path="/" element={<Layout />}>
               <Route index element={<Homepage />} />
               <Route path="/recipe/:id" element={<LazyRecipePage />} />
-              <Route path="/browse" element={<LazyBrowse />} />
+              <Route path="/category/:category" element={<LazyCategory />} />
+              <Route path="/area/:area" element={<LazyArea />} />
+              <Route path="/ingredient/:ingredient" element={<LazyIngredient />} />
+              <Route path="/search/:query" element={<LazySearch />} />
               <Route path="/404" element={<PageNotFound />} />
               <Route path="*" element={<PageNotFound />} />
             </Route>

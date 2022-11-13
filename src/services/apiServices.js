@@ -32,10 +32,14 @@ export async function getRecipesByArea(area) {
   return axios.get(`getRecipesByArea?area=${area}`);
 }
 
-export async function getRecipesByMainIngredient(ingredient) {
-  return axios.get(`getRecipesByMainIngredient?ingredient=${ingredient}`);
+export async function getRecipesByIngredients(ingredients) {
+  return axios.get(`getRecipesByIngredients?ingredients=${ingredients}`);
 }
 
 export async function getRecipesById(id) {
   return axios.get(`getRecipeById?id=${id}`);
+}
+
+export async function getRecipesByName(name) {
+  return axios.get(`getRecipesByName?name=${name}`);
 }

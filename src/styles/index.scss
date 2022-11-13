@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Maven+Pro:wght@400;500;600;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Maven+Pro:wght@400;500;600;700&family=Source+Serif+Pro:wght@400;600;700&display=swap");
 @import "swiper/scss";
 @import "swiper/scss/navigation";
 @import "swiper/scss/pagination";
@@ -20,7 +20,7 @@
   --clr-background-note: #fcfcfc;
   --clr-line-note: #ddd;
 
-  --clr-contrast: #2a443f;
+  --clr-contrast: #343434;
   --clr-contrast-medium: #6d6d6d;
   --clr-contrast-low: #c4c4c4;
 
@@ -36,6 +36,8 @@
 
   --container-width: 1540px;
   --container-padding: 60px;
+
+  --ff-heading: "Source Serif Pro", serif;
 }
 
 html {
@@ -121,7 +123,7 @@ input[type="checkbox"]:checked + .checkbox {
   list-style: none;
   display: flex;
   justify-content: center;
-  margin-top: 30px;
+  margin-top: 60px;
 }
 
 .page-item {

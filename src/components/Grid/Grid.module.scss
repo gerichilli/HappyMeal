@@ -1,0 +1,12 @@
+.grid {
+  display: flex;
+  flex-wrap: wrap;
+  margin-left: calc(-1 * var(--gx));
+  margin-top: calc(-1 * var(--gy));
+}
+
+.item {
+  flex-basis: calc((100% - var(--gx) * var(--cols)) / var(--cols));
+  margin-left: var(--gx);
+  margin-top: var(--gy);
+}

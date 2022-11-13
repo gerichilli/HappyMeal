@@ -14,8 +14,11 @@
 .title {
   display: flex;
   align-items: center;
-  font-size: 1.75rem;
+  letter-spacing: 0.01em;
+  font-family: var(--ff-heading);
+  font-size: 1.875rem;
   font-weight: 700;
+  letter-spacing: 0.01em;
   line-height: 1.2;
 
   svg {
@@ -60,15 +63,6 @@
 }
 
 .recipes {
-  --gap: 36px;
-  flex-grow: 1;
-  display: flex;
-  flex-wrap: wrap;
-  padding-top: var(--gap);
-}
-
-.recipe {
-  flex-basis: calc((100% - var(--gap) * 3) / 3);
-  margin-left: var(--gap);
-  margin-bottom: var(--gap);
+  padding: 36px;
+  padding-right: 0;
 }

@@ -3,11 +3,11 @@ const axios = require("axios");
 
 exports.handler = async (event, context) => {
   try {
-    const ingredient = event.queryStringParameters.ingredient;
+    const ingredients = event.queryStringParameters.ingredients;
 
-    // Get recipes by ingredient
+    // Get recipes by ingredients
     const response = await axios.get(
-      `${process.env.THEMEALDB_URL}/${process.env.THEMEALDB_API_KEY}/filter.php?i=${ingredient}`
+      `${process.env.THEMEALDB_URL}/${process.env.THEMEALDB_API_KEY}/filter.php?i=${ingredients}`
     );
 
     // Get the full recipe details by the fetched recipes id
@@ -40,7 +40,7 @@ exports.handler = async (event, context) => {
     } else {
       return {
         statusCode: 404,
-        body: "No recipes found for this ingredient",
+        body: "No recipes found",
       };
     }
   } catch (err) {

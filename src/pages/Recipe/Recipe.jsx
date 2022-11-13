@@ -5,6 +5,7 @@ import { LazyLoadImage } from "react-lazy-load-image-component";
 import { Lightbox } from "react-modal-image";
 import ReactTooltip from "react-tooltip";
 import ReactDOMServer from "react-dom/server";
+import { HiOutlineBookmark } from "react-icons/hi";
 import _ from "lodash";
 import {
   getRecipesById,
@@ -142,7 +143,7 @@ function Recipe() {
                         {recipe.area && <span>{recipe.area}</span>}
                       </div>
                     </div>
-                    <div className={styles.levels}>
+                    {/* <div className={styles.levels}>
                       <div className={styles.level}>
                         <IconDuration />
                         <div className="recipe__text">20 min</div>
@@ -155,7 +156,11 @@ function Recipe() {
                         <IconChef />
                         <div className="recipe__text">Easy</div>
                       </div>
-                    </div>
+                    </div> */}
+                    <button className={styles.bookmark}>
+                      <HiOutlineBookmark size="1.5em" />
+                      <span>Save Recipe</span>
+                    </button>
                   </div>
                 </div>
                 <div className={styles.main}>
