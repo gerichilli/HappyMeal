@@ -32,7 +32,7 @@ function SideDishes() {
       <div className="container">
         <div className={styles.sectionHeader}>
           <h2 className={styles.title}>Random Recipes</h2>
-          <Link to="/browse?sort=randoms" className={styles.link}>
+          <Link to="/browse/random" className={styles.link}>
             See more <HiArrowSmRight />
           </Link>
           <p className={styles.description}>Regular meal planning can save you time and money.</p>

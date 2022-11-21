@@ -1,0 +1,147 @@
+.wrapper {
+  padding: 80px 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.form {
+  font-size: 1rem;
+  width: 100%;
+  max-width: 500px;
+  background-color: var(--clr-background-note);
+  border-radius: 10px;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  padding: 40px;
+
+  label {
+    display: block;
+    margin-bottom: 16px;
+    position: relative;
+  }
+
+  button {
+    width: 100%;
+    padding: 14px 20px;
+    font-size: 1rem;
+    font-weight: 500;
+    outline: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+}
+
+.formTop {
+  margin-bottom: 36px;
+  text-align: center;
+
+  h1 {
+    font-size: 2rem;
+    line-height: 1.2;
+  }
+}
+
+.input {
+  font-family: inherit;
+  font-size: inherit;
+  width: 100%;
+  padding: 14px 40px 14px 20px;
+  border: 1px solid var(--clr-contrast-low);
+  border-radius: 5px;
+
+  &::placeholder {
+    color: var(--clr-contrast-medium);
+  }
+
+  &:focus,
+  &:active,
+  &:focus-visible {
+    outline-color: var(--clr-primary);
+  }
+}
+
+.inputIcon {
+  position: absolute;
+  fill: var(--clr-contrast-low);
+  font-size: 1.25em;
+  top: 50%;
+  right: 12px;
+  transform: translateY(-50%);
+}
+
+.error {
+  outline: 2px solid var(--clr-error) !important;
+}
+
+.errorMessage {
+  color: var(--clr-error);
+  font-size: 0.875rem;
+  margin-top: 3px;
+}
+
+.forgotMessage {
+  font-weight: 500;
+}
+
+.submit {
+  display: block;
+  margin-top: 20px;
+  border: none;
+  background-color: var(--clr-primary);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  color: var(--clr-on-bold-bg);
+
+  &:hover,
+  &:focus,
+  &:active,
+  &:focus-visible {
+    background-color: var(--clr-primary-hover);
+  }
+}
+
+.snsMessage {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 30px;
+  margin-bottom: 16px;
+
+  &::before,
+  &::after {
+    content: "";
+    display: block;
+    width: 20px;
+    height: 1px;
+    background-color: var(--clr-contrast);
+  }
+
+  &::before {
+    margin-right: 6px;
+  }
+
+  &::after {
+    margin-left: 6px;
+  }
+}
+
+.snsButton {
+  background-color: transparent;
+  border: 1px solid var(--clr-contrast-low);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  svg {
+    font-size: 1.25em;
+    margin-right: 8px;
+  }
+}
+
+.changeActionMessage {
+  margin-top: 20px;
+  text-align: center;
+
+  a {
+    font-weight: 500;
+  }
+}

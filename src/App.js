@@ -11,6 +11,9 @@ const LazySearch = lazy(() => import("./pages/Search"));
 const LazyCategory = lazy(() => import("./pages/Category"));
 const LazyArea = lazy(() => import("./pages/Area"));
 const LazyIngredient = lazy(() => import("./pages/Ingredient"));
+const LazyBrowse = lazy(() => import("./pages/Browse"));
+const LazyLogin = lazy(() => import("./auth/Login"));
+const LazyRegister = lazy(() => import("./auth/Register"));
 
 // TODO: Login / Register
 // TODO: Use Firebase to store user data
@@ -31,6 +34,9 @@ function App() {
               <Route path="/area/:area" element={<LazyArea />} />
               <Route path="/ingredient/:ingredient" element={<LazyIngredient />} />
               <Route path="/search/:query" element={<LazySearch />} />
+              <Route path="/browse/:browseBy" element={<LazyBrowse />} />
+              <Route path="/login" element={<LazyLogin />} />
+              <Route path="/register" element={<LazyRegister />} />
               <Route path="/404" element={<PageNotFound />} />
               <Route path="*" element={<PageNotFound />} />
             </Route>

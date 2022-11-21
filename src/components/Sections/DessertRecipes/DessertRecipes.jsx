@@ -13,7 +13,7 @@ function DessertRecipes() {
   }, []);
 
   async function fetchDessertRecipes() {
-    const res = await getRecipesByCategory("dessert");
+    const res = await getRecipesByCategory("Dessert");
 
     if (res && res.status === 200) {
       let recipes = res.data.slice(0, MAX_REVIEW_RECIPES);
@@ -33,7 +33,7 @@ function DessertRecipes() {
       description="Simple healthy recipes for your family"
       recipes={dessertRecipes}
       recipeSize="md"
-      pageLink="/browse?category=dessert"
+      pageLink="/category/Dessert"
     />
   );
 }

@@ -2,21 +2,30 @@ import { useState, useEffect } from "react";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import ListLayout from "../../layout/ListLayout";
 import Seo from "../../components/Seo";
-import { getRecipesByArea } from "../../services/apiServices";
+import { getLastestRecipes, getRandomRecipes } from "../../services/apiServices";
 import mapRecipes from "../../utils/mapRecipes";
 
-function Area() {
-  const { area } = useParams();
+function Browse() {
+  const { browseBy } = useParams();
   const location = useLocation();
   const navigate = useNavigate();
   const [recipes, setRecipes] = useState([]);
   useEffect(() => {
     fetchRecipes();
-  }, [area]);
+  }, [browseBy]);
 
   async function fetchRecipes() {
     setRecipes([]);
-    const res = await getRecipesByArea(area);
+    let res;
+
+    if (browseBy === "lastest") {
+      res = await getLastestRecipes();
+    } else if (browseBy === "random") {
+      res = await getRandomRecipes();
+    } else {
+      navigate("/404");
+      return;
+    }
 
     if (res && res.status === 200) {
       const recs = mapRecipes(res.data);
@@ -28,10 +37,10 @@ function Area() {
   }
   return (
     <>
-      <Seo title={area} path={location.pathname} />
-      <ListLayout title={area} isPaginate={true} recipes={recipes} />
+      <Seo title={browseBy === "lastest" ? "Lastest Recipes" : "Random Recipes"} path={location.pathname} />
+      <ListLayout title={browseBy === "lastest" ? "Lastest Recipes" : "Random Recipes"} isPaginate={true} recipes={recipes} />
     </>
   );
 }
 
-export default Area;
+export default Browse;

@@ -33,7 +33,7 @@ function LastestRecipes() {
       description="Get lastest recipes"
       recipes={lastestRecipes}
       recipeSize="lg"
-      pageLink="/browse?sort=lastest"
+      pageLink="/browse/lastest"
     />
   );
 }

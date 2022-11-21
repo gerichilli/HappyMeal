@@ -23,16 +23,20 @@ function Recipe({ size, recipe }) {
       <h3 className={styles.title}>
         <Link to={`/recipe/${recipe.id}`}>{recipe.title}</Link>
       </h3>
-      <p className={styles.category}>{recipe.category}</p>
-      <p className={styles.ingredients}>
-        <span className={styles.number}>{recipe.ingredients && recipe.ingredients.length}</span>
-        <span>Ingredients</span>
-      </p>
-      <div className={styles.tags}>
-        {recipe.tags &&
-          recipe.tags.length > 0 &&
-          recipe.tags.map((tag) => <Badge key={tag} text={tag} />)}
-      </div>
+      {recipe.category && <p className={styles.category}>{recipe.category}</p>}
+      {recipe.ingredients && recipe.ingredients > 0 && (
+        <p className={styles.ingredients}>
+          <span className={styles.number}>{recipe.ingredients.length}</span>
+          <span>Ingredients</span>
+        </p>
+      )}
+      {recipe.tags && recipe.tags.length > 0 && (
+        <div className={styles.tags}>
+          {recipe.tags.map((tag) => (
+            <Badge key={tag} text={tag} />
+          ))}
+        </div>
+      )}
     </div>
   );
 }

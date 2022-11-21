@@ -19,16 +19,8 @@ function NavDropdown({ label, type, listData, isOpen, setOpenDropdown }) {
   }
 
   return (
-    <li
-      className={styles.navItem}
-      onMouseOver={handleOpenDropdown}
-      onMouseLeave={handleCloseDropdown}
-      onFocus={handleOpenDropdown}
-    >
-      <button
-        className={`${styles.navLabel} ${isOpen ? styles["navLabel--active"] : ""}`}
-        onClick={handleToggleDropdown}
-      >
+    <li className={styles.navItem} onMouseOver={handleOpenDropdown} onMouseLeave={handleCloseDropdown} onFocus={handleOpenDropdown}>
+      <button className={`${styles.navLabel} ${isOpen ? styles["navLabel--active"] : ""}`} onClick={handleToggleDropdown}>
         {label}
       </button>
       {isOpen && listData && listData.length > 0 && (
@@ -37,31 +29,19 @@ function NavDropdown({ label, type, listData, isOpen, setOpenDropdown }) {
             {listData.map((item) =>
               type === "categories" ? (
                 <li key={item.strCategory}>
-                  <Link
-                    to={`/category/${item.strCategory}`}
-                    className={styles.dropItem}
-                    onClick={handleCloseDropdown}
-                  >
+                  <Link to={`/category/${item.strCategory}`} className={styles.dropItem} onClick={handleCloseDropdown}>
                     {item.strCategory}
                   </Link>
                 </li>
               ) : type === "areas" ? (
                 <li key={item.strArea}>
-                  <Link
-                    to={`/area/${item.strArea}`}
-                    className={styles.dropItem}
-                    onClick={handleCloseDropdown}
-                  >
+                  <Link to={`/area/${item.strArea}`} className={styles.dropItem} onClick={handleCloseDropdown}>
                     {item.strArea}
                   </Link>
                 </li>
               ) : (
                 <li key={item.idIngredient}>
-                  <Link
-                    to={`/ingredient/${item.strIngredient}`}
-                    className={styles.dropItem}
-                    onClick={handleCloseDropdown}
-                  >
+                  <Link to={`/ingredient/${item.strIngredient}`} className={styles.dropItem} onClick={handleCloseDropdown}>
                     {item.strIngredient}
                   </Link>
                 </li>

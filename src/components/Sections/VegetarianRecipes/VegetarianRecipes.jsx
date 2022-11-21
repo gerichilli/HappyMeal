@@ -13,7 +13,7 @@ function VegetarianRecipes() {
   }, []);
 
   async function fetchVegetarianRecipes() {
-    const res = await getRecipesByCategory("vegetarian");
+    const res = await getRecipesByCategory("Vegetarian");
 
     if (res && res.status === 200) {
       let recipes = res.data.slice(0, MAX_REVIEW_RECIPES);
@@ -33,7 +33,7 @@ function VegetarianRecipes() {
       description="Find healthy, delicious weight-loss and diet recipes"
       recipes={vegetarianRecipes}
       recipeSize="lg"
-      pageLink="/browse?category=vegetarian"
+      pageLink="/category/Vegetarian"
     />
   );
 }
