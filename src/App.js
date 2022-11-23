@@ -15,12 +15,6 @@ const LazyBrowse = lazy(() => import("./pages/Browse"));
 const LazyLogin = lazy(() => import("./auth/Login"));
 const LazyRegister = lazy(() => import("./auth/Register"));
 
-// TODO: Login / Register
-// TODO: Use Firebase to store user data
-// TODO: Bookmark feature
-// TODO: Bookmark page
-// TODO: Print recipe
-// TODO: Responsive grid and layout
 function App() {
   return (
     <Suspense fallback={<Loading />}>
