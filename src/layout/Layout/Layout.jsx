@@ -6,11 +6,13 @@ import { Outlet } from "react-router-dom";
 function Layout() {
   return (
     <ScrollToTop>
-      <Header />
-      <main>
-        <Outlet />
-      </main>
-      <Footer />
+      <div className="page-container">
+        <Header />
+        <main>
+          <Outlet />
+        </main>
+        <Footer />
+      </div>
     </ScrollToTop>
   );
 }

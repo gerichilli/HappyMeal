@@ -37,6 +37,10 @@
 .logBarBtns {
   display: flex;
   justify-content: flex-end;
+
+  & > *:not(:last-child) {
+    margin-right: 24px;
+  }
 }
 
 .loginBtn,
@@ -58,9 +62,42 @@
 .registerBtn {
   background-color: var(--clr-secondary);
   color: var(--clr-on-bold-bg);
-  margin-left: 24px;
 
   @include mixins.link-when-active {
     background-color: var(--clr-secondary-hover);
+  }
+}
+
+.bookmarkBtn,
+.profileBtn,
+.logoutBtn {
+  display: flex;
+  align-items: center;
+  font-size: 1rem;
+  font-weight: 500;
+  padding: 5px 8px;
+  cursor: pointer;
+
+  & > svg {
+    margin-right: 5px;
+    font-size: 1.25em;
+  }
+}
+
+.logoutBtn {
+  background-color: transparent;
+  border: none;
+  outline: none;
+  color: var(--clr-secondary);
+
+  &:hover {
+    color: var(--clr-secondary-hover);
+  }
+}
+
+.bookmarkBtn,
+.profileBtn {
+  &:hover {
+    color: var(--clr-primary-hover);
   }
 }

@@ -1,16 +1,29 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
+import { toast } from "react-hot-toast";
+import { useDispatch, useSelector } from "react-redux";
 import styles from "../auth.module.scss";
 import { AiOutlineGoogle, AiFillEye } from "react-icons/ai";
 import { MdEmail } from "react-icons/md";
 import Input from "../../components/Input";
-import { doLogin } from "../../services/apiServices";
+import { postLogin } from "../../services/apiServices";
+import { popLocationFromHistory } from "../../redux/action/historyAction";
+import { doLogin } from "../../redux/action/userAction";
 
 function Login() {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const history = useSelector((state) => state.history);
+  const isAuthenticated = useSelector((state) => state.user.isAuthenticated);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState({ email: "", password: "" });
   const [isAbleToValidate, setIsAbleToValidate] = useState(false);
+  const [isSubmitted, setIsSubmitted] = useState(false);
+
+  if (isAuthenticated) {
+    return <Navigate to="/" />;
+  }
 
   function validateEmail(email) {
     if (email.trim() === "") {
@@ -59,9 +72,23 @@ function Login() {
     setIsAbleToValidate(true); // Only start validating after user has submitted the form
 
     let validated = validateEmail(email) && validatePassword(password);
-    console.log(validated);
+
     if (validated) {
-      doLogin(email, password);
+      setIsSubmitted(true);
+      const res = await postLogin(email, password);
+
+      if (res && res.status === 200) {
+        toast.success("You are successfully logged in.");
+        dispatch(doLogin(res.data));
+
+        // Redirect to the previous page after login
+        const navigateTo = history.length > 0 ? history[history.length - 1] : "/";
+        dispatch(popLocationFromHistory());
+        navigate(navigateTo);
+      } else {
+        toast.error(res);
+        setIsSubmitted(false);
+      }
     }
   }
 
@@ -76,7 +103,7 @@ function Login() {
           <Input icon={<MdEmail />} label="Username" type="email" placeholder="Enter email" value={email} handleChangeValue={handleChangeEmail} error={error.email} />
           <Input icon={<AiFillEye />} label="Password" type="password" placeholder="Password" password={password} handleChangeValue={handleChangePassword} error={error.password} />
           <p className={styles.forgotMessage}>Forgot Password?</p>
-          <button className={styles.submit} type="submit">
+          <button className={styles.submit} type="submit" disabled={isSubmitted}>
             Log in
           </button>
           <p className={styles.snsMessage}>Or Log in with</p>

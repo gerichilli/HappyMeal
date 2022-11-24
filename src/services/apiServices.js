@@ -44,6 +44,6 @@ export async function getRecipesByName(name) {
   return axios.get(`getRecipesByName?name=${name}`);
 }
 
-export async function doLogin(email, password) {
+export async function postLogin(email, password) {
   return axios.post("postLogin", { email, password });
 }

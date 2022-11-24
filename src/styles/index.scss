@@ -26,6 +26,7 @@
 
   --clr-primary: #97cc3b;
   --clr-primary-hover: #82cc03;
+  --clr-primary-disabled: #c4e0a0;
   --clr-secondary: #f99c1d;
   --clr-secondary-hover: #ef910d;
   --clr-tertiary: #ffe26c;
@@ -69,6 +70,12 @@ button {
   white-space: nowrap;
   font-family: inherit;
   font-size: inherit;
+}
+
+.page-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
 }
 
 .section-title {

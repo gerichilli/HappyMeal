@@ -53,6 +53,11 @@
   &:focus-visible {
     background-color: var(--clr-primary-hover);
   }
+
+  &:disabled {
+    background-color: var(--clr-primary-disabled);
+    cursor: not-allowed;
+  }
 }
 
 .snsMessage {

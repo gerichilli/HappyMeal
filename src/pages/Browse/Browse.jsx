@@ -10,6 +10,7 @@ function Browse() {
   const location = useLocation();
   const navigate = useNavigate();
   const [recipes, setRecipes] = useState([]);
+
   useEffect(() => {
     fetchRecipes();
   }, [browseBy]);
