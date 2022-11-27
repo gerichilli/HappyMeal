@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import { NavLink } from "react-router-dom";
 import styles from "./Nav.module.scss";
 import NavDropdown from "./NavDropdown";
 import { getCategoryList, getAreaList, getIngredientList } from "../../services/apiServices";
@@ -43,27 +42,9 @@ function Nav() {
   return (
     <nav className={styles.nav}>
       <ul className={styles.navList}>
-        <NavDropdown
-          label="Categories"
-          type="categories"
-          listData={categoryList}
-          isOpen={openDropdown === "categories"}
-          setOpenDropdown={setOpenDropdown}
-        />
-        <NavDropdown
-          label="Areas"
-          type="areas"
-          listData={areaList}
-          isOpen={openDropdown === "areas"}
-          setOpenDropdown={setOpenDropdown}
-        />
-        <NavDropdown
-          label="Ingredients"
-          type="ingredients"
-          listData={ingredientList}
-          isOpen={openDropdown === "ingredients"}
-          setOpenDropdown={setOpenDropdown}
-        />
+        <NavDropdown label="Categories" type="category" listData={categoryList} isOpen={openDropdown === "category"} setOpenDropdown={setOpenDropdown} />
+        <NavDropdown label="Areas" type="area" listData={areaList} isOpen={openDropdown === "area"} setOpenDropdown={setOpenDropdown} />
+        <NavDropdown label="Ingredients" type="ingredient" listData={ingredientList} isOpen={openDropdown === "ingredient"} setOpenDropdown={setOpenDropdown} />
       </ul>
     </nav>
   );

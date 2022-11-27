@@ -1,0 +1,46 @@
+.wrapper {
+  margin-top: 100px;
+  margin-bottom: 100px;
+}
+
+.letterList {
+  list-style: none;
+}
+
+.firstLetter {
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--clr-contrast);
+  color: var(--clr-on-bold-bg);
+  font-size: 2rem;
+  font-weight: 600;
+}
+
+.list {
+  list-style: none;
+  border-top: 1px solid var(--clr-contrast);
+  display: flex;
+  flex-wrap: wrap;
+  padding-top: 20px;
+  padding-bottom: 30px;
+
+  & > li {
+    margin-bottom: 10px;
+    margin-right: 10px;
+  }
+}
+
+.link {
+  display: inline-block;
+  font-size: 1rem;
+  padding: 10px 16px;
+  font-weight: 500;
+  border: 1px solid currentColor;
+
+  &:hover {
+    color: var(--clr-secondary);
+  }
+}

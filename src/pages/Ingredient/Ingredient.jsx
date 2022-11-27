@@ -1,15 +1,16 @@
 import { useState, useEffect } from "react";
-import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import ListLayout from "../../layout/ListLayout";
 import Seo from "../../components/Seo";
 import { getRecipesByIngredients } from "../../services/apiServices";
 import mapRecipes from "../../utils/mapRecipes";
+import NotFound from "../../components/NotFound";
 
 function Ingredient() {
   const { ingredient } = useParams();
   const location = useLocation();
-  const navigate = useNavigate();
   const [recipes, setRecipes] = useState([]);
+  const [error, setError] = useState(false);
 
   useEffect(() => {
     fetchRecipes();
@@ -23,14 +24,18 @@ function Ingredient() {
       const recs = mapRecipes(res.data);
       setRecipes(recs);
     } else {
-      navigate("/404");
+      setError(true);
       return;
     }
   }
   return (
     <>
       <Seo title={ingredient} path={location.pathname} />
-      <ListLayout title={ingredient} isPaginate={true} recipes={recipes} />
+      {error ? (
+        <NotFound message="Coudn't find any recipes with this ingredient" back={{ title: "Ingredients List", path: "/ingredient" }} />
+      ) : (
+        <ListLayout title={ingredient} isPaginate={true} recipes={recipes} />
+      )}
     </>
   );
 }

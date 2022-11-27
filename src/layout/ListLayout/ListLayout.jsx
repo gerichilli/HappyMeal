@@ -2,7 +2,7 @@ import { JoinWithUs } from "../../components/Sections";
 import styles from "./ListLayout.module.scss";
 import ReactPaginate from "react-paginate";
 import { GrCaretNext, GrCaretPrevious } from "react-icons/gr";
-import { usePaginate } from "../../utils/usePaginate";
+import usePaginate from "../../utils/usePaginate";
 import { ITEMS_PER_PAGE } from "../../utils/constants";
 import { Grid, GridItem } from "../../components/Grid";
 import Recipe from "../../components/Recipe";
@@ -18,7 +18,7 @@ function ListLayout({ title = "", recipes, isPaginate, error = false, children }
         {children}
         {!error && (
           <div ref={wrapperRef}>
-            <Grid gx={24} gy={40} colsNum={4}>
+            <Grid gx={36} gy={48} colsNum={4}>
               {currentItems && currentItems.length > 0
                 ? currentItems.map((recipe) => (
                     <GridItem key={recipe.id}>

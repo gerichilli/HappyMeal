@@ -51,12 +51,7 @@ function SearchForm() {
 
   return (
     <form className={styles.form} onSubmit={handleSubmit}>
-      <input
-        type="text"
-        placeholder="Ex: sushi"
-        value={query}
-        onChange={(event) => setQuery(event.target.value)}
-      />
+      <input type="text" placeholder="Ex: sushi" value={query} onChange={(event) => setQuery(event.target.value)} />
       <button type="submit" aria-label="Submit">
         <FiSearch />
       </button>

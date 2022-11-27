@@ -1,22 +1,29 @@
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { doLogout } from "../../redux/action/userAction";
+import { postLogout } from "../../services/apiServices";
 import styles from "./Header.module.scss";
 import Nav from "../../components/Nav";
 import logo from "../../assets/images/logo.png";
 import SearchForm from "../../components/SearchForm";
-import { AiOutlinePoweroff } from "react-icons/ai";
-import { BsFillJournalBookmarkFill } from "react-icons/bs";
+import { AiOutlinePoweroff, AiFillHeart } from "react-icons/ai";
 import { CgProfile } from "react-icons/cg";
 import { toast } from "react-hot-toast";
+import { getSavedRecipes } from "../../redux/action/recipeAction";
 
 function Header() {
   const isAuthenticated = useSelector((state) => state.user.isAuthenticated);
+  const displayName = useSelector((state) => state.user.account.displayName);
   const dispatch = useDispatch();
 
-  function handleLogout() {
-    toast.success("Logout successfully");
-    dispatch(doLogout());
+  async function handleLogout() {
+    const res = await postLogout();
+
+    if (res && res.status === 200) {
+      dispatch(doLogout());
+      dispatch(getSavedRecipes([]));
+      toast.success(res.data);
+    }
   }
 
   return (
@@ -49,10 +56,10 @@ function Header() {
             ) : (
               <>
                 <Link to="/bookmark" className={styles.bookmarkBtn}>
-                  <BsFillJournalBookmarkFill /> Saved Recipes
+                  <AiFillHeart /> My Saved Recipes
                 </Link>
                 <Link to="/profile" className={styles.profileBtn}>
-                  <CgProfile /> Profile
+                  <CgProfile /> {displayName || "Profile"}
                 </Link>
                 <button className={styles.logoutBtn} onClick={handleLogout}>
                   <AiOutlinePoweroff /> Logout

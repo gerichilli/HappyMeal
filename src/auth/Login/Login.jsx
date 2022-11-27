@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link, Navigate, useNavigate } from "react-router-dom";
+import { Link, Navigate, useLocation } from "react-router-dom";
 import { toast } from "react-hot-toast";
 import { useDispatch, useSelector } from "react-redux";
 import styles from "../auth.module.scss";
@@ -7,23 +7,17 @@ import { AiOutlineGoogle, AiFillEye } from "react-icons/ai";
 import { MdEmail } from "react-icons/md";
 import Input from "../../components/Input";
 import { postLogin } from "../../services/apiServices";
-import { popLocationFromHistory } from "../../redux/action/historyAction";
 import { doLogin } from "../../redux/action/userAction";
 
 function Login() {
-  const navigate = useNavigate();
   const dispatch = useDispatch();
-  const history = useSelector((state) => state.history);
+  const { state } = useLocation();
   const isAuthenticated = useSelector((state) => state.user.isAuthenticated);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState({ email: "", password: "" });
   const [isAbleToValidate, setIsAbleToValidate] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
-
-  if (isAuthenticated) {
-    return <Navigate to="/" />;
-  }
 
   function validateEmail(email) {
     if (email.trim() === "") {
@@ -80,16 +74,16 @@ function Login() {
       if (res && res.status === 200) {
         toast.success("You are successfully logged in.");
         dispatch(doLogin(res.data));
-
-        // Redirect to the previous page after login
-        const navigateTo = history.length > 0 ? history[history.length - 1] : "/";
-        dispatch(popLocationFromHistory());
-        navigate(navigateTo);
       } else {
         toast.error(res);
         setIsSubmitted(false);
       }
     }
+  }
+
+  if (isAuthenticated) {
+    // Redirect to the attempted page after login
+    return <Navigate to={state?.redirectTo || "/"} replace={true} />;
   }
 
   return (

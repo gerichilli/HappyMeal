@@ -88,16 +88,21 @@
   background-color: transparent;
   border: none;
   outline: none;
-  color: var(--clr-secondary);
+}
+
+.logoutBtn,
+.profileBtn {
+  color: var(--clr-contrast-medium);
 
   &:hover {
-    color: var(--clr-secondary-hover);
+    color: var(--clr-contrast);
   }
 }
 
-.bookmarkBtn,
-.profileBtn {
+.bookmarkBtn {
+  color: var(--clr-quaternary);
+
   &:hover {
-    color: var(--clr-primary-hover);
+    color: var(--clr-quaternary-hover);
   }
 }

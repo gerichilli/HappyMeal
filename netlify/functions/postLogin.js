@@ -1,4 +1,4 @@
-const { auth } = require("./auth");
+const { auth } = require("./firebase");
 const { signInWithEmailAndPassword } = require("firebase/auth");
 
 exports.handler = async (event, context) => {
@@ -11,6 +11,7 @@ exports.handler = async (event, context) => {
       refreshToken: userCredential.user.stsTokenManager.refreshToken,
       displayName: userCredential.user.displayName,
       email: userCredential.user.email,
+      userId: userCredential.user.uid,
     };
 
     return {

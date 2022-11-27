@@ -42,10 +42,12 @@
     }
   }
 
-  &--active {
-    &::after {
-      transform: scaleX(1);
-    }
+  &:global.active {
+    color: var(--clr-primary);
+
+    // &::after {
+    //   transform: scaleX(1);
+    // }
   }
 }
 

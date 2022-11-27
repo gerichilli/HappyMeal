@@ -44,6 +44,26 @@ export async function getRecipesByName(name) {
   return axios.get(`getRecipesByName?name=${name}`);
 }
 
+export async function getAllSavedRecipes(userId) {
+  return axios.post("getSavedRecipes", { userId });
+}
+
 export async function postLogin(email, password) {
   return axios.post("postLogin", { email, password });
+}
+
+export async function postLogout() {
+  return axios.post("postLogout");
+}
+
+export async function postRegister(displayName, email, password) {
+  return axios.post("postRegister", { displayName, email, password });
+}
+
+export async function postAddSavedRecipe(recipe, userId) {
+  return axios.post("postAddSavedRecipe", { recipe, userId });
+}
+
+export async function deleteSavedRecipe(recipeId, userId) {
+  return axios.post("deleteSavedRecipe", { recipeId, userId });
 }

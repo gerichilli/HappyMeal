@@ -20,6 +20,7 @@ const userReducer = (state = INITIAL_STATE, action) => {
           refreshToken: action?.payload?.refreshToken,
           displayName: action?.payload?.displayName,
           email: action?.payload?.email,
+          userId: action?.payload?.userId,
         },
         isAuthenticated: true,
       };

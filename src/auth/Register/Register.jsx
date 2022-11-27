@@ -1,22 +1,34 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import styles from "../auth.module.scss";
 import { AiOutlineGoogle, AiFillIdcard, AiFillEye } from "react-icons/ai";
 import { MdEmail } from "react-icons/md";
 import Input from "../../components/Input";
+import { useDispatch, useSelector } from "react-redux";
+import { postRegister } from "../../services/apiServices";
+import toast from "react-hot-toast";
+import { doLogin } from "../../redux/action/userAction";
 
 function Register() {
+  const dispatch = useDispatch();
+  const isAuthenticated = useSelector((state) => state.user.isAuthenticated);
   const [userName, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [rePassword, setRePassword] = useState("");
   const [error, setError] = useState({ userName: "", email: "", password: "", rePassword: "" });
   const [isAbleToValidate, setIsAbleToValidate] = useState(false);
+  const [isSubmitted, setIsSubmitted] = useState(false);
 
   function validateUserName(userName) {
     if (userName.trim() === "") {
       setError((error) => {
         return { ...error, userName: "Username is required" };
+      });
+      return false;
+    } else if (userName.trim().length > 16) {
+      setError((error) => {
+        return { ...error, userName: "Username should be less than 16 characters" };
       });
       return false;
     } else {
@@ -114,13 +126,29 @@ function Register() {
     }
   }
 
-  function handleSubmit(event) {
+  async function handleSubmit(event) {
     event.preventDefault();
     setIsAbleToValidate(true);
-    validateUserName(userName);
-    validateEmail(email);
-    validatePassword(password);
-    validateRePassword(rePassword);
+
+    let validated = validateUserName(userName) && validateEmail(email) && validatePassword(password) && validateRePassword(rePassword);
+
+    if (validated) {
+      setIsSubmitted(true);
+      const res = await postRegister(userName, email, password);
+
+      if (res && res.status === 200) {
+        toast.success("You are successfully registered");
+        dispatch(doLogin(res.data));
+      } else {
+        toast.error(res);
+        setIsSubmitted(false);
+      }
+    }
+  }
+
+  if (isAuthenticated) {
+    // Redirect to home page if user is authenticated
+    return <Navigate to="/" replace={true} />;
   }
 
   return (
@@ -135,7 +163,7 @@ function Register() {
           <Input icon={<MdEmail />} label="Username" type="email" placeholder="Email" value={email} handleChangeValue={handleChangeEmail} error={error.email} />
           <Input icon={<AiFillEye />} label="Password" type="password" placeholder="Password (at least 8 characters)" value={password} handleChangeValue={handleChangePassword} error={error.password} />
           <Input icon={<AiFillEye />} label="Password" type="password" placeholder="Repeat Password" value={rePassword} handleChangeValue={handleChangeRePassword} error={error.rePassword} />
-          <button className={styles.submit} type="submit">
+          <button className={styles.submit} type="submit" disabled={isSubmitted}>
             Sign up
           </button>
           <p className={styles.snsMessage}>Or Sign up with</p>

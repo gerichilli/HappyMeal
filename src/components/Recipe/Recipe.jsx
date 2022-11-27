@@ -2,16 +2,19 @@ import styles from "./Recipe.module.scss";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import AspectRatio from "../AspectRatio";
 import { Link } from "react-router-dom";
-import { HiOutlineBookmark } from "react-icons/hi";
+import { MdOutlineBookmarkAdded, MdOutlineBookmarkBorder } from "react-icons/md";
 import createClassName from "../../utils/createClassName";
 import Badge from "../Badge";
+import useSavedRecipe from "../../utils/useSavedRecipe";
 
 function Recipe({ size, recipe }) {
+  const [isSaved, handleAddBookmark] = useSavedRecipe(false, recipe);
+
   return (
     <div className={createClassName(styles.recipe, styles[`recipe--${size}`])}>
       <div className={styles.thumb}>
-        <button className={styles.btn}>
-          <HiOutlineBookmark />
+        <button className={styles.btn} disabled={isSaved} aria-label="Save Recipe" onClick={handleAddBookmark}>
+          {isSaved ? <MdOutlineBookmarkAdded /> : <MdOutlineBookmarkBorder />}
         </button>
         <Link to={`/recipe/${recipe.id}`} className={styles.imgLink}>
           <AspectRatio ratio={1}>
