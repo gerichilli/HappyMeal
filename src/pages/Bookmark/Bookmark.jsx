@@ -23,11 +23,11 @@ function Bookmark() {
   async function handleDeleteSavedRecipe(recipeId) {
     const res = await deleteSavedRecipe(recipeId, userId);
 
-    if (res && res.status === 200) {
+    if (res && res.data) {
       toast.success("Recipe removed from bookmark");
       const newRes = await getAllSavedRecipes(userId);
 
-      if (newRes && newRes.status === 200) {
+      if (newRes && newRes.data) {
         dispatch(getSavedRecipes(newRes.data));
       }
     }

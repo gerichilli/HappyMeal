@@ -42,7 +42,7 @@ function App() {
   async function fetchSavedRecipeIds() {
     const res = await getAllSavedRecipes(userId);
 
-    if (res && res.status === 200) {
+    if (res && res.data) {
       dispatch(getSavedRecipes(res.data));
     }
   }

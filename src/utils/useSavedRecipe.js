@@ -34,13 +34,13 @@ export default function useSavedRecipe(initialState, recipe) {
     };
 
     const res = await postAddSavedRecipe(recipeData, userId);
-    if (res && res.status === 200) {
+    if (res && res.data) {
       toast.success("Recipe saved");
       setIsSaved(true);
 
       // Update redux state
       const savedIdsRes = await getAllSavedRecipes(userId);
-      if (savedIdsRes && savedIdsRes.status === 200) {
+      if (savedIdsRes && savedIdsRes.data) {
         dispatch(getSavedRecipes(savedIdsRes.data));
       }
     }

@@ -1,3 +1,5 @@
+@use "../../styles/mixins.scss" as *;
+
 .container {
   position: relative;
 }
@@ -37,11 +39,19 @@
     &.btnPrev,
     &.btnNext {
       top: 170px; // Make it centered with image
+
+      @include breakpoint("xxl") {
+        top: 35%;
+      }
     }
   }
 
   &--md {
     top: 134px;
+
+    @include breakpoint("xxl") {
+      top: 40%;
+    }
   }
 }
 

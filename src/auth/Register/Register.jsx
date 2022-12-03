@@ -1,16 +1,19 @@
 import { useState } from "react";
-import { Link, Navigate } from "react-router-dom";
+import { Link, Navigate, useLocation } from "react-router-dom";
 import styles from "../auth.module.scss";
 import { AiOutlineGoogle, AiFillIdcard, AiFillEye } from "react-icons/ai";
 import { MdEmail } from "react-icons/md";
 import Input from "../../components/Input";
 import { useDispatch, useSelector } from "react-redux";
-import { postRegister } from "../../services/apiServices";
+import { postGoogleLogin, postRegister } from "../../services/authService";
 import toast from "react-hot-toast";
+import { validateUserName, validateEmail, validatePassword, validateRePassword, validateAll } from "../../utils/formValidate";
 import { doLogin } from "../../redux/action/userAction";
+import Seo from "../../components/Seo";
 
 function Register() {
   const dispatch = useDispatch();
+  const location = useLocation();
   const isAuthenticated = useSelector((state) => state.user.isAuthenticated);
   const [userName, setUsername] = useState("");
   const [email, setEmail] = useState("");
@@ -20,109 +23,43 @@ function Register() {
   const [isAbleToValidate, setIsAbleToValidate] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
 
-  function validateUserName(userName) {
-    if (userName.trim() === "") {
-      setError((error) => {
-        return { ...error, userName: "Username is required" };
-      });
-      return false;
-    } else if (userName.trim().length > 16) {
-      setError((error) => {
-        return { ...error, userName: "Username should be less than 16 characters" };
-      });
-      return false;
-    } else {
-      setError((error) => {
-        return { ...error, userName: "" };
-      });
-      return true;
-    }
-  }
-
-  function validateEmail(email) {
-    const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
-
-    if (email.trim() === "") {
-      setError((error) => {
-        return { ...error, email: "Username/email is required" };
-      });
-      return false;
-    } else if (!emailRegex.test(email)) {
-      setError((error) => {
-        return { ...error, email: "Invalid email" };
-      });
-      return false;
-    } else {
-      setError((error) => {
-        return { ...error, email: "" };
-      });
-      return true;
-    }
-  }
-
-  function validatePassword(password) {
-    if (password.trim() === "") {
-      setError((error) => {
-        return { ...error, password: "Password is required" };
-      });
-      return false;
-    } else if (password.trim().length < 8) {
-      setError((error) => {
-        return { ...error, password: "Password must be at least 8 characters" };
-      });
-      return false;
-    } else {
-      setError((error) => {
-        return { ...error, password: "" };
-      });
-      return true;
-    }
-  }
-
-  function validateRePassword(rePassword) {
-    if (rePassword.trim() === "") {
-      setError((error) => {
-        return { ...error, rePassword: "Password is required" };
-      });
-      return false;
-    } else if (rePassword.trim() !== password) {
-      setError((error) => {
-        return { ...error, rePassword: "Password does not match" };
-      });
-      return false;
-    } else {
-      setError((error) => {
-        return { ...error, rePassword: "" };
-      });
-      return true;
-    }
-  }
-
   function handleChangeUserName(event) {
     setUsername(event.target.value);
     if (isAbleToValidate) {
-      validateUserName(event.target.value);
+      const { message } = validateUserName(event.target.value);
+      setError((error) => {
+        return { ...error, userName: message };
+      });
     }
   }
 
   function handleChangeEmail(event) {
     setEmail(event.target.value);
     if (isAbleToValidate) {
-      validateEmail(event.target.value);
+      const { message } = validateEmail(event.target.value);
+      setError((error) => {
+        return { ...error, email: message };
+      });
     }
   }
 
   function handleChangePassword(event) {
     setPassword(event.target.value);
     if (isAbleToValidate) {
-      validatePassword(event.target.value);
+      const { message } = validatePassword(event.target.value);
+      setError((error) => {
+        return { ...error, password: message };
+      });
     }
   }
 
   function handleChangeRePassword(event) {
     setRePassword(event.target.value);
     if (isAbleToValidate) {
-      validateRePassword(event.target.value);
+      const { message } = validateRePassword(event.target.value, password);
+      setError((error) => {
+        return { ...error, rePassword: message };
+      });
     }
   }
 
@@ -130,13 +67,27 @@ function Register() {
     event.preventDefault();
     setIsAbleToValidate(true);
 
-    let validated = validateUserName(userName) && validateEmail(email) && validatePassword(password) && validateRePassword(rePassword);
+    setError({
+      userName: validateUserName(userName).message,
+      email: validateEmail(email).message,
+      password: validatePassword(password).message,
+      rePassword: validateRePassword(rePassword, password).message,
+    });
+
+    let validated = validateAll(
+      validateUserName(userName),
+      validateEmail(email),
+      validatePassword(password),
+      validateRePassword(rePassword, password)
+    );
 
     if (validated) {
       setIsSubmitted(true);
+      const waitting = toast.loading("Please wait...");
       const res = await postRegister(userName, email, password);
+      toast.dismiss(waitting);
 
-      if (res && res.status === 200) {
+      if (res && res.data) {
         toast.success("You are successfully registered");
         dispatch(doLogin(res.data));
       } else {
@@ -146,36 +97,84 @@ function Register() {
     }
   }
 
+  async function handleGoogleLogin() {
+    setIsSubmitted(true);
+    const res = await postGoogleLogin();
+
+    if (res && res.data) {
+      toast.success("You are successfully logged in.");
+      dispatch(doLogin(res.data));
+    } else {
+      toast.error(res);
+      setIsSubmitted(false);
+    }
+  }
+
   if (isAuthenticated) {
     // Redirect to home page if user is authenticated
     return <Navigate to="/" replace={true} />;
   }
 
   return (
-    <div className={styles.wrapper}>
-      <form className={styles.form} onSubmit={handleSubmit}>
-        <div className={styles.formTop}>
-          <h1>Create new account</h1>
-          <p>Start for free</p>
-        </div>
-        <div className={styles.formMain}>
-          <Input icon={<AiFillIdcard />} label="Username" type="text" placeholder="Username" value={userName} handleChangeValue={handleChangeUserName} error={error.userName} />
-          <Input icon={<MdEmail />} label="Username" type="email" placeholder="Email" value={email} handleChangeValue={handleChangeEmail} error={error.email} />
-          <Input icon={<AiFillEye />} label="Password" type="password" placeholder="Password (at least 8 characters)" value={password} handleChangeValue={handleChangePassword} error={error.password} />
-          <Input icon={<AiFillEye />} label="Password" type="password" placeholder="Repeat Password" value={rePassword} handleChangeValue={handleChangeRePassword} error={error.rePassword} />
-          <button className={styles.submit} type="submit" disabled={isSubmitted}>
-            Sign up
-          </button>
-          <p className={styles.snsMessage}>Or Sign up with</p>
-          <button className={styles.snsButton} type="button">
-            <AiOutlineGoogle /> Google
-          </button>
-          <p className={styles.changeActionMessage}>
-            Have an account? <Link to="/login">Login</Link>
-          </p>
-        </div>
-      </form>
-    </div>
+    <>
+      <Seo title="Register" path={location.pathname} />
+      <div className={styles.wrapper}>
+        <form className={styles.form} onSubmit={handleSubmit}>
+          <div className={styles.formTop}>
+            <h1>Create new account</h1>
+            <p>Start for free</p>
+          </div>
+          <div className={styles.formMain}>
+            <Input
+              icon={<AiFillIdcard />}
+              label="Username"
+              type="text"
+              placeholder="Username"
+              value={userName}
+              handleChangeValue={handleChangeUserName}
+              error={error.userName}
+            />
+            <Input
+              icon={<MdEmail />}
+              label="Username"
+              type="email"
+              placeholder="Email"
+              value={email}
+              handleChangeValue={handleChangeEmail}
+              error={error.email}
+            />
+            <Input
+              icon={<AiFillEye />}
+              label="Password"
+              type="password"
+              placeholder="Password (at least 8 characters)"
+              value={password}
+              handleChangeValue={handleChangePassword}
+              error={error.password}
+            />
+            <Input
+              icon={<AiFillEye />}
+              label="Password"
+              type="password"
+              placeholder="Repeat Password"
+              value={rePassword}
+              handleChangeValue={handleChangeRePassword}
+              error={error.rePassword}
+            />
+            <button className={styles.submit} type="submit" disabled={isSubmitted}>
+              Sign up
+            </button>
+            <p className={styles.snsMessage}>Or Sign up with</p>
+            <button className={styles.snsButton} type="button" onClick={handleGoogleLogin}>
+              <AiOutlineGoogle /> Google
+            </button>
+            <p className={styles.changeActionMessage}>
+              Have an account? <Link to="/login">Login</Link>
+            </p>
+          </div>
+        </form>
+      </div>
+    </>
   );
 }
 

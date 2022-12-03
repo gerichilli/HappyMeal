@@ -21,6 +21,11 @@
   &:focus-visible {
     outline-color: var(--clr-primary);
   }
+
+  &:read-only {
+    background-color: var(--clr-line-note);
+    color: var(--clr-contrast-medium);
+  }
 }
 
 .inputIcon {

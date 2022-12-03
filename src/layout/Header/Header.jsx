@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { doLogout } from "../../redux/action/userAction";
-import { postLogout } from "../../services/apiServices";
+import { postLogout } from "../../services/authService";
 import styles from "./Header.module.scss";
 import Nav from "../../components/Nav";
 import logo from "../../assets/images/logo.png";
@@ -19,7 +19,7 @@ function Header() {
   async function handleLogout() {
     const res = await postLogout();
 
-    if (res && res.status === 200) {
+    if (res && res.data) {
       dispatch(doLogout());
       dispatch(getSavedRecipes([]));
       toast.success(res.data);

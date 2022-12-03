@@ -1,4 +1,4 @@
-@use "../../styles/mixins.scss" as mixins;
+@use "../../styles/mixins.scss" as *;
 
 .section {
   margin-top: 100px;
@@ -40,7 +40,7 @@
   margin-left: auto;
   color: var(--clr-secondary);
 
-  @include mixins.link-when-active {
+  @include link-when-active {
     color: var(--clr-secondary-hover);
   }
 }

@@ -1,0 +1,164 @@
+.wrapper {
+  padding: 80px 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.profile {
+  font-size: 1rem;
+  width: 100%;
+  max-width: 500px;
+  border-radius: 10px;
+  border: 1px solid var(--clr-contrast-low);
+  padding: 40px;
+}
+
+.header {
+  position: relative;
+  width: 150px;
+  height: 150px;
+  margin: 0 auto;
+}
+
+.avartar {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  background-color: var(--clr-contrast-low);
+  overflow: hidden;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
+
+.info {
+  margin-top: 40px;
+}
+
+.infoTitle {
+  font-weight: 500;
+  font-size: 0.875rem;
+  color: var(--clr-contrast-medium);
+}
+
+.infoTxt {
+  font-weight: 500;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.verify {
+  margin-left: 6px;
+  display: flex;
+  align-items: center;
+  color: var(--clr-primary);
+
+  svg {
+    font-size: 1.25em;
+  }
+
+  button {
+    background-color: transparent;
+    border: none;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--clr-secondary);
+    text-decoration: underline;
+    cursor: pointer;
+
+    &:hover {
+      color: var(--clr-secondary-hover);
+    }
+  }
+}
+
+.block {
+  position: relative;
+  padding: 14px 0;
+  border-top: 1px solid var(--clr-contrast-low);
+}
+
+.editBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--clr-background);
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  box-shadow: 0 2px 4px var(--clr-contrast-low);
+  right: 0;
+  bottom: 0;
+  border: none;
+  cursor: pointer;
+  position: absolute;
+
+  &:hover {
+    color: var(--clr-primary);
+  }
+
+  svg {
+    font-size: 1.25em;
+  }
+}
+
+.changeBtn {
+  width: 100%;
+  max-width: 180px;
+  height: 40px;
+  background-color: var(--clr-contrast);
+  color: var(--clr-on-bold-bg);
+  border: none;
+  cursor: pointer;
+
+  &:hover {
+    background-color: var(--clr-primary);
+  }
+}
+
+.deleteAccountBtn {
+  font-weight: 600;
+  background-color: transparent;
+  color: var(--clr-error);
+  border: none;
+  cursor: pointer;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+// Modal inputs
+// File
+.fileUpload {
+  margin-bottom: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  label {
+    width: fit-content;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 0.9375rem;
+    font-weight: 500;
+    color: var(--clr-primary);
+    border: 1px dashed currentColor;
+    border-radius: 5px;
+    padding: 6px 16px;
+    margin-top: 12px;
+
+    svg {
+      font-size: 1.5em;
+      margin-right: 4px;
+    }
+  }
+}

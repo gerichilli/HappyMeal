@@ -8,12 +8,7 @@ import CustomSwiper from "../CustomSwiper";
 import { RecipeSkeleton } from "../Skeleton";
 
 function RecipesSlide({ title, description, recipes, recipeSize, pageLink }) {
-  const slideWidth =
-    recipeSize === "lg"
-      ? "calc((100% - 20px * 3) / 4)"
-      : recipeSize === "md"
-      ? "calc((100% - 20px * 4) / 5)"
-      : "fit-content";
+  const slideWidth = recipeSize === "lg" ? "calc((100% - 20px * 3) / 4)" : recipeSize === "md" ? "calc((100% - 20px * 4) / 5)" : "fit-content";
 
   return (
     <section className={styles.section}>
@@ -26,15 +21,10 @@ function RecipesSlide({ title, description, recipes, recipeSize, pageLink }) {
           <p className={styles.description}>{description}</p>
         </div>
         <div className={styles.sectionBody}>
-          <CustomSwiper
-            spaceBetween={20}
-            slidesPerView={"auto"}
-            loop={true}
-            buttonSize={recipeSize}
-          >
+          <CustomSwiper spaceBetween={20} slidesPerView={"auto"} loop={true} buttonSize={recipeSize}>
             {recipes && recipes.length > 0
               ? recipes.map((recipe) => (
-                  <SwiperSlide key={recipe.id} style={{ width: slideWidth }}>
+                  <SwiperSlide key={recipe.id} style={{ width: slideWidth, minWidth: 200 }}>
                     <Recipe recipe={recipe} size={recipeSize} />
                   </SwiperSlide>
                 ))

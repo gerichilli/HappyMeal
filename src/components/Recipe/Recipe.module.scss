@@ -1,11 +1,16 @@
-@use "../../styles/mixins.scss" as mixins;
+@use "../../styles/mixins.scss" as *;
 
 .recipe {
   width: 100%;
+  min-width: 180px;
 
   &--sm {
     .title {
       font-size: 1.25rem;
+
+      @include breakpoint("xxl") {
+        font-size: 1rem;
+      }
     }
 
     .ingredients {
@@ -14,6 +19,10 @@
 
     .number {
       font-size: 1.25rem;
+
+      @include breakpoint("xxl") {
+        font-size: 1rem;
+      }
     }
 
     .btn {
@@ -59,7 +68,7 @@
     z-index: 1;
   }
 
-  @include mixins.link-when-active {
+  @include link-when-active {
     &::before {
       opacity: 1;
     }
@@ -92,7 +101,7 @@
     color: inherit;
   }
 
-  @include mixins.link-when-active {
+  @include link-when-active {
     background-color: var(--clr-secondary);
 
     & + .imgLink {
@@ -127,8 +136,16 @@
   font-size: 1.375rem;
   letter-spacing: 0.01em;
 
+  @include breakpoint("xxl") {
+    font-size: 1.25rem;
+  }
+
+  @include breakpoint("xl") {
+    font-size: 1.125rem;
+  }
+
   a {
-    @include mixins.link-when-active {
+    @include link-when-active {
       color: var(--clr-secondary);
     }
   }
