@@ -2,6 +2,14 @@
 
 .section {
   margin-top: 100px;
+
+  @include breakpoint(md) {
+    margin-top: 60px;
+  }
+
+  @include breakpoint(sm) {
+    margin-top: 40px;
+  }
 }
 
 .sectionHeader {
@@ -15,7 +23,7 @@
   display: flex;
   align-items: center;
   font-family: var(--ff-heading);
-  font-size: 1.875rem;
+  font-size: var(--rp-section-title);
   font-weight: 700;
   letter-spacing: 0.01em;
   line-height: 1.2;
@@ -24,6 +32,18 @@
     width: 40px;
     height: 40px;
     margin-right: 12px;
+
+    @include breakpoint(md) {
+      width: 32px;
+      height: 32px;
+      margin-right: 8px;
+    }
+
+    @include breakpoint(sm) {
+      width: 28px;
+      height: 28px;
+      margin-right: 4px;
+    }
   }
 }
 
@@ -31,7 +51,15 @@
   width: 100%;
   margin-left: 52px;
   color: var(--clr-contrast-medium);
-  font-size: 1rem;
+  font-size: var(--rp-section-desc);
+
+  @include breakpoint(md) {
+    margin-left: 40px;
+  }
+
+  @include breakpoint(sm) {
+    margin-left: 32px;
+  }
 }
 
 .link {

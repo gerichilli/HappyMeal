@@ -1,12 +1,10 @@
 import { useEffect } from "react";
 import { useState } from "react";
-import { useLocation } from "react-router-dom";
 import Seo from "../../components/Seo";
 import AlphabetLayout from "../../layout/AlphabetLayout";
 import { getAreaList } from "../../services/apiServices";
 
 function AreaList() {
-  const location = useLocation();
   const [areaList, setAreaList] = useState([]);
 
   useEffect(() => {
@@ -23,7 +21,7 @@ function AreaList() {
 
   return (
     <>
-      <Seo title="All areas" path={location.pathname} />
+      <Seo title="All areas" />
       <AlphabetLayout list={areaList} sortBy="strArea" displayBy="strArea" path="/area" />
     </>
   );

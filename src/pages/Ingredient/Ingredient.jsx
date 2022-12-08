@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useLocation, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import ListLayout from "../../layout/ListLayout";
 import Seo from "../../components/Seo";
 import { getRecipesByIngredients } from "../../services/apiServices";
@@ -8,7 +8,6 @@ import NotFound from "../../components/NotFound";
 
 function Ingredient() {
   const { ingredient } = useParams();
-  const location = useLocation();
   const [recipes, setRecipes] = useState([]);
   const [error, setError] = useState(false);
 
@@ -30,7 +29,7 @@ function Ingredient() {
   }
   return (
     <>
-      <Seo title={ingredient} path={location.pathname} />
+      <Seo title={ingredient} />
       {error ? (
         <NotFound message="Coudn't find any recipes with this ingredient" back={{ title: "Ingredients List", path: "/ingredient" }} />
       ) : (

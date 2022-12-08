@@ -31,7 +31,7 @@ function RecipesSlide({ title, description, recipes, recipeSize, pageLink }) {
               : Array(MAX_REVIEW_RECIPES)
                   .fill(0)
                   .map((_, index) => (
-                    <SwiperSlide key={index} style={{ width: slideWidth }}>
+                    <SwiperSlide key={index} style={{ width: slideWidth, minWidth: 200 }}>
                       <RecipeSkeleton />
                     </SwiperSlide>
                   ))}

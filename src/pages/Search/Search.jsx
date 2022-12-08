@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useLocation, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import styles from "./Search.module.scss";
 import ListLayout from "../../layout/ListLayout";
 import Seo from "../../components/Seo";
@@ -9,7 +9,6 @@ import loading from "../../assets/images/notfound.png";
 
 function Search() {
   const { query } = useParams();
-  const location = useLocation();
   const [recipes, setRecipes] = useState([]);
   const [error, setError] = useState(false);
 
@@ -32,7 +31,7 @@ function Search() {
   }
   return (
     <>
-      <Seo path={location.pathname} />
+      <Seo />
       <ListLayout title="Search Results" isPaginate={true} recipes={recipes} error={error}>
         {error ? (
           <div className={styles.error}>

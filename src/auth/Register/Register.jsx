@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link, Navigate, useLocation } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import styles from "../auth.module.scss";
 import { AiOutlineGoogle, AiFillIdcard, AiFillEye } from "react-icons/ai";
 import { MdEmail } from "react-icons/md";
@@ -13,7 +13,6 @@ import Seo from "../../components/Seo";
 
 function Register() {
   const dispatch = useDispatch();
-  const location = useLocation();
   const isAuthenticated = useSelector((state) => state.user.isAuthenticated);
   const [userName, setUsername] = useState("");
   const [email, setEmail] = useState("");
@@ -117,7 +116,7 @@ function Register() {
 
   return (
     <>
-      <Seo title="Register" path={location.pathname} />
+      <Seo title="Register" />
       <div className={styles.wrapper}>
         <form className={styles.form} onSubmit={handleSubmit}>
           <div className={styles.formTop}>
@@ -127,7 +126,7 @@ function Register() {
           <div className={styles.formMain}>
             <Input
               icon={<AiFillIdcard />}
-              label="Username"
+              label="Email Address"
               type="text"
               placeholder="Username"
               value={userName}

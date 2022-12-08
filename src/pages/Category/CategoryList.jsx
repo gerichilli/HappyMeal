@@ -1,12 +1,10 @@
 import { useEffect } from "react";
 import { useState } from "react";
-import { useLocation } from "react-router-dom";
 import Seo from "../../components/Seo";
 import AlphabetLayout from "../../layout/AlphabetLayout";
 import { getCategoryList } from "../../services/apiServices";
 
 function CategoryList() {
-  const location = useLocation();
   const [categoryList, setCategoryList] = useState([]);
 
   useEffect(() => {
@@ -23,7 +21,7 @@ function CategoryList() {
 
   return (
     <>
-      <Seo title="All categories" path={location.pathname} />
+      <Seo title="All categories" />
       <AlphabetLayout list={categoryList} sortBy="strCategory" displayBy="strCategory" path="/category" />
     </>
   );

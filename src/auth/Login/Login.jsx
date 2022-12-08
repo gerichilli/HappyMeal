@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { Link, Navigate, useLocation } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { Link, useLocation, useNavigate, useSearchParams } from "react-router-dom";
 import { toast } from "react-hot-toast";
 import { useDispatch, useSelector } from "react-redux";
 import styles from "../auth.module.scss";
@@ -13,14 +13,28 @@ import { validateEmail, validatePassword, validateAll } from "../../utils/formVa
 
 function Login() {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { state } = useLocation();
-  const location = useLocation();
+  const [searchParams] = useSearchParams();
+  const mode = searchParams.get("mode");
   const isAuthenticated = useSelector((state) => state.user.isAuthenticated);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState({ email: "", password: "" });
   const [isAbleToValidate, setIsAbleToValidate] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
+
+  useEffect(() => {
+    const time = mode === "resetPassword" ? 500 : 0;
+
+    const timeout = setTimeout(() => {
+      if (isAuthenticated) {
+        navigate(state?.redirectTo || "/");
+      }
+    }, time);
+
+    return () => clearTimeout(timeout);
+  }, [isAuthenticated]);
 
   function handleChangeEmail(event) {
     setEmail(event.target.value);
@@ -78,14 +92,9 @@ function Login() {
     }
   }
 
-  if (isAuthenticated) {
-    // Redirect to the attempted page after login
-    return <Navigate to={state?.redirectTo || "/"} replace={true} />;
-  }
-
   return (
     <>
-      <Seo title="Login" path={location.pathname} />
+      <Seo title="Login" />
       <div className={styles.wrapper}>
         <form className={styles.form} onSubmit={handleSubmit}>
           <div className={styles.formTop}>
@@ -111,7 +120,9 @@ function Login() {
               handleChangeValue={handleChangePassword}
               error={error.password}
             />
-            <p className={styles.forgotMessage}>Forgot Password?</p>
+            <Link className={styles.forgotMessage} to="/forgot-password">
+              Forgot Password?
+            </Link>
             <button className={styles.submit} type="submit" disabled={isSubmitted}>
               Log in
             </button>

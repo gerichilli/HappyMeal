@@ -19,10 +19,30 @@
   align-items: center;
   cursor: pointer;
 
+  @include breakpoint("xl") {
+    width: 50px;
+    height: 50px;
+  }
+
+  @include breakpoint("lg") {
+    width: 40px;
+    height: 40px;
+  }
+
   svg {
     width: 1.75em;
     height: 1.75em;
     fill: currentColor;
+
+    @include breakpoint("xl") {
+      width: 1.5em;
+      height: 1.5em;
+    }
+
+    @include breakpoint("lg") {
+      width: 1.25em;
+      height: 1.25em;
+    }
   }
 
   &--sm {
@@ -41,7 +61,15 @@
       top: 170px; // Make it centered with image
 
       @include breakpoint("xxl") {
-        top: 35%;
+        top: 135px;
+      }
+
+      @include breakpoint("xl") {
+        top: 115px;
+      }
+
+      @include breakpoint("lg") {
+        top: 100px;
       }
     }
   }
@@ -61,6 +89,10 @@
 
   &.btn--lg {
     transform: translate(-50%, -50%);
+
+    @include breakpoint("sm") {
+      transform: translate(-35%, -50%);
+    }
   }
 }
 
@@ -70,5 +102,9 @@
 
   &.btn--lg {
     transform: translate(50%, -50%);
+
+    @include breakpoint("sm") {
+      transform: translate(35%, -50%);
+    }
   }
 }

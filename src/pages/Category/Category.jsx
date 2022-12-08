@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import styles from "./Category.module.scss";
-import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import ListLayout from "../../layout/ListLayout";
 import Seo from "../../components/Seo";
 import { getCategoriesDetail, getRecipesByCategory } from "../../services/apiServices";
@@ -11,8 +11,6 @@ import NotFound from "../../components/NotFound";
 
 function Category() {
   const { category } = useParams();
-  const location = useLocation();
-  const navigate = useNavigate();
   const [recipes, setRecipes] = useState([]);
   const [categoryInfo, setCategoryInfo] = useState(null);
   const [error, setError] = useState(false);
@@ -49,7 +47,7 @@ function Category() {
   }
   return (
     <>
-      <Seo title={category} path={location.pathname} />
+      <Seo title={category} />
       {error ? (
         <NotFound message="Coudn't find any recipes with this category" back={{ title: "Categories List", path: "/category" }} />
       ) : (

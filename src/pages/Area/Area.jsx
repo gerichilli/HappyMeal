@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useLocation, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import ListLayout from "../../layout/ListLayout";
 import Seo from "../../components/Seo";
 import { getRecipesByArea } from "../../services/apiServices";
@@ -8,7 +8,6 @@ import NotFound from "../../components/NotFound";
 
 function Area() {
   const { area } = useParams();
-  const location = useLocation();
   const [recipes, setRecipes] = useState([]);
   const [error, setError] = useState(false);
 
@@ -30,7 +29,7 @@ function Area() {
   }
   return (
     <>
-      <Seo title={area} path={location.pathname} />
+      <Seo title={area} />
       {error ? (
         <NotFound message="Coudn't find any recipes with this area" back={{ title: "Areas List", path: "/area" }} />
       ) : (

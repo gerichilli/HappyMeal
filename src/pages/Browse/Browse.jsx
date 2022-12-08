@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import ListLayout from "../../layout/ListLayout";
 import Seo from "../../components/Seo";
 import { getLastestRecipes, getRandomRecipes } from "../../services/apiServices";
@@ -7,7 +7,6 @@ import mapRecipes from "../../utils/mapRecipes";
 
 function Browse() {
   const { browseBy } = useParams();
-  const location = useLocation();
   const navigate = useNavigate();
   const [recipes, setRecipes] = useState([]);
 
@@ -38,7 +37,7 @@ function Browse() {
   }
   return (
     <>
-      <Seo title={browseBy === "lastest" ? "Lastest Recipes" : "Random Recipes"} path={location.pathname} />
+      <Seo title={browseBy === "lastest" ? "Lastest Recipes" : "Random Recipes"} />
       <ListLayout title={browseBy === "lastest" ? "Lastest Recipes" : "Random Recipes"} isPaginate={true} recipes={recipes} />
     </>
   );

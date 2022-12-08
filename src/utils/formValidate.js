@@ -52,8 +52,6 @@ export function validateEmail(email) {
 export function validatePassword(password) {
   if (!validateEmpty(password)) {
     return { isValid: false, message: "Password is required" };
-  } else if (!validateLength(password, 8, "min")) {
-    return { isValid: false, message: "Password should be at least 8 characters" };
   } else {
     return { isValid: true, message: "" };
   }

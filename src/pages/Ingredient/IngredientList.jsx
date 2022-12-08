@@ -1,12 +1,10 @@
 import { useEffect } from "react";
 import { useState } from "react";
-import { useLocation } from "react-router-dom";
 import Seo from "../../components/Seo";
 import AlphabetLayout from "../../layout/AlphabetLayout";
 import { getIngredientList } from "../../services/apiServices";
 
 function IngredientList() {
-  const location = useLocation();
   const [ingredientList, setIngredientList] = useState([]);
 
   useEffect(() => {
@@ -23,7 +21,7 @@ function IngredientList() {
 
   return (
     <>
-      <Seo title="All ingredients" path={location.pathname} />
+      <Seo title="All ingredients" />
       <AlphabetLayout list={ingredientList} sortBy="strIngredient" displayBy="strIngredient" path="/ingredient" />
     </>
   );

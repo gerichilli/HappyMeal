@@ -1,12 +1,21 @@
-@use "../../styles/mixins.scss" as mixins;
+@use "../../styles/mixins.scss" as *;
 
 .form {
   display: flex;
+
+  @include breakpoint(sm) {
+    flex-direction: column;
+  }
 }
 
 .inputContainer {
   flex-grow: 1;
   margin-right: 12px;
+
+  @include breakpoint(sm) {
+    margin-right: 0;
+    margin-bottom: 10px;
+  }
 }
 
 .input {
@@ -32,7 +41,7 @@
   background-color: var(--clr-tertiary);
   cursor: pointer;
 
-  @include mixins.link-when-active {
+  @include link-when-active {
     background-color: var(--clr-tertiary-hover);
   }
 }
@@ -42,4 +51,10 @@
   font: inherit;
   font-size: 1.125rem;
   padding: 16px;
+
+  @include breakpoint(sm) {
+    font-size: 1rem;
+    padding-top: 12px;
+    padding-bottom: 12px;
+  }
 }

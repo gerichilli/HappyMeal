@@ -11,6 +11,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { getAllSavedRecipes } from "./services/apiServices";
 import { getSavedRecipes } from "./redux/action/recipeAction";
+import Login from "./auth/Login";
+import useUpdateUserInfo from "./utils/useUpdateUserInfo";
 
 const LazyRecipePage = lazy(() => import("./pages/Recipe"));
 const LazySearch = lazy(() => import("./pages/Search"));
@@ -21,8 +23,8 @@ const LazyArea = lazy(() => import("./pages/Area"));
 const LazyIngredientList = lazy(() => import("./pages/Ingredient/IngredientList"));
 const LazyIngredient = lazy(() => import("./pages/Ingredient"));
 const LazyBrowse = lazy(() => import("./pages/Browse"));
-const LazyLogin = lazy(() => import("./auth/Login"));
 const LazyRegister = lazy(() => import("./auth/Register"));
+const LazyForgotPassword = lazy(() => import("./auth/ForgotPassword"));
 const LazyBookmark = lazy(() => import("./pages/Bookmark"));
 const LazyProfile = lazy(() => import("./pages/Profile"));
 
@@ -30,6 +32,7 @@ function App() {
   const dispatch = useDispatch();
   const isAuthenticated = useSelector((state) => state.user.isAuthenticated);
   const userId = useSelector((state) => state.user.account.userId);
+  useUpdateUserInfo();
 
   useEffect(() => {
     if (isAuthenticated) {
@@ -63,8 +66,9 @@ function App() {
               <Route path="/ingredient/:ingredient" element={<LazyIngredient />} />
               <Route path="/search/:query" element={<LazySearch />} />
               <Route path="/browse/:browseBy" element={<LazyBrowse />} />
-              <Route path="/login" element={<LazyLogin />} />
+              <Route path="/login" element={<Login />} />
               <Route path="/register" element={<LazyRegister />} />
+              <Route path="/forgot-password" element={<LazyForgotPassword />} />
               <Route
                 path="/bookmark"
                 element={

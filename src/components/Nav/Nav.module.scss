@@ -1,4 +1,4 @@
-@use "../../styles/mixins.scss" as mixins;
+@use "../../styles/mixins.scss" as *;
 
 .navList {
   list-style: none;
@@ -8,10 +8,14 @@
 .navItem {
   margin: 0 30px;
   position: relative;
+
+  @include breakpoint(xl) {
+    margin: 0 24px;
+  }
 }
 
 .navLink {
-  @include mixins.link-when-active {
+  @include link-when-active {
     color: var(--clr-primary);
   }
 }
@@ -36,7 +40,7 @@
     transition: transform 0.3s ease;
   }
 
-  @include mixins.link-when-active {
+  @include link-when-active {
     &::after {
       transform: scaleX(1);
     }
@@ -57,6 +61,10 @@
   font-weight: 500;
   display: block;
   padding: 16px 0;
+
+  @include breakpoint(xl) {
+    font-size: 1rem;
+  }
 }
 
 .navDropdown {
@@ -109,7 +117,7 @@
   padding: 6px 24px;
   font-size: 1rem;
 
-  @include mixins.link-when-active {
+  @include link-when-active {
     background-color: var(--clr-primary);
     color: var(--clr-on-bold-bg);
   }

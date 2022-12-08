@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 import ReactPaginate from "react-paginate";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import styles from "./Bookmark.module.scss";
@@ -17,7 +17,6 @@ function Bookmark() {
   const dispatch = useDispatch();
   const savedRecipes = useSelector((state) => state.savedRecipes);
   const userId = useSelector((state) => state.user.account.userId);
-  const location = useLocation();
   const [currentItems, pageCount, handlePageClick, wrapperRef] = usePaginate(savedRecipes, 15);
 
   async function handleDeleteSavedRecipe(recipeId) {
@@ -35,7 +34,7 @@ function Bookmark() {
 
   return (
     <>
-      <Seo title="My Saved Recipes" path={location.pathname} />
+      <Seo title="My Saved Recipes" />
       <section className={styles.wrapper}>
         <div className="container">
           <div className={styles.heading}>

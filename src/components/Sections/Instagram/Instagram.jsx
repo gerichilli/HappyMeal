@@ -17,7 +17,7 @@ function Instagram() {
         </a>
         <CustomSwiper
           modules={[Autoplay]}
-          spaceBetween={20}
+          spaceBetween={10}
           slidesPerView={"auto"}
           autoplay={{
             delay: 2000,
@@ -25,6 +25,11 @@ function Instagram() {
           }}
           loop={true}
           buttonSize="sm"
+          breakpoints={{
+            576: {
+              spaceBetween: 20,
+            },
+          }}
         >
           {instagramData.map((data) => (
             <SwiperSlide key={data.id} style={{ width: "fit-content" }}>

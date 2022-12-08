@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams, useNavigate, useLocation } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import styles from "./Recipe.module.scss";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import { Lightbox } from "react-modal-image";
@@ -23,7 +23,6 @@ import useSavedRecipe from "../../utils/useSavedRecipe";
 
 function Recipe() {
   const { id } = useParams();
-  const location = useLocation();
   const navigate = useNavigate();
   const [recipe, setRecipe] = useState({});
   const [category, setCategory] = useState("");
@@ -99,7 +98,7 @@ function Recipe() {
 
   return (
     <>
-      <Seo path={location.pathname} title={recipe && recipe.title ? recipe.title : ""} />
+      <Seo title={recipe && recipe.title ? recipe.title : ""} />
       <div className={styles.wrapper}>
         <div className={styles.mainSection}>
           {!_.isEmpty(recipe) && (
@@ -108,7 +107,13 @@ function Recipe() {
                 <div className={styles.header}>
                   <div className={styles.bannerWrapper}>
                     <AspectRatio ratio={1}>
-                      <LazyLoadImage src={recipe.thumbnail} alt="" className={styles.image} effect="blur" onClick={() => handleShowLightBox(recipe.thumbnail)} />
+                      <LazyLoadImage
+                        src={recipe.thumbnail}
+                        alt=""
+                        className={styles.image}
+                        effect="blur"
+                        onClick={() => handleShowLightBox(recipe.thumbnail)}
+                      />
                     </AspectRatio>
                   </div>
                   <div className={styles.detailWrapper}>
@@ -120,7 +125,9 @@ function Recipe() {
                     )}
                     <div className={styles.headline}>
                       <h1 className={styles.title}>{recipe.title}</h1>
-                      <div className={styles.tags}>{recipe.tags && recipe.tags.length > 0 && recipe.tags.map((tag) => <Badge key={tag} text={tag} />)}</div>
+                      <div className={styles.tags}>
+                        {recipe.tags && recipe.tags.length > 0 && recipe.tags.map((tag) => <Badge key={tag} text={tag} />)}
+                      </div>
                       <div className={styles.division}>
                         {recipe.category && <span>{recipe.category}</span>}
                         {recipe.area && <span>{recipe.area}</span>}
@@ -164,7 +171,9 @@ function Recipe() {
                                   <span
                                     className={styles.ingredientName}
                                     data-html={true}
-                                    data-tip={ReactDOMServer.renderToString(<img src={`https://www.themealdb.com/images/ingredients/${ingredient.name}-Small.png`} alt="" />)}
+                                    data-tip={ReactDOMServer.renderToString(
+                                      <img src={`https://www.themealdb.com/images/ingredients/${ingredient.name}-Small.png`} alt="" />
+                                    )}
                                     data-class={styles.tooltip}
                                     data-padding="6px"
                                     data-arrow-color="transparent"
@@ -203,7 +212,14 @@ function Recipe() {
         </div>
         <RecipesSlide title="You might also like" recipes={relatedRecipes} recipeSize="md" />
       </div>
-      {showLightbox && <Lightbox medium={lightboxImage} large={lightboxImage} alt={recipe && recipe.title ? recipe.title : "Recipe Image"} onClose={handleCloseLightbox} />}
+      {showLightbox && (
+        <Lightbox
+          medium={lightboxImage}
+          large={lightboxImage}
+          alt={recipe && recipe.title ? recipe.title : "Recipe Image"}
+          onClose={handleCloseLightbox}
+        />
+      )}
     </>
   );
 }

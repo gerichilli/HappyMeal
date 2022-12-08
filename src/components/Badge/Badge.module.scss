@@ -1,3 +1,5 @@
+@use "../../styles/mixins.scss" as *;
+
 .badge {
   display: inline-block;
   border-radius: 5px;
@@ -5,6 +7,14 @@
   color: var(--clr-on-bold-bg);
   padding: 4px 10px;
   margin-bottom: 3px;
+
+  @include breakpoint(md) {
+    padding: 3px 6px;
+  }
+
+  @include breakpoint(sm) {
+    font-size: 0.625rem;
+  }
 
   &:not(:last-child) {
     margin-right: 3px;

@@ -7,9 +7,12 @@ import {
   createUserWithEmailAndPassword,
   updateProfile,
   updateEmail,
-  sendSignInLinkToEmail,
+  sendEmailVerification,
+  sendPasswordResetEmail,
+  deleteUser,
 } from "firebase/auth";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
+import { BASE_URL } from "../utils/constants";
 
 export const postLogin = async (email, password) => {
   try {
@@ -121,20 +124,52 @@ export const postUpdateProfileInfo = async (displayName, email, profilePictureFi
 
     return { data };
   } catch (err) {
-    console.log(err);
+    if (err.code === "auth/email-already-in-use") {
+      return "Email already in use. Please try another email.";
+    }
     return "Something went wrong. Please try again.";
   }
 };
 
-export const verifyEmail = async (email) => {
+export const verifyEmail = async () => {
+  const user = auth.currentUser;
+
   const actionCodeSettings = {
-    url: "http://localhost:8888/profile",
+    url: `${BASE_URL}/profile`,
     handleCodeInApp: true,
   };
 
   try {
-    await sendSignInLinkToEmail(auth, email, actionCodeSettings);
-    return { data: "Email sent" };
+    await sendEmailVerification(user, actionCodeSettings);
+
+    return { data: "Sent email verication request. Please check your email." };
+  } catch (err) {
+    return "Something went wrong. Please try again.";
+  }
+};
+
+export const postResetPassword = async (email) => {
+  const actionCodeSettings = {
+    url: `${BASE_URL}/login?mode=resetPassword`,
+    handleCodeInApp: true,
+  };
+
+  try {
+    await sendPasswordResetEmail(auth, email, actionCodeSettings);
+    return { data: "Sent password reset request. Please check your email." };
+  } catch (err) {
+    if (err.code === "auth/user-not-found") {
+      return "User not found. Please register.";
+    }
+    return "Something went wrong. Please try again.";
+  }
+};
+
+export const deleteAccount = async () => {
+  try {
+    const user = auth.currentUser;
+    await deleteUser(user);
+    return { data: "Account deleted successfully" };
   } catch (err) {
     return "Something went wrong. Please try again.";
   }

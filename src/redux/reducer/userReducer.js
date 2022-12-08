@@ -33,10 +33,15 @@ const userReducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         account: {
-          ...state.account,
+          accessToken: action?.payload?.accessToken,
+          refreshToken: action?.payload?.refreshToken,
           displayName: action?.payload?.displayName,
+          email: action?.payload?.email,
+          userId: action?.payload?.userId,
+          emailVerified: action?.payload?.emailVerified,
           photoUrl: action?.payload?.photoUrl,
         },
+        isAuthenticated: true,
       };
     case USER_LOGOUT:
       return {
