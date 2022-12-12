@@ -3,6 +3,10 @@
 .navList {
   list-style: none;
   display: flex;
+
+  @include breakpoint(lg) {
+    flex-direction: column;
+  }
 }
 
 .navItem {
@@ -11,6 +15,10 @@
 
   @include breakpoint(xl) {
     margin: 0 24px;
+  }
+
+  @include breakpoint(lg) {
+    margin: 0;
   }
 }
 
@@ -38,9 +46,17 @@
     transform: scaleX(0);
     transform-origin: left;
     transition: transform 0.3s ease;
+
+    @include breakpoint(lg) {
+      display: none;
+    }
   }
 
   @include link-when-active {
+    @include breakpoint(lg) {
+      color: var(--clr-primary);
+    }
+
     &::after {
       transform: scaleX(1);
     }
@@ -48,6 +64,11 @@
 
   &:global.active {
     color: var(--clr-primary);
+
+    @include breakpoint(lg) {
+      color: var(--clr-on-bold-bg);
+      background-color: var(--clr-primary);
+    }
 
     // &::after {
     //   transform: scaleX(1);
@@ -65,6 +86,15 @@
   @include breakpoint(xl) {
     font-size: 1rem;
   }
+
+  @include breakpoint(lg) {
+    padding: 10px var(--container-padding);
+    border-top: 1px solid var(--clr-contrast-low);
+  }
+
+  @include breakpoint(sm) {
+    font-size: 0.875rem;
+  }
 }
 
 .navDropdown {
@@ -80,6 +110,12 @@
   z-index: 1000;
   opacity: 1;
   animation: fadeIn 0.3s ease forwards;
+
+  @include breakpoint(lg) {
+    position: static;
+    opacity: 1;
+    animation: none;
+  }
 }
 
 @keyframes fadeIn {
@@ -95,21 +131,21 @@
 
 .dropdown {
   list-style: none;
-  max-height: 240px;
+  height: fit-content;
   overflow-y: auto;
 
-  &::-webkit-scrollbar {
-    width: 6px;
-  }
+  // &::-webkit-scrollbar {
+  //   width: 6px;
+  // }
 
-  &::-webkit-scrollbar-track {
-    background: var(--clr-background);
-  }
+  // &::-webkit-scrollbar-track {
+  //   background: var(--clr-background);
+  // }
 
-  &::-webkit-scrollbar-thumb {
-    background: var(--clr-contrast-low);
-    border-radius: 5px;
-  }
+  // &::-webkit-scrollbar-thumb {
+  //   background: var(--clr-contrast-low);
+  //   border-radius: 5px;
+  // }
 }
 
 .dropItem {

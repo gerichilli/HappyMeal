@@ -1,3 +1,5 @@
+@use "../../styles/mixins.scss" as *;
+
 .error {
   display: flex;
   flex-direction: column;
@@ -8,6 +10,14 @@
     font-size: 1.25rem;
     font-weight: 500;
     margin-top: 20px;
+
+    @include breakpoint(md) {
+      font-size: 1.125rem;
+    }
+
+    @include breakpoint(sm) {
+      font-size: 1rem;
+    }
   }
 }
 
@@ -15,4 +25,9 @@
   font-size: 1.125rem;
   font-weight: 500;
   margin-bottom: 16px;
+
+  @include breakpoint(md) {
+    font-size: 1rem;
+    margin-bottom: 12px;
+  }
 }

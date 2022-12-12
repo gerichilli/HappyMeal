@@ -1,9 +1,16 @@
+@use "../../styles/mixins.scss" as *;
+
 .sectionTop {
   margin-bottom: 60px;
   display: flex;
   align-items: center;
   border-bottom: 1px solid var(--clr-primary);
   padding-bottom: 24px;
+
+  @include breakpoint(md) {
+    margin-bottom: 40px;
+    flex-direction: column;
+  }
 }
 
 .infoImage {
@@ -11,6 +18,10 @@
   flex-shrink: 0;
   min-height: 160px;
   position: relative;
+
+  @include breakpoint(md) {
+    max-width: 300px;
+  }
 
   img {
     max-width: 100%;
@@ -20,4 +31,17 @@
 .infoBody {
   padding: 24px 0 24px 48px;
   flex-grow: 1;
+
+  @include breakpoint(xl) {
+    padding: 20px 0 18px 32px;
+  }
+
+  @include breakpoint(lg) {
+    font-size: 1rem;
+  }
+
+  @include breakpoint(md) {
+    padding: 0;
+    padding-top: 12px;
+  }
 }

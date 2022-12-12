@@ -1,10 +1,15 @@
 @use "../../styles/mixins.scss" as *;
 
 .wrapper {
-  padding: 80px 30px;
+  padding: 80px var(--container-padding);
   display: flex;
   align-items: center;
   justify-content: center;
+
+  @include breakpoint(xl) {
+    padding-top: 60px;
+    padding-bottom: 60px;
+  }
 }
 
 .profile {

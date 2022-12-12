@@ -1,11 +1,21 @@
-@use "../../styles//mixins.scss" as mixins;
+@use "../../styles//mixins.scss" as *;
 
 .wrapper {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 100px 0;
+  padding: 100px var(--container-padding);
+
+  @include breakpoint(md) {
+    padding-top: 80px;
+    padding-bottom: 80px;
+  }
+
+  @include breakpoint(sm) {
+    padding-top: 60px;
+    padding-bottom: 60px;
+  }
 
   img {
     width: 100%;
@@ -16,6 +26,15 @@
     font-size: 1.5rem;
     font-weight: 700;
     margin-top: 28px;
+    text-align: center;
+
+    @include breakpoint(xl) {
+      font-size: 1.25rem;
+    }
+
+    @include breakpoint(sm) {
+      font-size: 1.125rem;
+    }
   }
 
   a {
@@ -26,7 +45,13 @@
     border-radius: 5px;
     margin-top: 10px;
 
-    @include mixins.link-when-active {
+    @include breakpoint(xl) {
+      font-size: 0.875rem;
+      padding-top: 8px;
+      padding-bottom: 8px;
+    }
+
+    @include link-when-active {
       background-color: var(--clr-primary-hover);
     }
   }

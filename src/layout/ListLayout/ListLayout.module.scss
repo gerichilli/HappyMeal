@@ -1,5 +1,15 @@
+@use "../../styles/mixins.scss" as *;
+
 .wrapper {
   margin-top: 100px;
+
+  @include breakpoint(xl) {
+    margin-top: 60px;
+  }
+
+  @include breakpoint(sm) {
+    margin-top: 40px;
+  }
 }
 
 .title {
@@ -9,4 +19,18 @@
   text-align: center;
   letter-spacing: 0.05rem;
   margin-bottom: 80px;
+
+  @include breakpoint(xxl) {
+    font-size: 2rem;
+    margin-bottom: 40px;
+  }
+
+  @include breakpoint(xl) {
+    font-size: 1.5rem;
+    margin-bottom: 30px;
+  }
+
+  @include breakpoint(sm) {
+    font-size: 1.375rem;
+  }
 }

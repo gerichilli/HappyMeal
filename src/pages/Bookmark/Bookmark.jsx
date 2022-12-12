@@ -42,7 +42,7 @@ function Bookmark() {
             <p className={styles.description}>These recipes are saved to your account, so you can revisit them anytime.</p>
           </div>
           <div className={styles.content} ref={wrapperRef}>
-            <Grid gx={30} gy={30} colsNum={5}>
+            <Grid gx={30} gy={30} colsNum={4}>
               {currentItems &&
                 currentItems.length > 0 &&
                 currentItems.map((recipe) => (

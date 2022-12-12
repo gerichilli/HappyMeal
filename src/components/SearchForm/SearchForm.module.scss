@@ -1,6 +1,7 @@
 @use "../../styles/mixins.scss" as *;
 
 .form {
+  width: 100%;
   min-width: 340px;
   height: 50px;
   border-bottom: 1px solid var(--clr-contrast);
@@ -9,38 +10,33 @@
   position: relative;
 
   @include breakpoint(xl) {
-    min-width: 300px;
+    min-width: auto;
+  }
+
+  @include breakpoint(lg) {
+    height: 40px;
+  }
+
+  & > * {
+    height: 100%;
   }
 
   input,
-  select,
   button {
     font-family: inherit;
     border: none;
     box-sizing: border-box;
     background-color: transparent;
-    height: 100%;
-  }
-
-  input,
-  select {
-    padding-right: 8px;
-    font-size: 1.125rem;
-    font-weight: 500;
-    flex-grow: 1;
-
-    &:active,
-    &:focus,
-    &:focus-within,
-    &:focus-visible {
-      outline: none;
-    }
   }
 
   button {
     width: 50px;
     background-color: transparent;
     cursor: pointer;
+
+    @include breakpoint(lg) {
+      width: 40px;
+    }
 
     &:hover,
     &:active {
@@ -49,21 +45,53 @@
   }
 }
 
+.inputWrapper {
+  flex: 1 1 auto;
+  display: flex;
+
+  input {
+    padding-right: 8px;
+    font-size: 1.125rem;
+    font-weight: 500;
+
+    @include breakpoint(lg) {
+      font-size: 1rem;
+    }
+
+    @include breakpoint(sm) {
+      max-width: 160px;
+    }
+
+    &:active,
+    &:focus,
+    &:focus-within,
+    &:focus-visible {
+      outline: none;
+    }
+  }
+}
+
 .preview {
   position: absolute;
   top: 100%;
   right: 0;
-  width: 100%;
+  width: 80vw;
+  max-width: 360px;
   margin-top: 10px;
   background-color: var(--clr-background);
   list-style: none;
   box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+  height: fit-content;
   max-height: 400px;
   overflow-y: auto;
   z-index: 99;
 
   &::-webkit-scrollbar {
     width: 12px;
+
+    @include breakpoint(lg) {
+      width: 8px;
+    }
   }
 
   &::-webkit-scrollbar-track {
@@ -78,6 +106,10 @@
     display: flex;
     align-items: center;
     padding: 10px 16px;
+
+    @include breakpoint(lg) {
+      padding: 8px 12px;
+    }
 
     &:hover,
     &:active {
@@ -95,6 +127,11 @@
     font-size: 1rem;
     font-weight: 500;
     margin-left: 16px;
+
+    @include breakpoint(lg) {
+      font-size: 0.875rem;
+      margin-left: 10px;
+    }
   }
 }
 
@@ -102,6 +139,11 @@
   flex-shrink: 0;
   width: 72px;
   height: 72px;
+
+  @include breakpoint(lg) {
+    width: 60px;
+    height: 60px;
+  }
 
   img {
     width: 100%;

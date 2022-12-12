@@ -1,8 +1,15 @@
+@use "../styles/mixins.scss" as *;
+
 .wrapper {
-  padding: 80px 30px;
+  padding: 80px var(--container-padding);
   display: flex;
   align-items: center;
   justify-content: center;
+
+  @include breakpoint(xl) {
+    padding-top: 60px;
+    padding-bottom: 60px;
+  }
 }
 
 .form {
@@ -14,6 +21,18 @@
   box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
   padding: 40px;
 
+  @include breakpoint(xl) {
+    padding: 36px;
+  }
+
+  @include breakpoint(md) {
+    padding: 28px;
+  }
+
+  @include breakpoint(sm) {
+    padding: 24px 16px;
+  }
+
   button {
     width: 100%;
     padding: 14px 20px;
@@ -22,6 +41,10 @@
     outline: none;
     border-radius: 5px;
     cursor: pointer;
+
+    @include breakpoint(sm) {
+      padding: 12px 16px;
+    }
   }
 }
 
@@ -29,9 +52,21 @@
   margin-bottom: 36px;
   text-align: center;
 
+  @include breakpoint(sm) {
+    margin-bottom: 28px;
+  }
+
   h1 {
     font-size: 2rem;
     line-height: 1.2;
+
+    @include breakpoint(xl) {
+      font-size: 1.75rem;
+    }
+
+    @include breakpoint(md) {
+      font-size: 1.5rem;
+    }
   }
 }
 
@@ -67,6 +102,11 @@
   margin-top: 30px;
   margin-bottom: 16px;
 
+  @include breakpoint(sm) {
+    margin-top: 20px;
+    margin-bottom: 12px;
+  }
+
   &::before,
   &::after {
     content: "";
@@ -95,6 +135,10 @@
   svg {
     font-size: 1.25em;
     margin-right: 8px;
+
+    @include breakpoint(sm) {
+      font-size: 1em;
+    }
   }
 }
 

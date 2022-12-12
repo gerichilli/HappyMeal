@@ -10,9 +10,9 @@
 
 @mixin create-paper-pattern($line-height, $background-color, $line-color) {
   line-height: $line-height;
-  padding-top: #{$line-height}em;
-  padding-bottom: #{$line-height}em;
-  margin-bottom: -#{$line-height / 4}em;
+  padding-top: calc($line-height * 1em);
+  padding-bottom: calc($line-height * 1em);
+  margin-bottom: calc($line-height * 1em / 4);
   position: relative;
 
   &::before {
@@ -24,9 +24,9 @@
     right: 0;
     z-index: -1;
     background: $background-color;
-    background-image: repeating-linear-gradient($line-color 0 1px, transparent 0 #{$line-height}em);
+    background-image: repeating-linear-gradient($line-color 0 1px, transparent 0 calc($line-height * 1em));
     background-origin: content-box;
-    transform: translateY(-#{$line-height / 5}em);
+    transform: translateY(calc($line-height * -1em / 4));
   }
 }
 

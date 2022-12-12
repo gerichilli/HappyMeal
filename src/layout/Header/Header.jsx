@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { doLogout } from "../../redux/action/userAction";
@@ -7,6 +8,7 @@ import Nav from "../../components/Nav";
 import logo from "../../assets/images/logo.png";
 import SearchForm from "../../components/SearchForm";
 import { AiOutlinePoweroff, AiFillHeart } from "react-icons/ai";
+import { FiMenu } from "react-icons/fi";
 import { CgProfile } from "react-icons/cg";
 import { toast } from "react-hot-toast";
 import { getSavedRecipes } from "../../redux/action/recipeAction";
@@ -15,6 +17,7 @@ function Header() {
   const isAuthenticated = useSelector((state) => state.user.isAuthenticated);
   const displayName = useSelector((state) => state.user.account.displayName);
   const dispatch = useDispatch();
+  const [isNavOpenOnMobile, setIsNavOpenOnMobile] = useState(false);
 
   async function handleLogout() {
     const res = await postLogout();
@@ -30,11 +33,20 @@ function Header() {
     <header>
       <div className="container">
         <div className={styles.headerTop}>
+          <button
+            className={styles.menuButton}
+            aria-expanded={isNavOpenOnMobile}
+            aria-label="Toggle navigation"
+            aria-controls="navigation"
+            onClick={() => setIsNavOpenOnMobile(!isNavOpenOnMobile)}
+          >
+            <FiMenu />
+          </button>
           <Link to="/" className={styles.logo}>
             <img src={logo} alt="Logo" />
           </Link>
-          <div className={styles.navContainer}>
-            <Nav />
+          <div className={`${styles.navContainer} ${isNavOpenOnMobile ? styles.navContainerActive : ""}`} id="navigation">
+            <Nav isNavOpenOnMobile={isNavOpenOnMobile} setIsNavOpenOnMobile={setIsNavOpenOnMobile} />
           </div>
           <div className={styles.formContainer}>
             <SearchForm />

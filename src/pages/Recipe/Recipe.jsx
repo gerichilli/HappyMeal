@@ -1,5 +1,6 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
+import { useReactToPrint } from "react-to-print";
 import styles from "./Recipe.module.scss";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import { Lightbox } from "react-modal-image";
@@ -9,15 +10,13 @@ import { AiOutlinePlayCircle } from "react-icons/ai";
 import { MdOutlineBookmarkAdded, MdOutlineBookmarkBorder, MdOutlinePrint } from "react-icons/md";
 import { IconCheck } from "../../assets/icons/icons";
 import _ from "lodash";
-import { getRecipesById, getLastestRecipes, getRecipesByCategory } from "../../services/apiServices";
+import { getRecipesById, getRecipesByCategory } from "../../services/apiServices";
 import formatRecipe from "../../utils/formatRecipe";
 import mapRecipes from "../../utils/mapRecipes";
 import { MAX_REVIEW_RECIPES } from "../../utils/constants";
 import AspectRatio from "../../components/AspectRatio";
 import Badge from "../../components/Badge";
-import RecipeComponent from "../../components/Recipe";
 import RecipesSlide from "../../components/RecipesSlide";
-import { RecipeSkeleton } from "../../components/Skeleton";
 import Seo from "../../components/Seo";
 import useSavedRecipe from "../../utils/useSavedRecipe";
 
@@ -26,19 +25,15 @@ function Recipe() {
   const navigate = useNavigate();
   const [recipe, setRecipe] = useState({});
   const [category, setCategory] = useState("");
-  const [lastestRecipes, setLastestRecipes] = useState([]);
   const [relatedRecipes, setRelatedRecipes] = useState([]);
   const [showLightbox, setShowLightbox] = useState(false);
   const [lightboxImage, setLightboxImage] = useState(null);
   const [isSaved, handleAddBookmark] = useSavedRecipe(false, recipe);
+  const componentToPrintRef = useRef(null);
 
   useEffect(() => {
     getRecipe();
   }, [id]);
-
-  useEffect(() => {
-    fetchLastestRecipes();
-  }, []);
 
   useEffect(() => {
     if (category) {
@@ -60,17 +55,6 @@ function Recipe() {
     } else {
       navigate("/404");
       return;
-    }
-  }
-
-  async function fetchLastestRecipes() {
-    const res = await getLastestRecipes();
-
-    if (res && res.status === 200) {
-      let recipes = res.data.slice(0, 4);
-
-      recipes = mapRecipes(recipes);
-      setLastestRecipes(recipes);
     }
   }
 
@@ -96,13 +80,17 @@ function Recipe() {
     setLightboxImage(imgSrc);
   }
 
+  const handlePrint = useReactToPrint({
+    content: () => componentToPrintRef.current,
+  });
+
   return (
     <>
       <Seo title={recipe && recipe.title ? recipe.title : ""} />
       <div className={styles.wrapper}>
         <div className={styles.mainSection}>
           {!_.isEmpty(recipe) && (
-            <section className={styles.recipe}>
+            <section className={styles.recipe} ref={componentToPrintRef}>
               <div className="container">
                 <div className={styles.header}>
                   <div className={styles.bannerWrapper}>
@@ -147,7 +135,7 @@ function Recipe() {
                           </>
                         )}
                       </button>
-                      <button className={styles.actionBtn}>
+                      <button className={styles.actionBtn} onClick={handlePrint}>
                         <MdOutlinePrint size="1.5em" />
                         <span>Print</span>
                       </button>
@@ -195,16 +183,6 @@ function Recipe() {
                       <div className={styles.sectionBody}>{recipe.instructions}</div>
                     </div>
                   </div>
-                  <aside className={styles.lastest}>
-                    <h2 className={styles.sectionTitle}>Lastest</h2>
-                    <div className={styles.lastestWrapper}>
-                      {lastestRecipes && lastestRecipes.length > 0
-                        ? lastestRecipes.map((recipe) => <RecipeComponent recipe={recipe} size="lg" key={recipe.id} />)
-                        : Array(4)
-                            .fill(0)
-                            .map((_, index) => <RecipeSkeleton key={index} />)}
-                    </div>
-                  </aside>
                 </div>
               </div>
             </section>
