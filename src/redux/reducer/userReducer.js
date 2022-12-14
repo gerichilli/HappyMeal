@@ -19,6 +19,7 @@ const userReducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         account: {
+          ...state.account,
           accessToken: action?.payload?.accessToken,
           refreshToken: action?.payload?.refreshToken,
           displayName: action?.payload?.displayName,
@@ -33,6 +34,7 @@ const userReducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         account: {
+          ...state.account,
           accessToken: action?.payload?.accessToken,
           refreshToken: action?.payload?.refreshToken,
           displayName: action?.payload?.displayName,
@@ -47,10 +49,14 @@ const userReducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         account: {
+          ...state.account,
           accessToken: "",
           refreshToken: "",
           displayName: "",
           email: "",
+          userId: "",
+          emailVerified: false,
+          photoUrl: "",
         },
         isAuthenticated: false,
       };
