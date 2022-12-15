@@ -14,76 +14,65 @@ import Seo from "../../components/Seo";
 function Register() {
   const dispatch = useDispatch();
   const isAuthenticated = useSelector((state) => state.user.isAuthenticated);
-  const [userName, setUsername] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [rePassword, setRePassword] = useState("");
-  const [error, setError] = useState({ userName: "", email: "", password: "", rePassword: "" });
+  const [userName, setUsername] = useState({ value: "", error: "" });
+  const [email, setEmail] = useState({ value: "", error: "" });
+  const [password, setPassword] = useState({ value: "", error: "" });
+  const [rePassword, setRePassword] = useState({ value: "", error: "" });
   const [isAbleToValidate, setIsAbleToValidate] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
 
   function handleChangeUserName(event) {
-    setUsername(event.target.value);
+    let message = "";
     if (isAbleToValidate) {
-      const { message } = validateUserName(event.target.value);
-      setError((error) => {
-        return { ...error, userName: message };
-      });
+      message = validateUserName(event.target.value).message;
     }
+    setUsername({ value: event.target.value, error: message });
   }
 
   function handleChangeEmail(event) {
-    setEmail(event.target.value);
+    let message = "";
     if (isAbleToValidate) {
-      const { message } = validateEmail(event.target.value);
-      setError((error) => {
-        return { ...error, email: message };
-      });
+      message = validateEmail(event.target.value).message;
     }
+    setEmail({ value: event.target.value, error: message });
   }
 
   function handleChangePassword(event) {
-    setPassword(event.target.value);
+    let message = "";
     if (isAbleToValidate) {
-      const { message } = validatePassword(event.target.value);
-      setError((error) => {
-        return { ...error, password: message };
-      });
+      message = validatePassword(event.target.value).message;
     }
+    setPassword({ value: event.target.value, error: message });
   }
 
   function handleChangeRePassword(event) {
-    setRePassword(event.target.value);
+    let message = "";
     if (isAbleToValidate) {
-      const { message } = validateRePassword(event.target.value, password);
-      setError((error) => {
-        return { ...error, rePassword: message };
-      });
+      message = validateRePassword(event.target.value, password.value).message;
     }
+    setRePassword({ value: event.target.value, error: message });
   }
 
   async function handleSubmit(event) {
     event.preventDefault();
     setIsAbleToValidate(true);
 
-    setError({
-      userName: validateUserName(userName).message,
-      email: validateEmail(email).message,
-      password: validatePassword(password).message,
-      rePassword: validateRePassword(rePassword, password).message,
-    });
+    setUsername({ ...userName, error: validateUserName(userName.value).message });
+    setEmail({ ...email, error: validateEmail(email.value).message });
+    setPassword({ ...password, error: validatePassword(password.value).message });
+    setRePassword({ ...rePassword, error: validateRePassword(rePassword.value, password.value).message });
 
     let validated = validateAll(
-      validateUserName(userName),
-      validateEmail(email),
-      validatePassword(password),
-      validateRePassword(rePassword, password)
+      validateUserName(userName.value),
+      validateEmail(email.value),
+      validatePassword(password.value),
+      validateRePassword(rePassword.value, password.value)
     );
 
     if (validated) {
       setIsSubmitted(true);
       const waitting = toast.loading("Please wait...");
-      const res = await postRegister(userName, email, password);
+      const res = await postRegister(userName.value, email.value, password.value);
       toast.dismiss(waitting);
 
       if (res && res.data) {
@@ -129,36 +118,36 @@ function Register() {
               label="Email Address"
               type="text"
               placeholder="Username"
-              value={userName}
+              value={userName.value}
               handleChangeValue={handleChangeUserName}
-              error={error.userName}
+              error={userName.error}
             />
             <Input
               icon={<MdEmail />}
               label="Username"
               type="email"
               placeholder="Email"
-              value={email}
+              value={email.value}
               handleChangeValue={handleChangeEmail}
-              error={error.email}
+              error={email.error}
             />
             <Input
               icon={<AiFillEye />}
               label="Password"
               type="password"
               placeholder="Password (at least 8 characters)"
-              value={password}
+              value={password.value}
               handleChangeValue={handleChangePassword}
-              error={error.password}
+              error={password.error}
             />
             <Input
               icon={<AiFillEye />}
               label="Password"
               type="password"
               placeholder="Repeat Password"
-              value={rePassword}
+              value={rePassword.value}
               handleChangeValue={handleChangeRePassword}
-              error={error.rePassword}
+              error={rePassword.error}
             />
             <button className={styles.submit} type="submit" disabled={isSubmitted}>
               Sign up

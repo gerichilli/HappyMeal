@@ -11,40 +11,38 @@ import { validateEmail } from "../../utils/formValidate";
 
 function Login() {
   const isAuthenticated = useSelector((state) => state.user.isAuthenticated);
-  const [email, setEmail] = useState("");
-  const [error, setError] = useState({ email: "" });
+  const [email, setEmail] = useState({ value: "", error: "" });
   const [isAbleToValidate, setIsAbleToValidate] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
 
   function handleChangeEmail(event) {
-    setEmail(event.target.value);
+    let message = "";
     if (isAbleToValidate) {
-      const { message } = validateEmail(event.target.value);
-      setError((error) => {
-        return { ...error, email: message };
-      });
+      message = validateEmail(event.target.value).message;
     }
+    setEmail({ value: event.target.value, error: message });
   }
 
   async function handleSubmit(event) {
     event.preventDefault();
     setIsAbleToValidate(true); // Only start validating after user has submitted the form
 
-    setError({ email: validateEmail(email).message });
-    let validated = validateEmail(email).isValid;
+    setEmail({ ...email, error: validateEmail(email.value).message });
+    let validated = validateEmail(email.value).isValid;
 
     if (validated) {
       setIsSubmitted(true);
       const waitting = toast.loading("Please wait...");
-      const res = await postResetPassword(email);
+      const res = await postResetPassword(email.value);
       toast.dismiss(waitting);
 
       if (res && res.data) {
         toast.success(res.data);
       } else {
         toast.error(res);
-        setIsSubmitted(false);
       }
+
+      setIsSubmitted(false);
     }
   }
 
@@ -67,9 +65,9 @@ function Login() {
               label="Email Address"
               type="email"
               placeholder="Email"
-              value={email}
+              value={email.value}
               handleChangeValue={handleChangeEmail}
-              error={error.email}
+              error={email.error}
             />
             <button className={styles.submit} type="submit" disabled={isSubmitted}>
               Confirm

@@ -17,6 +17,7 @@ function Area() {
 
   async function fetchRecipes() {
     setRecipes([]);
+    setError(false);
     const res = await getRecipesByArea(area);
 
     if (res && res.status === 200) {

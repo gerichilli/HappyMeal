@@ -19,9 +19,8 @@ function Profile() {
   const [isModalDeleteShow, setIsModalDeleteShow] = useState(false);
   const [profilePicture, setProfilePicture] = useState(null);
   const [displayProfilePicture, setDisplayProfilePicture] = useState(user.photoUrl);
-  const [userName, setUsername] = useState(user.displayName);
-  const [email, setEmail] = useState(user.email);
-  const [error, setError] = useState({ userName: "", email: "" });
+  const [userName, setUsername] = useState({ value: user.displayName, error: "" });
+  const [email, setEmail] = useState({ value: user.email, error: "" });
 
   function handleChangeProfilePicture(event) {
     const file = event.target.files[0];
@@ -37,26 +36,20 @@ function Profile() {
   }
 
   function handleChangeUserName(event) {
-    setUsername(event.target.value);
     const { message } = validateUserName(event.target.value);
-    setError((error) => {
-      return { ...error, userName: message };
-    });
+    setUsername({ value: event.target.value, error: message });
   }
 
   function handleChangeEmail(event) {
-    setEmail(event.target.value);
     const { message } = validateEmail(event.target.value);
-    setError((error) => {
-      return { ...error, email: message };
-    });
+    setEmail({ value: event.target.value, error: message });
   }
 
   function handleCloseModalProfile() {
     setIsModalProfileShow(false);
     // Reset form
-    setEmail(user.email);
-    setUsername(user.displayName);
+    setEmail({ value: user.email, error: "" });
+    setUsername({ value: user.displayName, error: "" });
     setDisplayProfilePicture(user.photoUrl);
     setProfilePicture(null);
   }
@@ -78,10 +71,10 @@ function Profile() {
   }
 
   async function handleSubmitUserProfile() {
-    let validated = validateAll(validateUserName(userName), validateEmail(email));
+    let validated = validateAll(validateUserName(userName.value), validateEmail(email.value));
     if (validated) {
       const waitting = toast.loading("Updating...");
-      const res = await postUpdateProfileInfo(userName, email, profilePicture);
+      const res = await postUpdateProfileInfo(userName.value, email.value, profilePicture);
       toast.dismiss(waitting);
 
       if (res && res.data) {
@@ -159,18 +152,18 @@ function Profile() {
             label="Username"
             type="text"
             placeholder="Username"
-            value={userName}
+            value={userName.value}
             handleChangeValue={handleChangeUserName}
-            error={error.userName}
+            error={userName.error}
           />
           <Input
             icon={<MdEmail />}
             label="Username"
             type="email"
             placeholder="Email"
-            value={email}
+            value={email.value}
             handleChangeValue={handleChangeEmail}
-            error={error.email}
+            error={email.error}
             readOnly={user.emailVerified}
           />
         </Modal>

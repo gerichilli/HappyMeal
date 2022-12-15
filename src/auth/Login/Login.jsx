@@ -18,9 +18,9 @@ function Login() {
   const [searchParams] = useSearchParams();
   const mode = searchParams.get("mode");
   const isAuthenticated = useSelector((state) => state.user.isAuthenticated);
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [error, setError] = useState({ email: "", password: "" });
+
+  const [email, setEmail] = useState({ value: "", error: "" });
+  const [password, setPassword] = useState({ value: "", error: "" });
   const [isAbleToValidate, setIsAbleToValidate] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
 
@@ -37,36 +37,33 @@ function Login() {
   }, [isAuthenticated]);
 
   function handleChangeEmail(event) {
-    setEmail(event.target.value);
+    let message = "";
     if (isAbleToValidate) {
-      const { message } = validateEmail(event.target.value);
-      setError((error) => {
-        return { ...error, email: message };
-      });
+      message = validateEmail(event.target.value).message;
     }
+    setEmail({ value: event.target.value, error: message });
   }
 
   function handleChangePassword(event) {
-    setPassword(event.target.value);
+    let message = "";
     if (isAbleToValidate) {
-      const { message } = validatePassword(event.target.value);
-      setError((error) => {
-        return { ...error, password: message };
-      });
+      message = validatePassword(event.target.value).message;
     }
+    setPassword({ value: event.target.value, error: message });
   }
 
   async function handleSubmit(event) {
     event.preventDefault();
     setIsAbleToValidate(true); // Only start validating after user has submitted the form
 
-    setError({ email: validateEmail(email).message, password: validatePassword(password).message });
-    let validated = validateAll(validateEmail(email), validatePassword(password));
+    setEmail({ ...email, error: validateEmail(email.value).message });
+    setPassword({ ...password, error: validatePassword(password.value).message });
+    let validated = validateAll(validateEmail(email.value), validatePassword(password.value));
 
     if (validated) {
       setIsSubmitted(true);
       const waitting = toast.loading("Please wait...");
-      const res = await postLogin(email, password);
+      const res = await postLogin(email.value, password.value);
       toast.dismiss(waitting);
 
       if (res && res.data) {
@@ -107,18 +104,18 @@ function Login() {
               label="Username"
               type="email"
               placeholder="Enter email"
-              value={email}
+              value={email.value}
               handleChangeValue={handleChangeEmail}
-              error={error.email}
+              error={email.error}
             />
             <Input
               icon={<AiFillEye />}
               label="Password"
               type="password"
               placeholder="Password"
-              password={password}
+              password={password.value}
               handleChangeValue={handleChangePassword}
-              error={error.password}
+              error={password.error}
             />
             <Link className={styles.forgotMessage} to="/forgot-password">
               Forgot Password?
