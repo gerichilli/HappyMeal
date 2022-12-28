@@ -1,19 +1,23 @@
-import { useState } from "react";
-import { Link, Navigate } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import styles from "../auth.module.scss";
 import { AiOutlineGoogle, AiFillIdcard, AiFillEye } from "react-icons/ai";
 import { MdEmail } from "react-icons/md";
 import Input from "../../components/Input";
 import { useDispatch, useSelector } from "react-redux";
-import { postGoogleLogin, postRegister } from "../../services/authService";
 import toast from "react-hot-toast";
 import { validateUserName, validateEmail, validatePassword, validateRePassword, validateAll } from "../../utils/formValidate";
-import { doLogin } from "../../redux/action/userAction";
 import Seo from "../../components/Seo";
+import { fetchUserAuth } from "../../redux/slices/userSlice";
 
 function Register() {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
-  const isAuthenticated = useSelector((state) => state.user.isAuthenticated);
+  const isAuthenticated = useSelector((state) => state.user.account.isAuthenticated);
+  const isLoading = useSelector((state) => state.user.account.isLoading);
+  const isError = useSelector((state) => state.user.account.isError);
+  const toastMessage = useSelector((state) => state.user.toastMessage);
+
   const [userName, setUsername] = useState({ value: "", error: "" });
   const [email, setEmail] = useState({ value: "", error: "" });
   const [password, setPassword] = useState({ value: "", error: "" });
@@ -21,35 +25,43 @@ function Register() {
   const [isAbleToValidate, setIsAbleToValidate] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
 
-  function handleChangeUserName(event) {
-    let message = "";
-    if (isAbleToValidate) {
-      message = validateUserName(event.target.value).message;
+  useEffect(() => {
+    if (!isSubmitted) return;
+
+    if (isLoading) {
+      toast.loading("Please wait...");
+    } else {
+      toast.dismiss();
+
+      if (isError) {
+        setIsSubmitted(false);
+        toast.error(toastMessage);
+      }
+
+      if (isAuthenticated) {
+        toast.success("Register successful!");
+        navigate("/", { replace: true });
+      }
     }
+  }, [isLoading, isError, toastMessage, isSubmitted, isAuthenticated]);
+
+  function handleChangeUserName(event) {
+    let message = isAbleToValidate ? validateUserName(event.target.value).message : "";
     setUsername({ value: event.target.value, error: message });
   }
 
   function handleChangeEmail(event) {
-    let message = "";
-    if (isAbleToValidate) {
-      message = validateEmail(event.target.value).message;
-    }
+    let message = isAbleToValidate ? validateEmail(event.target.value).message : "";
     setEmail({ value: event.target.value, error: message });
   }
 
   function handleChangePassword(event) {
-    let message = "";
-    if (isAbleToValidate) {
-      message = validatePassword(event.target.value).message;
-    }
+    let message = isAbleToValidate ? validatePassword(event.target.value).message : "";
     setPassword({ value: event.target.value, error: message });
   }
 
   function handleChangeRePassword(event) {
-    let message = "";
-    if (isAbleToValidate) {
-      message = validateRePassword(event.target.value, password.value).message;
-    }
+    let message = isAbleToValidate ? validateRePassword(event.target.value, password.value).message : "";
     setRePassword({ value: event.target.value, error: message });
   }
 
@@ -71,31 +83,13 @@ function Register() {
 
     if (validated) {
       setIsSubmitted(true);
-      const waitting = toast.loading("Please wait...");
-      const res = await postRegister(userName.value, email.value, password.value);
-      toast.dismiss(waitting);
-
-      if (res && res.data) {
-        toast.success("You are successfully registered");
-        dispatch(doLogin(res.data));
-      } else {
-        toast.error(res);
-        setIsSubmitted(false);
-      }
+      dispatch(fetchUserAuth({ displayName: userName.value, email: email.value, password: password.value, type: "register" }));
     }
   }
 
   async function handleGoogleLogin() {
     setIsSubmitted(true);
-    const res = await postGoogleLogin();
-
-    if (res && res.data) {
-      toast.success("You are successfully logged in.");
-      dispatch(doLogin(res.data));
-    } else {
-      toast.error(res);
-      setIsSubmitted(false);
-    }
+    dispatch(fetchUserAuth({ method: "google" }));
   }
 
   if (isAuthenticated) {

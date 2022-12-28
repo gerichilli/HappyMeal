@@ -1,3 +1,4 @@
+import { memo } from "react";
 import styles from "./Recipe.module.scss";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import AspectRatio from "../AspectRatio";
@@ -7,9 +8,12 @@ import createClassName from "../../utils/createClassName";
 import Badge from "../Badge";
 import useSavedRecipe from "../../utils/useSavedRecipe";
 
-function Recipe({ size, recipe }) {
-  const [isSaved, handleAddBookmark] = useSavedRecipe(false, recipe);
+function RecipeWrapper({ size, recipe }) {
+  const [isSaved, handleAddBookmark] = useSavedRecipe(recipe);
+  return <Recipe size={size} recipe={recipe} isSaved={isSaved} handleAddBookmark={handleAddBookmark} />;
+}
 
+const Recipe = memo(({ size, recipe, isSaved, handleAddBookmark }) => {
   return (
     <div className={createClassName(styles.recipe, styles[`recipe--${size}`])}>
       <div className={styles.thumb}>
@@ -42,6 +46,6 @@ function Recipe({ size, recipe }) {
       )}
     </div>
   );
-}
+});
 
-export default Recipe;
+export default RecipeWrapper;

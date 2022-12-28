@@ -9,17 +9,14 @@ import Seo from "../../components/Seo";
 import { postResetPassword } from "../../services/authService";
 import { validateEmail } from "../../utils/formValidate";
 
-function Login() {
-  const isAuthenticated = useSelector((state) => state.user.isAuthenticated);
+function ForgotPassword() {
+  const isAuthenticated = useSelector((state) => state.user.account.isAuthenticated);
   const [email, setEmail] = useState({ value: "", error: "" });
   const [isAbleToValidate, setIsAbleToValidate] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
 
   function handleChangeEmail(event) {
-    let message = "";
-    if (isAbleToValidate) {
-      message = validateEmail(event.target.value).message;
-    }
+    let message = isAbleToValidate ? validateEmail(event.target.value).message : "";
     setEmail({ value: event.target.value, error: message });
   }
 
@@ -32,14 +29,14 @@ function Login() {
 
     if (validated) {
       setIsSubmitted(true);
-      const waitting = toast.loading("Please wait...");
+      toast.loading("Please wait...");
       const res = await postResetPassword(email.value);
-      toast.dismiss(waitting);
+      toast.dismiss();
 
-      if (res && res.data) {
+      if (res.EC === 0 && res.data) {
         toast.success(res.data);
       } else {
-        toast.error(res);
+        toast.error(res.EM);
       }
 
       setIsSubmitted(false);
@@ -79,4 +76,4 @@ function Login() {
   );
 }
 
-export default Login;
+export default ForgotPassword;

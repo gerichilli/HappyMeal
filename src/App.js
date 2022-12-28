@@ -1,18 +1,15 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Toaster } from "react-hot-toast";
-import { lazy, Suspense } from "react";
+import { lazy, Suspense, useEffect } from "react";
 import { HelmetProvider } from "react-helmet-async";
 import Homepage from "./pages/Homepage";
 import Loading from "./components/Loading";
 import PageNotFound from "./pages/PageNotFound";
 import Layout from "./layout/Layout";
 import PrivateRoute from "./components/PrivateRoute";
-import { useDispatch, useSelector } from "react-redux";
-import { useEffect } from "react";
-import { getAllSavedRecipes } from "./services/apiServices";
-import { getSavedRecipes } from "./redux/action/recipeAction";
 import Login from "./auth/Login";
-import useUpdateUserInfo from "./utils/useUpdateUserInfo";
+import { fetchBookmarks } from "./redux/slices/userSlice";
+import { useDispatch, useSelector } from "react-redux";
 
 const LazyRecipePage = lazy(() => import("./pages/Recipe"));
 const LazySearch = lazy(() => import("./pages/Search"));
@@ -30,25 +27,13 @@ const LazyProfile = lazy(() => import("./pages/Profile"));
 
 function App() {
   const dispatch = useDispatch();
-  const isAuthenticated = useSelector((state) => state.user.isAuthenticated);
   const userId = useSelector((state) => state.user.account.userId);
-  useUpdateUserInfo();
 
   useEffect(() => {
-    if (isAuthenticated) {
-      fetchSavedRecipeIds();
-    } else {
-      dispatch(getSavedRecipes([]));
+    if (userId) {
+      dispatch(fetchBookmarks(userId));
     }
-  }, [isAuthenticated]);
-
-  async function fetchSavedRecipeIds() {
-    const res = await getAllSavedRecipes(userId);
-
-    if (res && res.data) {
-      dispatch(getSavedRecipes(res.data));
-    }
-  }
+  }, [userId]);
 
   return (
     <Suspense fallback={<Loading />}>

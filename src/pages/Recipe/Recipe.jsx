@@ -28,7 +28,7 @@ function Recipe() {
   const [relatedRecipes, setRelatedRecipes] = useState([]);
   const [showLightbox, setShowLightbox] = useState(false);
   const [lightboxImage, setLightboxImage] = useState(null);
-  const [isSaved, handleAddBookmark] = useSavedRecipe(false, recipe);
+  const [isSaved, handleAddBookmark] = useSavedRecipe(recipe);
   const componentToPrintRef = useRef(null);
 
   useEffect(() => {

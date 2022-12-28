@@ -7,9 +7,8 @@ import { AiOutlineGoogle, AiFillEye } from "react-icons/ai";
 import { MdEmail } from "react-icons/md";
 import Input from "../../components/Input";
 import Seo from "../../components/Seo";
-import { postGoogleLogin, postLogin } from "../../services/authService";
-import { doLogin } from "../../redux/action/userAction";
 import { validateEmail, validatePassword, validateAll } from "../../utils/formValidate";
+import { fetchUserAuth } from "../../redux/slices/userSlice";
 
 function Login() {
   const dispatch = useDispatch();
@@ -17,7 +16,10 @@ function Login() {
   const { state } = useLocation();
   const [searchParams] = useSearchParams();
   const mode = searchParams.get("mode");
-  const isAuthenticated = useSelector((state) => state.user.isAuthenticated);
+  const isAuthenticated = useSelector((state) => state.user.account.isAuthenticated);
+  const isLoading = useSelector((state) => state.user.account.isLoading);
+  const isError = useSelector((state) => state.user.account.isError);
+  const toastMessage = useSelector((state) => state.user.toastMessage);
 
   const [email, setEmail] = useState({ value: "", error: "" });
   const [password, setPassword] = useState({ value: "", error: "" });
@@ -27,28 +29,45 @@ function Login() {
   useEffect(() => {
     const time = mode === "resetPassword" ? 500 : 0;
 
+    // If mode is resetPassword
+    // Logout
+
     const timeout = setTimeout(() => {
       if (isAuthenticated) {
-        navigate(state?.redirectTo || "/");
+        navigate(state?.redirectTo || "/", { replace: true });
       }
     }, time);
 
     return () => clearTimeout(timeout);
-  }, [isAuthenticated]);
+  }, [isAuthenticated, mode]);
+
+  useEffect(() => {
+    if (!isSubmitted) return;
+
+    if (isLoading) {
+      toast.loading("Please wait...");
+    } else {
+      toast.dismiss();
+
+      if (isError) {
+        setIsSubmitted(false);
+        toast.error(toastMessage);
+      }
+
+      if (isAuthenticated) {
+        toast.success("Login successful!");
+        navigate(state?.redirectTo || "/", { replace: true });
+      }
+    }
+  }, [isLoading, isError, toastMessage, isSubmitted, isAuthenticated]);
 
   function handleChangeEmail(event) {
-    let message = "";
-    if (isAbleToValidate) {
-      message = validateEmail(event.target.value).message;
-    }
+    let message = isAbleToValidate ? validateEmail(event.target.value).message : "";
     setEmail({ value: event.target.value, error: message });
   }
 
   function handleChangePassword(event) {
-    let message = "";
-    if (isAbleToValidate) {
-      message = validatePassword(event.target.value).message;
-    }
+    let message = isAbleToValidate ? validatePassword(event.target.value).message : "";
     setPassword({ value: event.target.value, error: message });
   }
 
@@ -62,31 +81,13 @@ function Login() {
 
     if (validated) {
       setIsSubmitted(true);
-      const waitting = toast.loading("Please wait...");
-      const res = await postLogin(email.value, password.value);
-      toast.dismiss(waitting);
-
-      if (res && res.data) {
-        toast.success("You are successfully logged in.");
-        dispatch(doLogin(res.data));
-      } else {
-        toast.error(res);
-        setIsSubmitted(false);
-      }
+      dispatch(fetchUserAuth({ email: email.value, password: password.value, type: "login" }));
     }
   }
 
   async function handleGoogleLogin() {
     setIsSubmitted(true);
-    const res = await postGoogleLogin();
-
-    if (res && res.data) {
-      toast.success("You are successfully logged in.");
-      dispatch(doLogin(res.data));
-    } else {
-      toast.error(res);
-      setIsSubmitted(false);
-    }
+    dispatch(fetchUserAuth({ method: "google" }));
   }
 
   return (

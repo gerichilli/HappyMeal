@@ -1,8 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { doLogout } from "../../redux/action/userAction";
-import { postLogout } from "../../services/authService";
 import styles from "./Header.module.scss";
 import Nav from "../../components/Nav";
 import logo from "../../assets/images/logo.png";
@@ -11,22 +9,18 @@ import { AiOutlinePoweroff, AiFillHeart } from "react-icons/ai";
 import { FiMenu } from "react-icons/fi";
 import { CgProfile } from "react-icons/cg";
 import { toast } from "react-hot-toast";
-import { getSavedRecipes } from "../../redux/action/recipeAction";
+import { fetchUserLogout } from "../../redux/slices/userSlice";
 
 function Header() {
-  const isAuthenticated = useSelector((state) => state.user.isAuthenticated);
-  const displayName = useSelector((state) => state.user.account.displayName);
   const dispatch = useDispatch();
+  const isAuthenticated = useSelector((state) => state.user.account.isAuthenticated);
+  const displayName = useSelector((state) => state.user.account.displayName);
+
   const [isNavOpenOnMobile, setIsNavOpenOnMobile] = useState(false);
 
   async function handleLogout() {
-    const res = await postLogout();
-
-    if (res && res.data) {
-      dispatch(doLogout());
-      dispatch(getSavedRecipes([]));
-      toast.success(res.data);
-    }
+    dispatch(fetchUserLogout());
+    toast.success("Logout successful!");
   }
 
   return (

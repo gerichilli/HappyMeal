@@ -55,13 +55,14 @@ export async function getAllSavedRecipes(userId) {
       const data = userSnap.data();
 
       return {
+        EC: 0,
         data: data.savedRecipes,
       };
     } else {
-      return [];
+      return { EC: 0, data: [] };
     }
   } catch (err) {
-    return err.toString();
+    return { EC: 99, EM: err.toString() };
   }
 }
 
@@ -87,9 +88,12 @@ export async function postAddSavedRecipe(recipe, userId) {
       });
     }
 
-    return { data: "Recipe saved." };
+    // Get the updated user data
+    const newUserSpan = await getDoc(userRef);
+    const data = newUserSpan.data();
+    return { EC: 0, data: data.savedRecipes };
   } catch (err) {
-    return err.toString();
+    return { EC: 99, EM: err.toString() };
   }
 }
 
@@ -111,12 +115,16 @@ export async function deleteSavedRecipe(recipeId, userId) {
           savedRecipes: arrayRemove(removeRecipe),
         });
 
+        const newUserSnap = await getDoc(userRef);
+        const newData = newUserSnap.data().savedRecipes;
+
         return {
-          data: "Recipe removed.",
+          EC: 0,
+          data: newData,
         };
       }
     }
   } catch (err) {
-    return err.toString();
+    return { EC: 99, EM: err.toString() };
   }
 }

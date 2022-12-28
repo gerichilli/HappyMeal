@@ -4,32 +4,23 @@ import ReactPaginate from "react-paginate";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import styles from "./Bookmark.module.scss";
 import Seo from "../../components/Seo";
-import { deleteSavedRecipe, getAllSavedRecipes } from "../../services/apiServices";
 import { MdOutlineBookmarkAdded } from "react-icons/md";
 import { GrCaretNext, GrCaretPrevious } from "react-icons/gr";
 import { Grid, GridItem } from "../../components/Grid";
 import AspectRatio from "../../components/AspectRatio";
 import usePaginate from "../../utils/usePaginate";
 import toast from "react-hot-toast";
-import { getSavedRecipes } from "../../redux/action/recipeAction";
+import { removeBookmark } from "../../redux/slices/userSlice";
 
 function Bookmark() {
   const dispatch = useDispatch();
-  const savedRecipes = useSelector((state) => state.savedRecipes);
+  const savedRecipes = useSelector((state) => state.user.bookmarks.list);
   const userId = useSelector((state) => state.user.account.userId);
   const [currentItems, pageCount, handlePageClick, wrapperRef] = usePaginate(savedRecipes, 15);
 
   async function handleDeleteSavedRecipe(recipeId) {
-    const res = await deleteSavedRecipe(recipeId, userId);
-
-    if (res && res.data) {
-      toast.success("Recipe removed from bookmark");
-      const newRes = await getAllSavedRecipes(userId);
-
-      if (newRes && newRes.data) {
-        dispatch(getSavedRecipes(newRes.data));
-      }
-    }
+    dispatch(removeBookmark({ recipeId, userId }));
+    toast.success("Recipe removed from bookmark");
   }
 
   return (
