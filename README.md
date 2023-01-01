@@ -14,6 +14,10 @@ This is a website that allows users to view recipes, register, log in, bookmark 
 
 [https://ourhappymeals.netlify.app/](https://ourhappymeals.netlify.app/)
 
+- Test account
+  - email: test@gmail.com
+  - password: 12345678
+
 ## Built with
 
 - Semantic HTML5 markup
