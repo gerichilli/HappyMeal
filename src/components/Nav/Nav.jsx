@@ -1,44 +1,26 @@
 import { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import styles from "./Nav.module.scss";
 import NavDropdown from "./NavDropdown";
-import { getCategoryList, getAreaList, getIngredientList } from "../../services/apiServices";
 import { MAX_DROPDOWN_ITEMS } from "../../utils/constants";
+import { fetchAreaList, fetchCategoryList, fetchIngredientList } from "../../redux/thunks/recipeThunk";
 
 function Nav({ isNavOpenOnMobile, setIsNavOpenOnMobile }) {
+  const dispatch = useDispatch();
+  const categories = useSelector((state) => state.recipes.list.categories);
+  const areas = useSelector((state) => state.recipes.list.areas);
+  const ingredients = useSelector((state) => state.recipes.list.ingredients);
+  const categoryList = categories.slice(0, MAX_DROPDOWN_ITEMS);
+  const areaList = areas.slice(0, MAX_DROPDOWN_ITEMS);
+  const ingredientList = ingredients.slice(0, MAX_DROPDOWN_ITEMS);
+
   const [openDropdown, setOpenDropdown] = useState("");
-  const [categoryList, setCategoryList] = useState([]);
-  const [areaList, setAreaList] = useState([]);
-  const [ingredientList, setIngredientList] = useState([]);
 
   useEffect(() => {
-    fetchCategoryList();
-    fetchAreaList();
-    fetchIngredientList();
+    dispatch(fetchCategoryList());
+    dispatch(fetchAreaList());
+    dispatch(fetchIngredientList());
   }, []);
-
-  async function fetchCategoryList() {
-    const res = await getCategoryList();
-
-    if (res && res.status === 200) {
-      setCategoryList(res.data.slice(0, MAX_DROPDOWN_ITEMS));
-    }
-  }
-
-  async function fetchAreaList() {
-    const res = await getAreaList();
-
-    if (res && res.status === 200) {
-      setAreaList(res.data.slice(0, MAX_DROPDOWN_ITEMS));
-    }
-  }
-
-  async function fetchIngredientList() {
-    const res = await getIngredientList();
-
-    if (res && res.status === 200) {
-      setIngredientList(res.data.slice(0, MAX_DROPDOWN_ITEMS));
-    }
-  }
 
   return (
     <nav className={styles.nav}>

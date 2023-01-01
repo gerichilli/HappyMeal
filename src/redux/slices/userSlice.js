@@ -1,68 +1,6 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { postLogin, postGoogleLogin, postRegister, postLogout } from "../../services/authService";
-import { getAllSavedRecipes, postAddSavedRecipe, deleteSavedRecipe } from "../../services/apiServices";
+import { createSlice } from "@reduxjs/toolkit";
 
-export const fetchUserAuth = createAsyncThunk("user/fetchUserAuth", async (payload, { rejectWithValue }) => {
-  if (payload.method === "google") {
-    const res = await postGoogleLogin();
-
-    if (res.EC === 0 && res.data) {
-      return res.data;
-    } else {
-      return rejectWithValue(res.EM);
-    }
-  } else if (payload.type === "register") {
-    const res = await postRegister(payload.displayName, payload.email, payload.password);
-
-    if (res.EC === 0 && res.data) {
-      return res.data;
-    } else {
-      return rejectWithValue(res.EM);
-    }
-  } else {
-    const res = await postLogin(payload.email, payload.password);
-
-    if (res.EC === 0 && res.data) {
-      return res.data;
-    } else {
-      return rejectWithValue(res.EM);
-    }
-  }
-});
-
-export const fetchUserLogout = createAsyncThunk("user/fetchUserLogout", async (payload, { rejectWithValue }) => {
-  const res = await postLogout();
-
-  if (res.EC === 0 && res.data) {
-    return res.data;
-  } else {
-    return rejectWithValue(res.EM);
-  }
-});
-
-export const fetchBookmarks = createAsyncThunk("bookmarks/fetchBookmarks", async (payload) => {
-  const res = await getAllSavedRecipes(payload);
-
-  if (res.EC === 0 && res.data) {
-    return res.data;
-  }
-});
-
-export const addBookmark = createAsyncThunk("bookmarks/addBookmark", async (payload) => {
-  const res = await postAddSavedRecipe(payload.recipe, payload.userId);
-
-  if (res.EC === 0 && res.data) {
-    return res.data;
-  }
-});
-
-export const removeBookmark = createAsyncThunk("bookmarks/removeBookmark", async (payload) => {
-  const res = await deleteSavedRecipe(payload.recipeId, payload.userId);
-
-  if (res.EC === 0 && res.data) {
-    return res.data;
-  }
-});
+import { fetchUserAuth, fetchUserLogout, fetchUserUpdate, fetchUserDelete, fetchBookmarks, addBookmark, removeBookmark } from "../thunks/userThunk";
 
 const initialState = {
   account: {
@@ -74,12 +12,20 @@ const initialState = {
     emailVerified: false,
     photoUrl: "",
     isAuthenticated: false,
-    isLoading: false,
-    isError: false,
   },
-  toastMessage: "",
   bookmarks: {
     list: [],
+  },
+  status: {
+    authProcessStatus: "idle",
+    logoutProcessStatus: "idle",
+    updateProcessStatus: "idle",
+    deleteProcessStatus: "idle",
+    saveRecipeProcessStatus: "idle",
+    removeRecipeProcessStatus: "idle",
+  },
+  toast: {
+    toastMessage: "",
   },
 };
 
@@ -90,8 +36,7 @@ const userSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(fetchUserAuth.pending, (state) => {
-        state.account.isLoading = true;
-        state.account.isError = false;
+        state.status.authProcessStatus = "pending";
       })
       .addCase(fetchUserAuth.fulfilled, (state, action) => {
         state.account = {
@@ -104,14 +49,12 @@ const userSlice = createSlice({
           emailVerified: action?.payload?.emailVerified,
           photoUrl: action?.payload?.photoUrl,
           isAuthenticated: true,
-          isLoading: false,
-          isError: false,
         };
+        state.status.authProcessStatus = "fulfilled";
       })
       .addCase(fetchUserAuth.rejected, (state, action) => {
-        state.account.isLoading = false;
-        state.account.isError = true;
-        state.toastMessage = action.payload;
+        state.status.authProcessStatus = "rejected";
+        state.toast.toastMessage = action.payload;
       });
 
     builder.addCase(fetchUserLogout.fulfilled, (state, action) => {
@@ -125,22 +68,77 @@ const userSlice = createSlice({
         emailVerified: false,
         photoUrl: "",
         isAuthenticated: false,
-        isLoading: false,
-        isError: false,
       };
       state.bookmarks.list = [];
+      state.status.logoutProcessStatus = "fulfilled";
+    });
+
+    builder
+      .addCase(fetchUserUpdate.pending, (state) => {
+        state.status.updateProcessStatus = "pending";
+      })
+      .addCase(fetchUserUpdate.fulfilled, (state, action) => {
+        state.account = {
+          ...state.account,
+          displayName: action?.payload?.displayName,
+          email: action?.payload?.email,
+          photoUrl: action?.payload?.photoUrl,
+        };
+        state.status.updateProcessStatus = "fulfilled";
+      })
+      .addCase(fetchUserUpdate.rejected, (state, action) => {
+        state.status.updateProcessStatus = "rejected";
+        state.toast.toastMessage = action.payload;
+      });
+
+    builder.addCase(fetchUserDelete.fulfilled, (state, action) => {
+      state.account = {
+        ...state.account,
+        accessToken: "",
+        refreshToken: "",
+        displayName: "",
+        email: "",
+        userId: "",
+        emailVerified: false,
+        photoUrl: "",
+        isAuthenticated: false,
+      };
+      state.bookmarks.list = [];
+      state.status.deleteProcessStatus = "fulfilled";
     });
 
     builder.addCase(fetchBookmarks.fulfilled, (state, action) => {
       state.bookmarks.list = action.payload;
     });
 
-    builder.addCase(addBookmark.fulfilled, (state, action) => {
-      state.bookmarks.list = action.payload;
-    });
+    builder
+      .addCase(addBookmark.fulfilled, (state, action) => {
+        state.status.saveRecipeProcessStatus = "fulfilled";
+        state.bookmarks.list = action.payload;
+      })
+      .addCase(addBookmark.rejected, (state, action) => {
+        state.status.saveRecipeProcessStatus = "rejected";
+      });
 
-    builder.addCase(removeBookmark.fulfilled, (state, action) => {
-      state.bookmarks.list = action.payload;
+    builder
+      .addCase(removeBookmark.fulfilled, (state, action) => {
+        state.status.removeRecipeProcessStatus = "fulfilled";
+        state.bookmarks.list = action.payload;
+      })
+      .addCase(removeBookmark.rejected, (state, action) => {
+        state.status.removeRecipeProcessStatus = "rejected";
+        state.toastMessage = action.payload;
+      });
+
+    builder.addDefaultCase((state) => {
+      state.status.authProcessStatus = "idle";
+      state.status.logoutProcessStatus = "idle";
+      state.status.updateProcessStatus = "idle";
+      state.status.deleteProcessStatus = "idle";
+      state.status.saveRecipeProcessStatus = "idle";
+      state.status.removeRecipeProcessStatus = "idle";
+
+      state.toast.toastMessage = "";
     });
   },
 });

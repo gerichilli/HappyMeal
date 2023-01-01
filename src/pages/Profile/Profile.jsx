@@ -1,26 +1,53 @@
 import styles from "./Profile.module.scss";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { AiFillIdcard, AiOutlineEdit } from "react-icons/ai";
 import { MdEmail, MdVerifiedUser } from "react-icons/md";
 import { BiImageAdd } from "react-icons/bi";
 import Modal from "../../components/Modal";
-import { useState } from "react";
 import Input from "../../components/Input";
 import { validateAll, validateEmail, validateUserName } from "../../utils/formValidate";
-import { deleteAccount, postResetPassword, postUpdateProfileInfo, verifyEmail } from "../../services/authService";
+import { postResetPassword, verifyEmail } from "../../services/authService";
 import toast from "react-hot-toast";
-import { doLogout, doUserUpdate } from "../../redux/action/userAction";
+import { fetchUserUpdate, fetchUserDelete } from "../../redux/thunks/userThunk";
 import Seo from "../../components/Seo";
 
 function Profile() {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user.account);
+  const updateProcessStatus = useSelector((state) => state.user.status.updateProcessStatus);
+  const deleteProcessStatus = useSelector((state) => state.user.status.deleteProcessStatus);
+  const toastMessage = useSelector((state) => state.user.toast.toastMessage);
+
   const [isModalProfileShow, setIsModalProfileShow] = useState(false);
   const [isModalDeleteShow, setIsModalDeleteShow] = useState(false);
   const [profilePicture, setProfilePicture] = useState(null);
   const [displayProfilePicture, setDisplayProfilePicture] = useState(user.photoUrl);
   const [userName, setUsername] = useState({ value: user.displayName, error: "" });
   const [email, setEmail] = useState({ value: user.email, error: "" });
+
+  useEffect(() => {
+    if (updateProcessStatus === "idle") return;
+
+    if (updateProcessStatus === "pending") {
+      toast.loading("Updating...");
+    } else {
+      toast.dismiss();
+
+      if (updateProcessStatus === "fulfilled") {
+        toast.success("Profile updated.");
+        setIsModalProfileShow(false);
+      } else if (updateProcessStatus === "rejected") {
+        toast.error(toastMessage);
+      }
+    }
+  }, [updateProcessStatus, toastMessage]);
+
+  useEffect(() => {
+    if (deleteProcessStatus === "fulfilled") {
+      toast.success("Account deleted.");
+    }
+  }, [deleteProcessStatus]);
 
   function handleChangeProfilePicture(event) {
     const file = event.target.files[0];
@@ -57,43 +84,30 @@ function Profile() {
   async function handleUpdatePassword() {
     const res = await postResetPassword(user.email);
 
-    if (res && res.data) {
+    if (res.EC === 0 && res.data) {
       toast.success(res.data);
+    } else {
+      toast.error(res.EM);
     }
   }
 
   async function handleVerifyEmail() {
     const res = await verifyEmail();
 
-    if (res && res.data) {
-      toast.success(res.data, { duration: 4000 });
+    if (res.EC === 0 && res.data) {
+      toast.success(res.data);
     }
   }
 
   async function handleSubmitUserProfile() {
     let validated = validateAll(validateUserName(userName.value), validateEmail(email.value));
     if (validated) {
-      const waitting = toast.loading("Updating...");
-      const res = await postUpdateProfileInfo(userName.value, email.value, profilePicture);
-      toast.dismiss(waitting);
-
-      if (res && res.data) {
-        toast.success("Profile updated.");
-        dispatch(doUserUpdate(res.data));
-        setIsModalProfileShow(false);
-      } else {
-        toast.error(res);
-      }
+      dispatch(fetchUserUpdate({ userName: userName.value, email: email.value, profilePicture }));
     }
   }
 
   async function handleDeleteAccount() {
-    const res = await deleteAccount();
-
-    if (res && res.data) {
-      toast.success("Account deleted.");
-      dispatch(doLogout());
-    }
+    dispatch(fetchUserDelete());
   }
 
   return (

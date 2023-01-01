@@ -1,28 +1,14 @@
-import { useEffect } from "react";
-import { useState } from "react";
+import { useSelector } from "react-redux";
 import Seo from "../../components/Seo";
 import AlphabetLayout from "../../layout/AlphabetLayout";
-import { getIngredientList } from "../../services/apiServices";
 
 function IngredientList() {
-  const [ingredientList, setIngredientList] = useState([]);
-
-  useEffect(() => {
-    fetchIngredientList();
-  }, []);
-
-  async function fetchIngredientList() {
-    const res = await getIngredientList();
-
-    if (res && res.status === 200) {
-      setIngredientList(res.data);
-    }
-  }
+  const ingredients = useSelector((state) => state.recipes.list.ingredients);
 
   return (
     <>
       <Seo title="All ingredients" />
-      <AlphabetLayout list={ingredientList} sortBy="strIngredient" displayBy="strIngredient" path="/ingredient" />
+      <AlphabetLayout list={ingredients} sortBy="strIngredient" displayBy="strIngredient" path="/ingredient" />
     </>
   );
 }

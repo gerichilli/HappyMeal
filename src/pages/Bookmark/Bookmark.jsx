@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import ReactPaginate from "react-paginate";
@@ -10,17 +11,27 @@ import { Grid, GridItem } from "../../components/Grid";
 import AspectRatio from "../../components/AspectRatio";
 import usePaginate from "../../utils/usePaginate";
 import toast from "react-hot-toast";
-import { removeBookmark } from "../../redux/slices/userSlice";
+import { removeBookmark } from "../../redux/thunks/userThunk";
 
 function Bookmark() {
   const dispatch = useDispatch();
   const savedRecipes = useSelector((state) => state.user.bookmarks.list);
+  const removeRecipeProcessStatus = useSelector((state) => state.user.status.removeRecipeProcessStatus);
+  const toastMessage = useSelector((state) => state.user.toast.toastMessage);
   const userId = useSelector((state) => state.user.account.userId);
+
   const [currentItems, pageCount, handlePageClick, wrapperRef] = usePaginate(savedRecipes, 15);
+
+  useEffect(() => {
+    if (removeRecipeProcessStatus === "fulfilled") {
+      toast.success("Recipe removed from bookmark");
+    } else if (removeRecipeProcessStatus === "rejected") {
+      toast.error(toastMessage);
+    }
+  }, [removeRecipeProcessStatus, toastMessage]);
 
   async function handleDeleteSavedRecipe(recipeId) {
     dispatch(removeBookmark({ recipeId, userId }));
-    toast.success("Recipe removed from bookmark");
   }
 
   return (

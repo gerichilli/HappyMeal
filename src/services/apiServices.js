@@ -1,6 +1,6 @@
 import axios from "../utils/axiosCustomize";
 import { db } from "../firebase";
-import { doc, getDoc, setDoc, updateDoc, arrayUnion, arrayRemove, Timestamp } from "firebase/firestore";
+import { doc, getDoc, setDoc, updateDoc, arrayUnion, arrayRemove } from "firebase/firestore";
 
 export async function getCategoryList() {
   return axios.get("getCategories");
@@ -68,10 +68,7 @@ export async function getAllSavedRecipes(userId) {
 
 export async function postAddSavedRecipe(recipe, userId) {
   try {
-    const recipeData = {
-      ...recipe,
-      savedAt: Timestamp.fromDate(new Date()),
-    };
+    const recipeData = recipe;
 
     const userRef = doc(db, "users", userId);
     const userSnap = await getDoc(userRef);

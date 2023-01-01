@@ -1,28 +1,14 @@
-import { useEffect } from "react";
-import { useState } from "react";
+import { useSelector } from "react-redux";
 import Seo from "../../components/Seo";
 import AlphabetLayout from "../../layout/AlphabetLayout";
-import { getCategoryList } from "../../services/apiServices";
 
 function CategoryList() {
-  const [categoryList, setCategoryList] = useState([]);
-
-  useEffect(() => {
-    fetchCategoryList();
-  }, []);
-
-  async function fetchCategoryList() {
-    const res = await getCategoryList();
-
-    if (res && res.status === 200) {
-      setCategoryList(res.data);
-    }
-  }
+  const categories = useSelector((state) => state.recipes.list.categories);
 
   return (
     <>
       <Seo title="All categories" />
-      <AlphabetLayout list={categoryList} sortBy="strCategory" displayBy="strCategory" path="/category" />
+      <AlphabetLayout list={categories} sortBy="strCategory" displayBy="strCategory" path="/category" />
     </>
   );
 }

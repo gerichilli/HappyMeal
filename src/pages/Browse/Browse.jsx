@@ -1,40 +1,26 @@
 import { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import ListLayout from "../../layout/ListLayout";
 import Seo from "../../components/Seo";
-import { getLastestRecipes, getRandomRecipes } from "../../services/apiServices";
-import mapRecipes from "../../utils/mapRecipes";
 
 function Browse() {
   const { browseBy } = useParams();
   const navigate = useNavigate();
+  const lastestRecipes = useSelector((state) => state.recipes.lastestRecipes.meals);
+  const randomRecipes = useSelector((state) => state.recipes.randomRecipes.meals);
   const [recipes, setRecipes] = useState([]);
 
   useEffect(() => {
-    fetchRecipes();
-  }, [browseBy]);
-
-  async function fetchRecipes() {
-    setRecipes([]);
-    let res;
-
     if (browseBy === "lastest") {
-      res = await getLastestRecipes();
+      setRecipes(lastestRecipes);
     } else if (browseBy === "random") {
-      res = await getRandomRecipes();
+      setRecipes(randomRecipes);
     } else {
       navigate("/404");
-      return;
     }
+  }, [browseBy, lastestRecipes, randomRecipes]);
 
-    if (res && res.status === 200) {
-      const recs = mapRecipes(res.data);
-      setRecipes(recs);
-    } else {
-      navigate("/404");
-      return;
-    }
-  }
   return (
     <>
       <Seo title={browseBy === "lastest" ? "Lastest Recipes" : "Random Recipes"} />

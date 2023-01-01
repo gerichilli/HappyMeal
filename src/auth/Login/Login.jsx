@@ -8,7 +8,7 @@ import { MdEmail } from "react-icons/md";
 import Input from "../../components/Input";
 import Seo from "../../components/Seo";
 import { validateEmail, validatePassword, validateAll } from "../../utils/formValidate";
-import { fetchUserAuth } from "../../redux/slices/userSlice";
+import { fetchUserAuth, fetchUserLogout } from "../../redux/thunks/userThunk";
 
 function Login() {
   const dispatch = useDispatch();
@@ -17,9 +17,8 @@ function Login() {
   const [searchParams] = useSearchParams();
   const mode = searchParams.get("mode");
   const isAuthenticated = useSelector((state) => state.user.account.isAuthenticated);
-  const isLoading = useSelector((state) => state.user.account.isLoading);
-  const isError = useSelector((state) => state.user.account.isError);
-  const toastMessage = useSelector((state) => state.user.toastMessage);
+  const authProcessStatus = useSelector((state) => state.user.status.authProcessStatus);
+  const toastMessage = useSelector((state) => state.user.toast.toastMessage);
 
   const [email, setEmail] = useState({ value: "", error: "" });
   const [password, setPassword] = useState({ value: "", error: "" });
@@ -27,39 +26,30 @@ function Login() {
   const [isSubmitted, setIsSubmitted] = useState(false);
 
   useEffect(() => {
-    const time = mode === "resetPassword" ? 500 : 0;
-
-    // If mode is resetPassword
-    // Logout
-
-    const timeout = setTimeout(() => {
-      if (isAuthenticated) {
-        navigate(state?.redirectTo || "/", { replace: true });
-      }
-    }, time);
-
-    return () => clearTimeout(timeout);
+    if (mode === "resetPassword") {
+      dispatch(fetchUserLogout());
+    } else if (isAuthenticated) {
+      navigate(state?.redirectTo || "/", { replace: true });
+    }
   }, [isAuthenticated, mode]);
 
   useEffect(() => {
     if (!isSubmitted) return;
+    if (authProcessStatus === "idle") return;
 
-    if (isLoading) {
-      toast.loading("Please wait...");
+    if (authProcessStatus === "pending") {
+      toast.loading("Logging in...");
     } else {
       toast.dismiss();
 
-      if (isError) {
+      if (authProcessStatus === "fulfilled") {
+        toast.success("Logged in successfully!");
+      } else if (authProcessStatus === "rejected") {
         setIsSubmitted(false);
         toast.error(toastMessage);
       }
-
-      if (isAuthenticated) {
-        toast.success("Login successful!");
-        navigate(state?.redirectTo || "/", { replace: true });
-      }
     }
-  }, [isLoading, isError, toastMessage, isSubmitted, isAuthenticated]);
+  }, [authProcessStatus, toastMessage, isSubmitted]);
 
   function handleChangeEmail(event) {
     let message = isAbleToValidate ? validateEmail(event.target.value).message : "";

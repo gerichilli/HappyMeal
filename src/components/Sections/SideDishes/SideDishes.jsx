@@ -1,8 +1,6 @@
-import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
 import styles from "./SideDishes.module.scss";
-import { getRandomRecipes } from "../../../services/apiServices";
-import mapRecipes from "../../../utils/mapRecipes";
+import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 import { MAX_RANDOM_RECIPES } from "../../../utils/constants";
 import { HiArrowSmRight } from "react-icons/hi";
 import imageSrc from "../../../assets/images/sidedishes.jpg";
@@ -11,22 +9,9 @@ import { RecipeSkeleton } from "../../Skeleton";
 import { Grid, GridItem } from "../../Grid";
 
 function SideDishes() {
-  const [sideDishes, setSideDishes] = useState([]);
+  const recipes = useSelector((state) => state.recipes.randomRecipes.meals);
+  const randomRecipes = recipes.slice(0, MAX_RANDOM_RECIPES);
 
-  useEffect(() => {
-    fetchSideDishes();
-  }, []);
-
-  async function fetchSideDishes() {
-    const res = await getRandomRecipes();
-
-    if (res && res.status === 200) {
-      let recipes = res.data.slice(0, MAX_RANDOM_RECIPES);
-
-      recipes = mapRecipes(recipes);
-      setSideDishes(recipes);
-    }
-  }
   return (
     <section className={styles.section}>
       <div className="container">
@@ -43,8 +28,8 @@ function SideDishes() {
           </div>
           <div className={styles.recipes}>
             <Grid gx={36} gy={36} colsNum={3}>
-              {sideDishes && sideDishes.length > 0
-                ? sideDishes.map((recipe) => (
+              {randomRecipes && randomRecipes.length > 0
+                ? randomRecipes.map((recipe) => (
                     <GridItem key={recipe.id}>
                       <Recipe size="sm" recipe={recipe} />
                     </GridItem>

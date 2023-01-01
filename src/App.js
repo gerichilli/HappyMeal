@@ -8,8 +8,9 @@ import PageNotFound from "./pages/PageNotFound";
 import Layout from "./layout/Layout";
 import PrivateRoute from "./components/PrivateRoute";
 import Login from "./auth/Login";
-import { fetchBookmarks } from "./redux/slices/userSlice";
+import { fetchBookmarks } from "./redux/thunks/userThunk";
 import { useDispatch, useSelector } from "react-redux";
+import { fetchLastestRecipes, fetchRandomRecipes } from "./redux/thunks/recipeThunk";
 
 const LazyRecipePage = lazy(() => import("./pages/Recipe"));
 const LazySearch = lazy(() => import("./pages/Search"));
@@ -34,6 +35,11 @@ function App() {
       dispatch(fetchBookmarks(userId));
     }
   }, [userId]);
+
+  useEffect(() => {
+    dispatch(fetchLastestRecipes());
+    dispatch(fetchRandomRecipes());
+  }, []);
 
   return (
     <Suspense fallback={<Loading />}>

@@ -8,15 +8,14 @@ import { useDispatch, useSelector } from "react-redux";
 import toast from "react-hot-toast";
 import { validateUserName, validateEmail, validatePassword, validateRePassword, validateAll } from "../../utils/formValidate";
 import Seo from "../../components/Seo";
-import { fetchUserAuth } from "../../redux/slices/userSlice";
+import { fetchUserAuth } from "../../redux/thunks/userThunk";
 
 function Register() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const isAuthenticated = useSelector((state) => state.user.account.isAuthenticated);
-  const isLoading = useSelector((state) => state.user.account.isLoading);
-  const isError = useSelector((state) => state.user.account.isError);
-  const toastMessage = useSelector((state) => state.user.toastMessage);
+  const authProcessStatus = useSelector((state) => state.user.status.authProcessStatus);
+  const toastMessage = useSelector((state) => state.user.toast.toastMessage);
 
   const [userName, setUsername] = useState({ value: "", error: "" });
   const [email, setEmail] = useState({ value: "", error: "" });
@@ -27,23 +26,22 @@ function Register() {
 
   useEffect(() => {
     if (!isSubmitted) return;
+    if (authProcessStatus === "idle") return;
 
-    if (isLoading) {
+    if (authProcessStatus === "pending") {
       toast.loading("Please wait...");
     } else {
       toast.dismiss();
 
-      if (isError) {
-        setIsSubmitted(false);
-        toast.error(toastMessage);
-      }
-
-      if (isAuthenticated) {
-        toast.success("Register successful!");
+      if (authProcessStatus === "fulfilled") {
+        toast.success("Register successfully!");
         navigate("/", { replace: true });
+      } else if (authProcessStatus === "rejected") {
+        toast.error(toastMessage);
+        setIsSubmitted(false);
       }
     }
-  }, [isLoading, isError, toastMessage, isSubmitted, isAuthenticated]);
+  }, [authProcessStatus, toastMessage]);
 
   function handleChangeUserName(event) {
     let message = isAbleToValidate ? validateUserName(event.target.value).message : "";

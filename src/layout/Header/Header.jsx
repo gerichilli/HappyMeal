@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import styles from "./Header.module.scss";
@@ -9,18 +9,26 @@ import { AiOutlinePoweroff, AiFillHeart } from "react-icons/ai";
 import { FiMenu } from "react-icons/fi";
 import { CgProfile } from "react-icons/cg";
 import { toast } from "react-hot-toast";
-import { fetchUserLogout } from "../../redux/slices/userSlice";
+import { fetchUserLogout } from "../../redux/thunks/userThunk";
 
 function Header() {
   const dispatch = useDispatch();
   const isAuthenticated = useSelector((state) => state.user.account.isAuthenticated);
   const displayName = useSelector((state) => state.user.account.displayName);
+  const logoutProcessStatus = useSelector((state) => state.user.status.logoutProcessStatus);
 
   const [isNavOpenOnMobile, setIsNavOpenOnMobile] = useState(false);
 
+  useEffect(() => {
+    if (logoutProcessStatus === "idle") return;
+
+    if (logoutProcessStatus === "fulfilled") {
+      toast.success("Logged out successfully!");
+    }
+  }, [logoutProcessStatus]);
+
   async function handleLogout() {
     dispatch(fetchUserLogout());
-    toast.success("Logout successful!");
   }
 
   return (
