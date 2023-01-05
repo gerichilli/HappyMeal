@@ -60,26 +60,32 @@ export const fetchUserDelete = createAsyncThunk("user/fetchUserDelete", async (p
   }
 });
 
-export const fetchBookmarks = createAsyncThunk("bookmarks/fetchBookmarks", async (payload) => {
+export const fetchBookmarks = createAsyncThunk("bookmarks/fetchBookmarks", async (payload, { rejectWithValue }) => {
   const res = await getAllSavedRecipes(payload);
 
   if (res.EC === 0 && res.data) {
     return res.data;
+  } else {
+    return rejectWithValue(res.EM);
   }
 });
 
-export const addBookmark = createAsyncThunk("bookmarks/addBookmark", async (payload) => {
+export const addBookmark = createAsyncThunk("bookmarks/addBookmark", async (payload, { rejectWithValue }) => {
   const res = await postAddSavedRecipe(payload.recipe, payload.userId);
 
   if (res.EC === 0 && res.data) {
     return res.data;
+  } else {
+    return rejectWithValue(res.EM);
   }
 });
 
-export const removeBookmark = createAsyncThunk("bookmarks/removeBookmark", async (payload) => {
+export const removeBookmark = createAsyncThunk("bookmarks/removeBookmark", async (payload, { rejectWithValue }) => {
   const res = await deleteSavedRecipe(payload.recipeId, payload.userId);
 
   if (res.EC === 0 && res.data) {
     return res.data;
+  } else {
+    return rejectWithValue(res.EM);
   }
 });
